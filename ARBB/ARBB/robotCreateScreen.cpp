@@ -33,26 +33,7 @@ void updateItems(int stage, int place){
 		//rect
 			glPushMatrix();
 			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
-		glBegin(GL_TRIANGLE_STRIP);
-			glVertex3f(0,size*2,-size/5);
-			glVertex3f(-size,size,-size/5);
-			glVertex3f(0,size*2,size/5);
-			glVertex3f(-size,size,size/5);
-			glVertex3f(size,size,size/5);
-			glVertex3f(0,0,size/5);
-			glVertex3f(size,size,-size/5);
-			glVertex3f(0,0,-size/5);
-		glEnd();
-		glBegin(GL_TRIANGLE_STRIP);
-			glVertex3f(size,size,size/5);
-			glVertex3f(0,size*2,size/5);
-			glVertex3f(size,size,-size/5);
-			glVertex3f(0,size*2,-size/5);
-			glVertex3f(0,0,-size/5);
-			glVertex3f(-size,size,-size/5);
-			glVertex3f(0,0,size/5);
-			glVertex3f(-size,size,size/5);
-		glEnd();
+		createDiamondCube(size,size, size/5);
 		glPopMatrix();
 
 		// pentagon
@@ -60,36 +41,7 @@ void updateItems(int stage, int place){
 		glTranslated(0,0.4,0);
 			glPushMatrix();
 			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
-		glBegin(GL_TRIANGLE_FAN);
-			glVertex3f(0,size*3,size/5);
-
-			glVertex3f(size,size*1.5,size/5);
-			glVertex3f(size,0,size/5);
-			glVertex3f(-size,0,size/5);
-			glVertex3f(-size,size*1.5,size/5);
-			glVertex3f(-size,size*1.5,-size/5);
-			glVertex3f(0,size*3,-size/5);
-			glVertex3f(size,size*1.5,-size/5);
-			glVertex3f(size,size*1.5,size/5);
-		glEnd();
-		glBegin(GL_TRIANGLE_FAN);
-			glVertex3f(-size,0,-size/5);
-			
-			glVertex3f(-size,0,size/5);
-			glVertex3f(-size,size*1.5,size/5);
-			glVertex3f(-size,size*1.5,-size/5);
-			glVertex3f(0,size*3,-size/5);
-			glVertex3f(size,size*1.5,-size/5);
-			glVertex3f(size,0,-size/5);
-			glVertex3f(size,0,size/5);
-			glVertex3f(-size,0,size/5);
-		glEnd();
-		glBegin(GL_TRIANGLE_STRIP);		
-			glVertex3f(size,size*1.5,size/5);
-			glVertex3f(size,0,size/5);
-			glVertex3f(size,size*1.5,-size/5);
-			glVertex3f(size,0,-size/5);
-		glEnd();
+		createPentagon(size,size,size/5);
 		glPopMatrix();
 		glPopMatrix();
 
@@ -131,21 +83,7 @@ void updateItems(int stage, int place){
 				glPopMatrix();*/
 				glRotated(ItemRotation,0,1,0);
 			}
-		glBegin(GL_TRIANGLES);
-			glVertex3f(-size,0,size/5); glVertex3f(size,0,size/5); glVertex3f(0,size*2,size/5);
-			glVertex3f(-size,0,-size/5); glVertex3f(size,0,-size/5); glVertex3f(0,size*2,-size/5);
-		glEnd();
-		glBegin(GL_TRIANGLE_STRIP);
-		glColor4f(1,0,0,1);
-			glVertex3f(-size,0,size/5); 
-			glVertex3f(-size,0,-size/5); 
-			glVertex3f(size,0,size/5); 
-			glVertex3f(size,0,-size/5);
-			glVertex3f(0,size*2,size/5); 
-			glVertex3f(0,size*2,-size/5);
-			glVertex3f(-size,0,size/5); 
-			glVertex3f(-size,0,-size/5); 
-		glEnd();
+		createTriangle(size,size,size/5);
 		glPopMatrix();
 		glPopMatrix();
 		break;
@@ -153,6 +91,7 @@ void updateItems(int stage, int place){
 		//houten Wielen
 			glPushMatrix();
 			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+			createCylinder(size,20,size/5,1,true);
 		glPopMatrix();
 
 		//rubberen Banden
