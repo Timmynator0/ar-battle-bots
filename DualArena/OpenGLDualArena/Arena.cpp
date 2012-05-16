@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <tchar.h>
 
-
 #include "Ramp.h"
 #include "Arena.h"
 
