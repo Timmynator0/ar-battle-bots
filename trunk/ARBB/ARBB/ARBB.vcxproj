@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Bram G\Documents\My Dropbox\AR BattleBots\include;C:\Users\Bram G\Documents\My Dropbox\AR BattleBots\freeglut-2.6.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\include;..\..\freeglut-2.6.0\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -51,12 +51,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Bram G\Documents\My Dropbox\AR BattleBots\freeglut-2.6.0\include;C:\Users\Bram G\Documents\My Dropbox\AR BattleBots\GLTools\Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\freeglut-2.6.0\VisualStudio2008Static\Release;..\..\freeglut-2.6.0\include;..\..\include;..\..\GLTools\Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Bram G\Documents\My Dropbox\AR BattleBots\freeglut-2.6.0\include;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\freeglut-2.6.0\include;..\..\GLTools\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut_static.lib;gltools.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -85,11 +86,11 @@
   <ItemGroup>
     <ClInclude Include="BramsPrimitives.h" />
     <ClInclude Include="loadTGA.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="robotCreateScreen.h" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\Avans TI\periode 2.4\CG 3D\freeglut-2.6.0\VisualStudio2008Static\Release\freeglut_static.lib" />
-    <Library Include="..\..\..\Avans TI\periode 2.4\CG 3D\GLTools\Release\gltools.lib" />
+    <ResourceCompile Include="ARBB.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

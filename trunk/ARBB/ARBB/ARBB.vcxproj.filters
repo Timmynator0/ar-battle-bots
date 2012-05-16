@@ -38,9 +38,13 @@
     <ClInclude Include="BramsPrimitives.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\Avans TI\periode 2.4\CG 3D\freeglut-2.6.0\VisualStudio2008Static\Release\freeglut_static.lib" />
-    <Library Include="..\..\..\Avans TI\periode 2.4\CG 3D\GLTools\Release\gltools.lib" />
+    <ResourceCompile Include="ARBB.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
