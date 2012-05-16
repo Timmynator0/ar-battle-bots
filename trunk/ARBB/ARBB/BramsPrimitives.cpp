@@ -14,7 +14,81 @@
 #include <GL/glut.h>            // Windows FreeGlut equivalent
 #endif
 
+void createDiamondCube(float x, float y, float z)
+{
+	glBegin(GL_TRIANGLE_STRIP);
+			glVertex3f(0,y*2,-z);
+			glVertex3f(-x,y,-z);
+			glVertex3f(0,y*2,z);
+			glVertex3f(-x,y,z);
+			glVertex3f(x,y,z);
+			glVertex3f(0,0,z);
+			glVertex3f(x,y,-z);
+			glVertex3f(0,0,-z);
+		glEnd();
+		glBegin(GL_TRIANGLE_STRIP);
+			glVertex3f(x,y,z);
+			glVertex3f(0,y*2,z);
+			glVertex3f(x,y,-z);
+			glVertex3f(0,y*2,-z);
+			glVertex3f(0,0,-z);
+			glVertex3f(-x,y,-z);
+			glVertex3f(0,0,z);
+			glVertex3f(-x,y,z);
+		glEnd();
+}
 
+void createPentagon(float x, float y, float z)
+{
+	glBegin(GL_TRIANGLE_FAN);
+			glVertex3f(0,y*3,z/5);
+
+			glVertex3f(x,y*1.5,z);
+			glVertex3f(x,0,z);
+			glVertex3f(-x,0,z);
+			glVertex3f(-x,y*1.5,z);
+			glVertex3f(-x,y*1.5,-z);
+			glVertex3f(0,y*3,-z);
+			glVertex3f(x,y*1.5,-z);
+			glVertex3f(x,y*1.5,z);
+		glEnd();
+		glBegin(GL_TRIANGLE_FAN);
+			glVertex3f(-x,0,-z);
+			
+			glVertex3f(-x,0,z);
+			glVertex3f(-x,y*1.5,z);
+			glVertex3f(-x,y*1.5,-z);
+			glVertex3f(0,y*3,-z);
+			glVertex3f(x,y*1.5,-z);
+			glVertex3f(x,0,-z);
+			glVertex3f(x,0,z);
+			glVertex3f(-x,0,z);
+		glEnd();
+		glBegin(GL_TRIANGLE_STRIP);		
+			glVertex3f(x,y*1.5,z);
+			glVertex3f(x,0,z);
+			glVertex3f(x,y*1.5,-z);
+			glVertex3f(x,0,-z);
+		glEnd();
+}
+void createTriangle(float x, float y, float z)
+{
+	glBegin(GL_TRIANGLES);
+			glVertex3f(-x,0,z); glVertex3f(x,0,z); glVertex3f(0,y*2,z);
+			glVertex3f(-x,0,-z); glVertex3f(x,0,-z); glVertex3f(0,y*2,-z);
+		glEnd();
+		glBegin(GL_TRIANGLE_STRIP);
+		glColor4f(1,0,0,1);
+			glVertex3f(-x,0,z); 
+			glVertex3f(-x,0,-z); 
+			glVertex3f(x,0,z); 
+			glVertex3f(x,0,-z);
+			glVertex3f(0,y*2,z); 
+			glVertex3f(0,y*2,-z);
+			glVertex3f(-x,0,z); 
+			glVertex3f(-x,0,-z); 
+		glEnd();
+}
 /* This method creates a cube at X,Y,Z, with width,height,depth and with center at x, y+height,z+depth,
  * param u,v are meant for starting position @ the texture, uvsize is the size of x in the texture
 */
