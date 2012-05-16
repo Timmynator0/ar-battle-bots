@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <tchar.h>
 
-#include "FreeImage.h"
 
 #include "Ramp.h"
 #include "Arena.h"
@@ -29,47 +28,32 @@ void Display(void)
 		//begin kubus
 	
 		//onderkant
-		glColor3f(0.0f,0.0f,1.0f);
-		glVertex3f(-50.0f,0.0f,-50.0f);
-		glColor3f(0.0f,0.0f,1.0f);
-		glVertex3f(-50.0f,0.0f,50.0f);
-		glColor3f(0.0f,0.0f,1.0f);
-		glVertex3f(50.0f,0.0f,50.0f);
-		glColor3f(0.0f,0.0f,1.0f);
-		glVertex3f(50.0f,0.0f,-50.0f);
+		glColor3f(0.0f,0.0f,1.0f);		glVertex3f(-50.0f,0.0f,-50.0f);
+		glColor3f(0.0f,0.0f,1.0f);		glVertex3f(-50.0f,0.0f,50.0f);
+		glColor3f(0.0f,0.0f,1.0f);		glVertex3f(50.0f,0.0f,50.0f);
+		glColor3f(0.0f,0.0f,1.0f);		glVertex3f(50.0f,0.0f,-50.0f);
 		
 		//achterste muur
-		glColor3f(1.0f,0.0f,0.0f);
-		glVertex3f(50.0f,0.0f,50.0f);
-		glColor3f(1.0f,0.0f,0.0f);
-		glVertex3f(50.0f,50.0f,50.0f);
-		glColor3f(1.0f,0.0f,0.0f);
-		glVertex3f(-50.0f,50.0f,50.0f);
-		glColor3f(1.0f,0.0f,0.0f);
-		glVertex3f(-50.0f,0.0f,50.0f);
+		glColor3f(1.0f,0.0f,0.0f);		glVertex3f(50.0f,0.0f,50.0f);
+		glColor3f(1.0f,0.0f,0.0f);		glVertex3f(50.0f,50.0f,50.0f);
+		glColor3f(1.0f,0.0f,0.0f);		glVertex3f(-50.0f,50.0f,50.0f);
+		glColor3f(1.0f,0.0f,0.0f);		glVertex3f(-50.0f,0.0f,50.0f);
 		
 		//rechter muur
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f(-50.0f,0.0f,50.0f);
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f(-50.0f,50.0f,50.0f);
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f(-50.0f,50.0f,-50.0f);
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f(-50.0f,0.0f,-50.0f);
+		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(-50.0f,0.0f,50.0f);
+		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(-50.0f,50.0f,50.0f);
+		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(-50.0f,50.0f,-50.0f);
+		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(-50.0f,0.0f,-50.0f);
 		
 		//linker muur
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f(50.0f,0.0f,50.0f);
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f(50.0f,50.0f,50.0f);
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f(50.0f,50.0f,-50.0f);
-		glColor3f(0.0f,1.0f,0.0f);
-		glVertex3f(50.0f,0.0f,-50.0f);
-	glEnd();
-	Ramp();
+		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(50.0f,0.0f,50.0f);
+		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(50.0f,50.0f,50.0f);
+		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(50.0f,50.0f,-50.0f);
+		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(50.0f,0.0f,-50.0f);
 
+	glEnd();
+
+	Ramp();
 	
 	glutSwapBuffers();
 }
