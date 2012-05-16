@@ -21,7 +21,7 @@
 
 GLuint textures[TEXTURE_COUNT];
 const char *TextureFiles[TEXTURE_COUNT] =
-{ "robotcreator.tga","vakkentest.tga" };
+{ "robotcreator.tga","banden.tga" };
 
 CREATOR				creators[4];
 float				ItemRotation = 0;
@@ -55,7 +55,7 @@ void updateItems(int stage, int place){
 		glTranslated(0.25,0.6,-size/2);
 			glPushMatrix();
 			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
-			createCylinder(size,12,(size/2.5),1,false,0,0,0);
+			createCylinder(size/2, size,12,(size/2.5),1,false,0,0,0);
 		glPopMatrix();
 		glPopMatrix();
 
@@ -94,10 +94,12 @@ void updateItems(int stage, int place){
 		break;
 	case 1:						//----------------Wielen Selectie --------------------	
 		glBindTexture(GL_TEXTURE_2D, textures[1]);
+		glPushMatrix();
+		glTranslated(0,0.15,0);
 		//houten Wielen
 			glPushMatrix();
 			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
-			createCylinder(size,20,size/5,1,true,0.75,0.75,0.25);
+			createCylinder(size/2,size,20,size/5,1,true,0.125,0.875,0.125);
 		glPopMatrix();
 
 		//rubberen Banden
@@ -105,14 +107,16 @@ void updateItems(int stage, int place){
 		glTranslated(0,0.4,0);
 			glPushMatrix();
 			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+			createCylinder(size/2,size,20,size/5,1,true,0.375,0.875,0.125);
 		glPopMatrix();
 		glPopMatrix();
 
 		//metalen wielen 
 		glPushMatrix();
-		glTranslated(0.25,0.6,-size/2);
+		glTranslated(0.3,0.4,-size/2);
 			glPushMatrix();
 			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
+			createCylinder(size/2,size,20,size/5,1,true,0.625,0.875,0.125);
 		glPopMatrix();
 		glPopMatrix();
 
@@ -120,12 +124,67 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.25,0,0);
 			glPushMatrix();
-			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);		
+			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);	
+			createCylinder(size, size,20,size/5,1,true,0.875,0.875,0.125);	
 		glPopMatrix();
 		glPopMatrix();
-		break;
+		glPopMatrix();
 		break;
 	case 2:						//----------------Materiaal Selectie --------------------	
+		glBindTexture(GL_TEXTURE_2D, textures[1]);
+		glPushMatrix();
+		glTranslated(0,0.15,0);
+		//hout frame
+			glPushMatrix();
+			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+			glPushMatrix();
+			glRotated(30,1,0,0);
+			createCube(size/2,size/2,size/2,0,0.28,0.0625);
+		glPopMatrix();
+		glPopMatrix();
+		
+		size = size / 1.5;
+		//staal frame
+		glPushMatrix();
+		glTranslated(0,0.4,0);
+			glPushMatrix();
+			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+			glPushMatrix();
+			glTranslated(0,size,0);
+			createCube(size,size/4,size*0.75,0.25,0.28,0.0625);
+			glPopMatrix();
+			createCube(size,size,size/5,0.25,0.28,0.0625);
+			glPushMatrix();
+			glTranslated(0,-size,0);
+			createCube(size,size/4,size*0.75,0.25,0.28,0.0625);
+			glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
+
+		//aluminium frame
+		glPushMatrix();
+		glTranslated(0.3,0.4,-size/2);
+			glPushMatrix();
+			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
+			glPushMatrix();
+			glRotated(67.5,1,0,0);
+			createCube(size,size/5,size,0.5,0.28,0.0625);
+		glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
+
+		//carbon frame
+		glPushMatrix();
+		glTranslated(0.25,0,0);
+			glPushMatrix();
+			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);	
+			glPushMatrix();
+			glRotated(67.5,1,0,0);
+			createCube(size,size/10,size,0.75,0.28,0.0625);
+		glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
 		break;
 	case 3:						//----------------Wapen 1 Selectie --------------------	
 		break;
