@@ -17,7 +17,12 @@
 #include <GL/glut.h>            // Windows FreeGlut equivalent
 #endif
 
-GLuint              textureID2;
+#define TEXTURE_COUNT 2
+
+GLuint textures[TEXTURE_COUNT];
+const char *TextureFiles[TEXTURE_COUNT] =
+{ "robotcreator.tga","vakkentest.tga" };
+
 CREATOR				creators[4];
 float				ItemRotation = 0;
 
@@ -50,7 +55,7 @@ void updateItems(int stage, int place){
 		glTranslated(0.25,0.6,-size/2);
 			glPushMatrix();
 			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
-			createCylinder(size,12,(size/2.5),1,false);
+			createCylinder(size,12,(size/2.5),1,false,0,0,0);
 		glPopMatrix();
 		glPopMatrix();
 
@@ -88,10 +93,11 @@ void updateItems(int stage, int place){
 		glPopMatrix();
 		break;
 	case 1:						//----------------Wielen Selectie --------------------	
+		glBindTexture(GL_TEXTURE_2D, textures[1]);
 		//houten Wielen
 			glPushMatrix();
 			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
-			createCylinder(size,20,size/5,1,true);
+			createCylinder(size,20,size/5,1,true,0.75,0.75,0.25);
 		glPopMatrix();
 
 		//rubberen Banden
@@ -137,13 +143,20 @@ void createRCSBackground(){
 	// de hoogte en breedte per achtergrond en een offset breedte zodat de 4 naast elkaar verschijnen
 	float width = 1, height = 2 , newwidth = width *-1;
 	
+#ifndef TEXTURES
+#define TEXTURES
 	// het laden van de texture voor de achtergrond
-	glGenTextures(1, &textureID2);
-    glBindTexture(GL_TEXTURE_2D, textureID2);
-    LoadTGATexture("robotcreator.tga", GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE);
+	glGenTextures(TEXTURE_COUNT, textures);
+	for(int i= 0; i < TEXTURE_COUNT; i++)
+	{
+		glBindTexture(GL_TEXTURE_2D, textures[i]);
+		LoadTGATexture(TextureFiles[i], GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE);
+	}
+#endif
 
 	//de 4 achtergronden creeeren
-	for(int i =0; i<4; i++){		
+	for(int i =0; i<4; i++){	
+	glBindTexture(GL_TEXTURE_2D, textures[0]);	
 		glBegin(GL_TRIANGLE_STRIP);
 			glTexCoord2f(1,1);		glVertex3f(newwidth- width,height,0);		//1
 			glTexCoord2f(0,1);		glVertex3f(newwidth,height,0);		//2

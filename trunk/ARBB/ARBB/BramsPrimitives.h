@@ -1,3 +1,6 @@
+#ifndef BPRIMITIVES
+#define BPRIMITIVES
+
 #include <iostream>
 #include <GLTools.h>            // OpenGL toolkit
 #include <GLShaderManager.h>    // Shader Manager Class
@@ -22,5 +25,7 @@ void createDiamondCube(float x, float y, float z);
 void createPentagon(float x, float y, float z);
 void createTriangle(float x, float y, float z);
 void createCube(float width, float height, float depth,float u, float v, float uvsize);
-void createCircle(float radius, int segments,int part,bool texture);
-void createCylinder(float radius, int segments, float depth,int part, bool texture);
+void createCircle(float radius, int segments,int part,bool texture, float u, float v, float uvsize);
+void createCylinder(float radius, int segments, float depth,int part, bool texture,float u, float v, float uvsize);
+
+#endif
