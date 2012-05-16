@@ -122,44 +122,44 @@ void createCube(float width, float height, float depth,float u, float v, float u
 	glTexCoord2f(uvsize+u, v+uvsize*4);			glVertex3f(width,height,depth);			//6
 	glEnd();
 }
-void createCircle(float radius, int segments,int part,bool texture)
+void createCircle(float radius, int segments,int part,bool texture, GLfloat u, GLfloat v, GLfloat uvsize)
 {
     glBegin( GL_TRIANGLE_FAN );
-	if(texture) glTexCoord2f(0.75,0.75);
+	if(texture) glTexCoord2f(u,v);
     glVertex3f(0,0,0);
         for( int n = 0; n <= segments; n++ ) {
             float const t = (PI*2*(float)n/(float)segments)/part;
 			if(texture) {
-				if(part == 1){
+				if(part == 2){
 					if(n > segments/2)
-					glTexCoord2f((sin(t)*0.25)+0.75,(cos(t)*0.25)+0.75);
+					glTexCoord2f((sin(t)*uvsize)+u,(cos(t)*uvsize)+v);
 					else {
-						glTexCoord2f(-(sin(t)*0.25)+0.75,(cos(t)*0.25)+0.75);
+						glTexCoord2f(-(sin(t)*uvsize)+u,(cos(t)*uvsize)+v);
 					}
 				}
-				if(part == 2)glTexCoord2f((sin(t)*0.25)+0.75,(cos(t)*0.25)+0.75);  
+				if(part == 1)glTexCoord2f((sin(t)*uvsize)+u,(cos(t)*uvsize)+v);  
 			}
-			glVertex3f(sin(t)*radius,cos(t)*radius,0);
+			glVertex3f(sin(t)*radius/2,cos(t)*radius,0);
         }
     glEnd();
 }
 
-void createCylinder(float radius, int segments, float depth,int part, bool texture){
-	createCircle(radius,segments,part,texture);
+void createCylinder(float radius, int segments, float depth,int part, bool texture, float u, float v,float uvsize){
+	createCircle(radius,segments,part,texture,u,v,uvsize);
 	glBegin(GL_TRIANGLE_STRIP);
 	float hoek = 360/segments;
 	for(int i = 0; i< segments+1; i++){
         float const t = (PI*2*(float)i/(float)segments)/part;
-		float v = i%2; if(v==1) v= 0.25;
-		float ofY = 0; if(part==2) ofY = 0.25;
-		if(texture) glTexCoord2f(0.75,v+ofY);			
-		glVertex3f(sin(t)*radius,cos(t)*radius,0);
-		if(texture) glTexCoord2f(1,v+ofY);				
-		glVertex3f(sin(t)*radius,cos(t)*radius,depth);
+		float vX = i%2; if(v==1) vX= 0.25;
+		if(part==2) v/2;
+		if(texture) glTexCoord2f(u,vX+v);			
+		glVertex3f(sin(t)*radius/2,cos(t)*radius,0);
+		if(texture) glTexCoord2f(u+uvsize,vX+v);				
+		glVertex3f(sin(t)*radius/2,cos(t)*radius,depth);
 	}
 	glEnd();
 	glPushMatrix();
 	glTranslated(0,0,depth);
-	createCircle(radius,segments,part,texture);
+	createCircle(radius,segments,part,texture,u,v,uvsize);
 	glPopMatrix();
 }

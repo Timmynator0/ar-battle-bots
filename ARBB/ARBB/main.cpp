@@ -153,7 +153,7 @@ int main(int argc, char* argv[])
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL);
 	glutInitWindowSize(screenwidth, screenheight);
-	glutCreateWindow("Triangle");
+	glutCreateWindow("Kontje");
     glutReshapeFunc(ChangeSize);
     glutDisplayFunc(RenderScene);
 	glutKeyboardFunc (Keyboard);
