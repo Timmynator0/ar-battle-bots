@@ -27,6 +27,9 @@
     <ClInclude Include="Crate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Chainsaw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arena.cpp">
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Crate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chainsaw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
