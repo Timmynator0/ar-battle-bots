@@ -78,11 +78,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Arena.h" />
+    <ClInclude Include="loadTGA.h" />
     <ClInclude Include="Ramp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arena.cpp" />
+    <ClCompile Include="LoadTGA.cpp" />
     <ClCompile Include="Ramp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="arena-muur.tga" />
+    <None Include="arena_floor.tga" />
+    <None Include="crate.tga" />
+    <None Include="stainless-steel.tga" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

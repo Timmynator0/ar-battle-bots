@@ -118,6 +118,7 @@ void RenderScene(void)
 		createRCSBackground();
 		break;
 	case 3:		//het gevecht
+		drawArena();
 		break;
 	case 4:		//uitslag
 		break;

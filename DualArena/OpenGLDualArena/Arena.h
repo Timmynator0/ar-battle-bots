@@ -1,13 +1,16 @@
 #include <FreeImage.h>
+#include "loadTGA.h"
 #include <stdlib.h>
 #include <tchar.h>
 #include <iostream>
+#include <string>
 #include <GLTools.h>            // OpenGL toolkit
 #include <GLShaderManager.h>    // Shader Manager Class
 #include <cmath>
 #include <GLGeometryTransform.h>
 #include <GLMatrixStack.h>
 #include <stdio.h>
+
 
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
