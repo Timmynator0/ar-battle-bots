@@ -78,12 +78,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="arena.cpp" />
     <ClCompile Include="BramsPrimitives.cpp" />
     <ClCompile Include="LoadTGA.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="robotCreateScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="arena.h" />
     <ClInclude Include="BramsPrimitives.h" />
     <ClInclude Include="loadTGA.h" />
     <ClInclude Include="resource.h" />

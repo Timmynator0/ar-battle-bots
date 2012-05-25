@@ -21,6 +21,9 @@
     <ClInclude Include="Ramp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="loadTGA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arena.cpp">
@@ -29,5 +32,22 @@
     <ClCompile Include="Ramp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LoadTGA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="arena_floor.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="arena-muur.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="crate.tga">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="stainless-steel.tga">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
