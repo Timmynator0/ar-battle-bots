@@ -13,10 +13,16 @@
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
 #else
-#define FREEGLUT_STATIC
+#define FREEGLUT
 #include <GL/glut.h>            // Windows FreeGlut equivalent
 #endif
+#ifndef TRUE
+#define TRUE	1
+#endif
 
+#ifndef FALSE
+#define FALSE	0
+#endif
 #define TEXTURE_COUNT 2
 
 GLuint textures[TEXTURE_COUNT];
@@ -27,6 +33,7 @@ CREATOR				creators[4];
 float				ItemRotation = 0;
 
 void updateItems(int stage, int place){
+	
 	glPushMatrix();
 	glTranslated(-1.6,-0.15,-0.2);
 	glPushMatrix();
@@ -98,7 +105,12 @@ void updateItems(int stage, int place){
 		glTranslated(0,0.15,0);
 		//houten Wielen
 			glPushMatrix();
-			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRB)
+			{ 
+				glRotated(ItemRotation,0,1,0);
+			//	glutStrokeString(GLUT_STROKE_ROMAN, "some text");
+//			glutStrokeString(GLUT_STROKE_ROMAN, "Hallo");
+			}
 			createCylinder(size/2,size,20,size/5,1,true,0.125,0.875,0.125);
 		glPopMatrix();
 
@@ -208,7 +220,11 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0,0.4,0);
 			glPushMatrix();
-			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRU)
+			{
+				glRotated(ItemRotation,0,1,0);
+				printf("meh");
+			}
 			glPushMatrix();// zet de hamer in een schuine hoek
 			glRotated(45,1,0,0);
 			createCylinder(size/5,size/3,10,size*1.5,1,true,0.625,0.875,0.125);

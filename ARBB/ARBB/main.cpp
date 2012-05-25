@@ -14,7 +14,7 @@
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
 #else
-#define FREEGLUT_STATIC
+#define FREEGLUT
 #include <GL/glut.h>            // Windows FreeGlut equivalent
 #endif
 
@@ -24,7 +24,7 @@ GLuint              textureID;
 GLGeometryTransform	transformPipeline;
 
 int screenwidth= 1024, screenheight = 700;
-
+int tex = 0;
 int gamestage = 0; // 0 is niets/net opgestart, 1 is wachten op spelers, 2 is robot creeeren, 3 is spelen, 4 is einduitslag
 
 int selectedCreator= 0,selectedCreatorItem= 0;
@@ -118,7 +118,7 @@ void RenderScene(void)
 		createRCSBackground();
 		break;
 	case 3:		//het gevecht
-		drawArena();
+
 		break;
 	case 4:		//uitslag
 		break;
@@ -143,6 +143,7 @@ void IdleFunc(void)
 	}
 	//if(rotate){
 		rotation += 1;
+
 		glutPostRedisplay();
 	//}
 }
@@ -171,6 +172,9 @@ int main(int argc, char* argv[])
 	glEnable(GL_TEXTURE_2D);
 	glEnable (GL_BLEND); 
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
+	
+	
 
 	gamestage = 2;
     initCreators();
