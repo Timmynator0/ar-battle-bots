@@ -1,4 +1,4 @@
-
+#include "Crate.h"
 #include "Ramp.h"
 #include "Arena.h"
 #include <string>
@@ -74,6 +74,8 @@ void Display(void)
 	
 
 	Ramp();
+
+	Crate(20,5,20);
 
 	glutSwapBuffers();
 }
