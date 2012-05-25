@@ -36,33 +36,39 @@ void Display(void)
 			LoadTGATexture(TextureFiles[i], GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE);
 		}
 	}
+	
+	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, textures[0]);
+
 	glBegin(GL_QUADS);
 		//begin kubus
-	
 		//onderkant5
-	glTexCoord2f(1,0);	glVertex3f(-50.0f,0.0f,-50.0f); 
-	glTexCoord2f(1,1);	glVertex3f(-50.0f,0.0f,50.0f);
-	glTexCoord2f(0,1);	glVertex3f(50.0f,0.0f,50.0f);
-	glTexCoord2f(0,0);	glVertex3f(50.0f,0.0f,-50.0f);
-	glBindTexture(GL_TEXTURE_2D, textures[1]);
-		//achterste muur
-	glTexCoord2f(1,0);	glVertex3f(50.0f,0.0f,50.0f);
-	glTexCoord2f(1,1);	glVertex3f(50.0f,50.0f,50.0f);
-	glTexCoord2f(0,1);	glVertex3f(-50.0f,50.0f,50.0f);
+	glColor3f(1,1,1);
+	glTexCoord2f(0,1);	glVertex3f(-50.0f,0.0f,-50.0f); 
 	glTexCoord2f(0,0);	glVertex3f(-50.0f,0.0f,50.0f);
+	glTexCoord2f(1,0);	glVertex3f(50.0f,0.0f,50.0f);
+	glTexCoord2f(1,1);	glVertex3f(50.0f,0.0f,-50.0f);
+	glEnd();
+	glBindTexture(GL_TEXTURE_2D, textures[1]);
+	glBegin(GL_QUADS);
+	
+		//achterste muur
+	glTexCoord2f(1,0.2);	glVertex3f(50.0f,0.0f,50.0f);
+	glTexCoord2f(1,1);	glVertex3f(50.0f,100.0f,50.0f);
+	glTexCoord2f(0,1);	glVertex3f(-50.0f,100.0f,50.0f);
+	glTexCoord2f(0,0.2);	glVertex3f(-50.0f,0.0f,50.0f);
 		
 		//rechter muur
-		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(-50.0f,0.0f,50.0f);
-		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(-50.0f,50.0f,50.0f);
-		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(-50.0f,50.0f,-50.0f);
-		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(-50.0f,0.0f,-50.0f);
+	glTexCoord2f(1,0.2);	glVertex3f(-50.0f,0.0f,50.0f);
+	glTexCoord2f(1,1);	glVertex3f(-50.0f,100.0f,50.0f);
+	glTexCoord2f(0,1);	glVertex3f(-50.0f,100.0f,-50.0f);
+	glTexCoord2f(0,0.2);	glVertex3f(-50.0f,0.0f,-50.0f);
 		
 		//linker muur
-		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(50.0f,0.0f,50.0f);
-		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(50.0f,50.0f,50.0f);
-		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(50.0f,50.0f,-50.0f);
-		glColor3f(0.0f,1.0f,0.0f);		glVertex3f(50.0f,0.0f,-50.0f);
+	glTexCoord2f(1,0.2);	glVertex3f(50.0f,0.0f,50.0f);
+	glTexCoord2f(1,1);	glVertex3f(50.0f,100.0f,50.0f);
+	glTexCoord2f(0,1);	glVertex3f(50.0f,100.0f,-50.0f);
+	glTexCoord2f(0,0.2);	glVertex3f(50.0f,0.0f,-50.0f);
 
 	glEnd();
 	
