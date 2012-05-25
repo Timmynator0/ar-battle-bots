@@ -30,6 +30,9 @@
     <ClInclude Include="Chainsaw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BramsPrimitives.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arena.cpp">
@@ -45,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Chainsaw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BramsPrimitives.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
