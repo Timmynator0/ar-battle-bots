@@ -121,6 +121,15 @@ void createCube(float width, float height, float depth,float u, float v, float u
 	glTexCoord2f(uvsize+u, v+uvsize*4);			glVertex3f(width,height,depth);			//6
 	glEnd();
 }
+void createPyramid(float width, float height, float depth,float u, float v, float uvsize){
+	glBegin(GL_TRIANGLE_FAN);
+	glTexCoord2f(uvsize+u,uvsize+v);			glVertex3f(0,height,0);			//top
+	glTexCoord2f(u,uvsize*2+v);					glVertex3f(-width,0,depth);		//leftback
+	glTexCoord2f(u,v);							glVertex3f(-width,0,-depth);	//leftfront
+	glTexCoord2f(uvsize*2+u,v);					glVertex3f(width,0,-depth);		//rightfront
+	glTexCoord2f(uvsize*2+u,uvsize*2+v);		glVertex3f(width,0,depth);		//rightback
+	glEnd();
+}
 void createCircle(float radiusx, float radiusy, int segments,int part,bool texture, GLfloat u, GLfloat v, GLfloat uvsize)
 {
     glBegin( GL_TRIANGLE_FAN );

@@ -25,6 +25,7 @@ void createDiamondCube(float x, float y, float z);
 void createPentagon(float x, float y, float z);
 void createTriangle(float x, float y, float z);
 void createCube(float width, float height, float depth,float u, float v, float uvsize);
+void createPyramid(float width, float height, float depth,float u, float v, float uvsize);
 void createCircle(float radiusx, float radiusy, int segments,int part,bool texture, float u, float v, float uvsize);
 void createCylinder(float radiusx, float radiusy, int segments, float depth,int part, bool texture,float u, float v, float uvsize);
 
