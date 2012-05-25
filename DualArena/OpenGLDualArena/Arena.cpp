@@ -1,3 +1,4 @@
+#include "Chainsaw.h"
 #include "Crate.h"
 #include "Ramp.h"
 #include "Arena.h"
@@ -9,6 +10,8 @@ double upy = 1;
 bool isTextureLoaded = false;
 double centerx,centery,centerz,upx,upz = 0;
 #define TEXTURE_COUNT 4
+float y = 0.0f;
+bool count = false;
 
 GLuint textures[TEXTURE_COUNT];
 const char *TextureFiles[TEXTURE_COUNT] =
@@ -72,11 +75,13 @@ void Display(void)
 
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D,textures[3]);
+	//Ramp();
 	Ramp();
 
 	glBindTexture(GL_TEXTURE_2D,textures[2]);
 	Crate(20,5,20);
+
+	Chainsaw(y);
 
 	glutSwapBuffers();
 }
@@ -107,6 +112,23 @@ void MouseMotion(int x, int y)
 
 void IdleFunc(void)
 {
+	if(y>=4)
+	{
+		count = true;
+	}
+	else if(y<=-4)
+	{
+		count = false;
+	}
+	if(count)
+	{
+		y-=.01;
+	}
+	else
+	{
+		y+=0.01;
+		//printf("%02d", y);
+	}
 	glutPostRedisplay();
 }
 
