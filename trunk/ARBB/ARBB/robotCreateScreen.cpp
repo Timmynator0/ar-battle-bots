@@ -185,12 +185,232 @@ void updateItems(int stage, int place){
 		glPopMatrix();
 		glPopMatrix();
 		glPopMatrix();
+		
 		break;
 	case 3:						//----------------Wapen 1 Selectie --------------------	
+		glBindTexture(GL_TEXTURE_2D, textures[1]);
+		glPushMatrix();
+		glTranslated(0,0.15,0);
+		//Hamer
+			glPushMatrix();
+			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+			glPushMatrix();// zet de hamer in een schuine hoek
+			glRotated(45,1,0,0);
+			createCylinder(size/5,size/3,10,size*1.5,1,true,0.125,0.875,0.125);
+			glPushMatrix();glPushMatrix(); //de kop word op de steel getranslated, en geroteerd
+			glRotated(90,1,0,0);
+			glTranslated(0,0,-size*0.75);
+			createCylinder(size/4,size/4,10,size*1.5,1,true,0.875,0.45,0.1);
+			glPopMatrix();glPopMatrix();glPopMatrix(); // eind van kop translatie en rotatie, en hamer rotatie
+		glPopMatrix();
+
+		//CirkelZaag
+		glPushMatrix();
+		glTranslated(0,0.4,0);
+			glPushMatrix();
+			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+			glPushMatrix();// zet de hamer in een schuine hoek
+			glRotated(45,1,0,0);
+			createCylinder(size/5,size/3,10,size*1.5,1,true,0.625,0.875,0.125);
+			glPushMatrix(); //de zaag word op de steel geroteerd
+			glRotated(90,0,1,0);
+			createCylinder(size,size,60,size/10,1,true,0.625,0.625,0.125);
+			glPopMatrix();glPopMatrix(); // eind van zaag rotatie, en hamer rotatie
+		glPopMatrix();
+		glPopMatrix();
+
+		//spike
+		glPushMatrix();
+		glTranslated(0.3,0.4,-size/2);
+			glPushMatrix();
+			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
+			glPushMatrix();// zet de hamer in een schuine hoek
+			glRotated(45,1,0,0);
+			createCube(size/5,size/5,size,0.25,0.28,0.0625);
+			glPushMatrix();glPushMatrix(); //de kop word op de steel getranslated, en geroteerd
+			glRotated(180,0,0,1);
+			glTranslated(0,size/5,-size*0.75);
+			createPyramid(size/5,size, size/5, 0.5,0.28,0.05);
+			glPopMatrix();glPopMatrix();glPopMatrix(); // eind van kop translatie en rotatie, en hamer rotatie
+		glPopMatrix();
+		glPopMatrix();
+
+		//dubbelspike 
+		glPushMatrix();
+		glTranslated(0.25,0,0);
+			glPushMatrix();
+			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);	
+			glPushMatrix();// zet de hamer in een schuine hoek
+			glRotated(45,1,0,0);
+			createCube(size/5,size/5,size,0.25,0.28,0.0625);
+			glPushMatrix();glPushMatrix(); //de kop word op de steel getranslated, en geroteerd
+			glTranslated(0,size/5,-size*0.75);			
+			createPyramid(size/5,size, size/5, 0.5,0.28,0.05);
+			glPopMatrix(); glPushMatrix();
+			glRotated(180,0,0,1);
+			glTranslated(0,size/5,-size*0.75);
+			createPyramid(size/5,size, size/5, 0.5,0.28,0.05);
+			glPopMatrix();glPopMatrix();glPopMatrix(); // eind van kop translatie en rotatie, en hamer rotatie
+		glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
 		break;
 	case 4:						//----------------Wapen 2 Selectie --------------------	
+		glBindTexture(GL_TEXTURE_2D, textures[1]);
+		glPushMatrix();
+		glTranslated(0,0.05,0);
+		//Klauw (pakt van boven/onder kan optillen)
+			glPushMatrix();
+			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+			glPushMatrix();// zet de hamer in een schuine hoek
+			glRotated(60,1,0,0);
+			createCube(size/5,size/5,size/1.5,0.5,0.28,0.0625);
+
+			for(int i = -1; i<2;i+=2){
+			glPushMatrix();
+			glTranslated(0,i*size/4,-size/1.5);
+			glPushMatrix();
+			glRotated(i*30,1,0,0);
+			createCube(size/7,size/7,size/3,0.5,0.28,0.0625);
+			glPopMatrix();
+			
+			glPushMatrix();
+			glTranslated(0,i*size/5,-size/2);
+			createCube(size/7,size/7,size/3,0.5,0.28,0.0625);		
+			
+			glPushMatrix();
+			glTranslated(0,i*-size/5,-size/2);
+			glPushMatrix();
+			glRotated(-30*i,1,0,0);
+			createCube(size/7,size/7,size/3,0.5,0.28,0.0625);
+			glPopMatrix();glPopMatrix();
+			glPopMatrix();
+
+			glPopMatrix();
+			}
+			glPopMatrix();
+			glPopMatrix();
+		glPopMatrix();
+
+		//Grijper (pakt van links/rechts en kan vasthouden
+		glPushMatrix();
+		glTranslated(0,0.4,0);
+			glPushMatrix();
+			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+			glPushMatrix();// zet de hamer in een schuine hoek
+			glRotated(90,1,0,0);
+			for(int i = -1; i<2;i+=2){
+			glPushMatrix();
+			glTranslated(0,i*size/1.5,-size/1.5);
+			glPushMatrix();
+			glRotated(i*30,1,0,0);
+			createCube(size/7,size/7,size/3,0.5,0.28,0.0625);
+			glPopMatrix();
+			
+			glPushMatrix();
+			glTranslated(0,i*size/5,-size/2);
+			createCube(size/7,size/7,size/3,0.5,0.28,0.0625);		
+			
+			glPushMatrix();
+			glTranslated(0,i*-size/5,-size/2);
+			glPushMatrix();
+			glRotated(-30*i,1,0,0);
+			createCube(size/7,size/7,size/3,0.5,0.28,0.0625);
+			glPopMatrix();glPopMatrix();
+			glPopMatrix();
+
+			glPopMatrix();
+			}
+			glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
+
+		//Flipper ( gooit een voertuig omhoog)
+		glPushMatrix();
+		glTranslated(0.3,0.6,-size/2);
+			glPushMatrix();
+			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
+			glPushMatrix();// zet de hamer in een schuine hoek
+			glRotated(-120,1,0,0);
+			createCube(size/5,size/5,size/1.5,0.5,0.28,0.0625);
+			glPushMatrix();
+			glTranslated(0,size/6,-size/1.5);
+			glPushMatrix();
+			glRotated(30,1,0,0);
+			createCube(size/7,size/7,size/3,0.5,0.28,0.0625);
+			glPopMatrix();
+			
+			glPushMatrix();
+			glTranslated(0,size/5,-size/2);
+			createCube(size/7,size/7,size/3,0.5,0.28,0.0625);		
+			glPopMatrix();
+
+			glPopMatrix();
+			glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
+
+		//Sidebars ( 2 balken aan de zijkant, die voertuigen weg kunne duwe /grijper openen) 
+		glPushMatrix();
+		glTranslated(0.25,0.15,0);
+			glPushMatrix();
+			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);
+			glPushMatrix();
+			glRotated(60,1,0,0);
+			for(int ii= -1; ii<2; ii+=2){
+				glPushMatrix();
+				glTranslated(0,ii*size,0);
+				glPushMatrix();
+				glRotated(ii*-90,1,0,0);
+
+				createCube(size,size/4,size/8,0.25,0.28,0.0625);
+				for(int i=-1;i<2;i++){
+					glPushMatrix();
+					glTranslated(i*size/1.4,0,-size/2.5);
+					createCube(size/10,size/10,size/3, 0.5,0.28,0.0625);
+					glPopMatrix();
+				}
+				glPopMatrix();
+				glPopMatrix();
+			}
+			glPopMatrix();
+
+		glPopMatrix();
+		glPopMatrix();
 		break;
 	case 5:						//----------------Wapen 3 Selectie --------------------	
+		glBindTexture(GL_TEXTURE_2D, textures[1]);
+		glPushMatrix();
+		glTranslated(0,0.15,0);
+		//Maaier (geval Op het voertuig dat rondraait)
+			glPushMatrix();
+			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+		glPopMatrix();
+
+		//Vlammenwerper
+		glPushMatrix();
+		glTranslated(0,0.4,0);
+			glPushMatrix();
+			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+		glPopMatrix();
+		glPopMatrix();
+
+		//Pneumatic pin (geeft een stoot recht vooruit)
+		glPushMatrix();
+		glTranslated(0.3,0.4,-size/2);
+			glPushMatrix();
+			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
+		glPopMatrix();
+		glPopMatrix();
+
+		//geen 
+		glPushMatrix();
+		glTranslated(0.25,0,0);
+			glPushMatrix();
+			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);	
+		glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
 		break;
 	}
 	glPopMatrix();
