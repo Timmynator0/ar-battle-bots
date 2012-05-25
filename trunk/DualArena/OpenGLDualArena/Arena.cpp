@@ -71,10 +71,11 @@ void Display(void)
 	glTexCoord2f(0,0.2);	glVertex3f(50.0f,0.0f,-50.0f);
 
 	glEnd();
-	
 
+	glBindTexture(GL_TEXTURE_2D,textures[3]);
 	Ramp();
 
+	glBindTexture(GL_TEXTURE_2D,textures[2]);
 	Crate(20,5,20);
 
 	glutSwapBuffers();
