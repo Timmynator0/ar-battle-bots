@@ -9,14 +9,14 @@ double eyez = -60;
 double upy = 1;
 bool isTextureLoaded = false;
 double centerx,centery,centerz,upx,upz = 0;
-#define TEXTURE_COUNT 4
+#define TEXTURE_COUNT 5
 float y = 0.0f;
 bool count = false;
 
 GLuint textures[TEXTURE_COUNT];
 const char *TextureFiles[TEXTURE_COUNT] =
 {"arena_floor.tga", "arena-muur.tga",
-"crate.tga","stainless-steel.tga"};
+"crate.tga","stainless-steel.tga", "chainwheel.tga"};
 
 
 void Display(void)
@@ -76,11 +76,13 @@ void Display(void)
 	glEnd();
 
 	//Ramp();
+	glBindTexture(GL_TEXTURE_2D,textures[3]);
 	Ramp();
 
 	glBindTexture(GL_TEXTURE_2D,textures[2]);
 	Crate(20,5,20);
 
+	glBindTexture(GL_TEXTURE_2D,textures[4]);
 	Chainsaw(y);
 
 	glutSwapBuffers();
