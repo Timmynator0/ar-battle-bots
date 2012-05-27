@@ -4,7 +4,7 @@
 #include "Arena.h"
 #include <string>
 double eyex = 0;
-double eyey = 20;
+double eyey = 65;
 double eyez = -60;
 double upy = 1;
 bool isTextureLoaded = false;
@@ -18,6 +18,16 @@ const char *TextureFiles[TEXTURE_COUNT] =
 {"arena_floor.tga", "arena-muur.tga",
 "crate.tga","stainless-steel.tga", "chainwheel.tga"};
 
+void Stringtest(GLfloat x, GLfloat y, char *text)
+  {
+    char *p;
+
+    glPushMatrix();
+    glTranslatef(x, y, 0);
+    for (p = text; *p; p++)
+      glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, *p);
+    glPopMatrix();
+  }
 
 void Display(void)
 {
@@ -47,6 +57,7 @@ void Display(void)
 		//begin kubus
 		//onderkant5
 	glColor3f(1,1,1);
+	Stringtest(1,1,"test");
 	glTexCoord2f(0,1);	glVertex3f(-50.0f,0.0f,-50.0f); 
 	glTexCoord2f(0,0);	glVertex3f(-50.0f,0.0f,50.0f);
 	glTexCoord2f(1,0);	glVertex3f(50.0f,0.0f,50.0f);
@@ -78,12 +89,15 @@ void Display(void)
 	//Ramp();
 	glBindTexture(GL_TEXTURE_2D,textures[3]);
 	Ramp();
-
+	//crate
 	glBindTexture(GL_TEXTURE_2D,textures[2]);
 	Crate(20,5,20);
-
+	//chainsaws
 	glBindTexture(GL_TEXTURE_2D,textures[4]);
-	Chainsaw(y);
+	Chainsaw(-23.25,y,0);
+	Chainsaw(-27.25,y,0);
+	Chainsaw(23.25,y,0);
+	Chainsaw(27.25,y,0);
 
 	glutSwapBuffers();
 }

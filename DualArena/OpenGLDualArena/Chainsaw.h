@@ -1,4 +1,4 @@
 #include "BramsPrimitives.h"
 
-	void Chainsaw(float y);
+void Chainsaw(float x, float y, float z);
 
