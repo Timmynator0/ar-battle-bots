@@ -2,21 +2,21 @@
 #include "Crate.h"
 #include "Ramp.h"
 #include "Arena.h"
+#include "BramsPrimitives.h"
 #include <string>
-double eyex = 0;
-double eyey = 65;
-double eyez = -60;
-double upy = 1;
 bool isTextureLoaded = false;
-double centerx,centery,centerz,upx,upz = 0;
 #define TEXTURE_COUNT 5
 float y = 0.0f;
 bool count = false;
 
+double tx =0;	// used for the translation of the test cube
+double ty =2;
+double tz = 0; 
 GLuint textures[TEXTURE_COUNT];
 const char *TextureFiles[TEXTURE_COUNT] =
 {"arena_floor.tga", "arena-muur.tga",
 "crate.tga","stainless-steel.tga", "chainwheel.tga"};
+
 
 void Stringtest(GLfloat x, GLfloat y, char *text)
   {
@@ -29,6 +29,34 @@ void Stringtest(GLfloat x, GLfloat y, char *text)
     glPopMatrix();
   }
 
+/*
+*	@parameters Object1 (coordinates) object2 (coordinates)
+*	@returns true if a collision is detected between object 1 and object 2
+*/
+bool checkCollision(float x1, float y1, float x2, float y2)
+{
+	if(y1 == y2-4 && x1 == x2 || y1 == y2-4 && x1 == x2+1 || y1==y2-4 && x1 == x2-1)
+    {
+		return true;
+    }
+    //bottom of red colides with other cube
+    if(y1 == y2 && x1 == x2 || y1 == y2 && x1 == x2+1 || y1 == y2 && x1 == x2-1)
+    {
+		return true;
+    }
+    //right of red
+    if(x1==x2-2&&y1==y2-2 || x1==x2-2 && y1 == y2-3 || x1 == x2-2 && y1 == y2-1)
+    {
+		return true;
+    }
+    //left of red
+    if(x1==x2+2&&y1==y2-2 || x1==x2+2&&y1==y2-3 || x1==x2+2&&y1==y2-1)
+    {
+        return true;
+	}
+	return false;
+}
+
 void Display(void)
 {
 	glClearColor(0, 0, 0, 0);
@@ -36,7 +64,7 @@ void Display(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(eyex,eyey,eyez,centerx,centery,centerz,upx,upy,upz);
+	gluLookAt(0,65,-60,0,0,0,0,1,0);
 	if(!isTextureLoaded)
 	{
 		isTextureLoaded = true;
@@ -99,6 +127,13 @@ void Display(void)
 	Chainsaw(23.25,y,0);
 	Chainsaw(27.25,y,0);
 
+
+	//test cube for collision detection
+	glPushMatrix();
+	glTranslatef(tx,ty,tz);
+	createCube(2,2,2,0,0,0);
+	glPopMatrix();
+
 	glutSwapBuffers();
 }
 
@@ -128,11 +163,11 @@ void MouseMotion(int x, int y)
 
 void IdleFunc(void)
 {
-	if(y>=4)
+	if(y>=0)
 	{
 		count = true;
 	}
-	else if(y<=-4)
+	else if(y<=-6)
 	{
 		count = false;
 	}
@@ -156,28 +191,31 @@ void Keyboard(unsigned char key, int x, int y)
 	case 27:             // ESCAPE key
 		exit (0);
 		break;
-	case 'q':
-		
-		break;
 	case 'w':
-		if(eyez!= -20)
-			eyez +=5;
+		if(!checkCollision(0,50,0,tz+4))
+			tz++;
 		break;
 	case 'a':
-		centerx += 1;
-		eyex += 1;
+		if(!checkCollision(50,0,tx+3,0))
+		tx++;
 		break;
 	case 's':
-		if(eyez!= -70)
-			eyez -=5;
+		if(!checkCollision(0,-50,0,tz))
+		tz--;
 		break;
 	case 'd':
-		centerx -= 1;
-		eyex -= 1;
+		if(!checkCollision(-50,0,tx-2,0))
+		tx--;
+		break;
+	case 'e':
+		ty++;
+		break;
+	case 'q':
+		ty--;
 		break;
 
 	}
-
+	printf("x:%d,z:%d\n",tx,tz);
 }
 
 int main(int argc, char* argv[])
