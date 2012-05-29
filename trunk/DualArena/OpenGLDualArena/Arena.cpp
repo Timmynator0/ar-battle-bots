@@ -33,14 +33,14 @@ void Stringtest(GLfloat x, GLfloat y, char *text)
 *	@parameters Object1 (coordinates) object2 (coordinates)
 *	@returns true if a collision is detected between object 1 and object 2
 */
-bool checkCollision(float x1, float y1, float x2, float y2)
+bool checkCollision(float x1, float y1, /*float z1,*/ float x2, float y2/*, float z2*/)
 {
-	if(y1 == y2-4 && x1 == x2 || y1 == y2-4 && x1 == x2+1 || y1==y2-4 && x1 == x2-1)
+	if(y1 == y2-4 && x1 == x2 || y1 == y2-4 && x1 == x2+1  || y1==y2-4 && x1 == x2-1)
     {
 		return true;
     }
     //bottom of red colides with other cube
-    if(y1 == y2 && x1 == x2 || y1 == y2 && x1 == x2+1 || y1 == y2 && x1 == x2-1)
+    if(y1 == y2 && x1 == x2 &&   y1 == y2 && x1 == x2+1 || y1 == y2 && x1 == x2-1)
     {
 		return true;
     }
