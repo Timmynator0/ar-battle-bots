@@ -11,7 +11,7 @@
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
 #else
-#define FREEGLUT_STATIC
+#define FREEGLUT
 #include <GL/glut.h>            // Windows FreeGlut equivalent
 #endif
 	void Ramp(void);
