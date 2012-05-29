@@ -1,4 +1,3 @@
-#include <FreeImage.h>
 #include "loadTGA.h"
 #include <stdlib.h>
 #include <tchar.h>

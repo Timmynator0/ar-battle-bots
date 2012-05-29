@@ -7,7 +7,6 @@
 #include <cmath>
 #include <GLGeometryTransform.h>
 #include <GLMatrixStack.h>
-#include <FreeImage.h>
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
 #else
