@@ -15,9 +15,12 @@
 #include <glut/glut.h>          // OS X version of GLUT
 #else
 #define FREEGLUT
-#include <GL/glut.h>            // Windows FreeGlut equivalent
+#include <GL/freeglut.h>            // Windows FreeGlut equivalent
 #endif
 
+void setOrthographicProjection() ;
+void resetPerspectiveProjection();
+void renderBitmapString(float x, float y, void *font,char *string);
 void Display(void);
 void Reshape(GLint width, GLint height);
 void InitGraphics(void);
