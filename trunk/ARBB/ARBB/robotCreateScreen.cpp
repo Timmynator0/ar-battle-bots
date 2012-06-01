@@ -5,10 +5,12 @@
 #include <GLGeometryTransform.h>
 #include <GLMatrixStack.h>
 #include <stdio.h>
+#include <time.h>
 
 #include "loadTGA.h"
 #include "robotCreateScreen.h"
 #include "BramsPrimitives.h"
+#include "ObjModel.h"
 
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
@@ -24,6 +26,7 @@
 #define FALSE	0
 #endif
 #define TEXTURE_COUNT 2
+vector<ObjModel*> RCSmodels;
 
 GLuint textures[TEXTURE_COUNT];
 const char *TextureFiles[TEXTURE_COUNT] =
@@ -33,7 +36,7 @@ CREATOR				creators[4];
 float				ItemRotation = 0;
 
 void updateItems(int stage, int place){
-	
+	srand ( time(NULL) );
 	glPushMatrix();
 	glTranslated(-1.6,-0.15,-0.2);
 	glPushMatrix();
@@ -70,47 +73,18 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.25,0,0);
 				glPushMatrix();
-			if(creators[place].rotateLB){
-			/*	glPushMatrix();
-				glTranslated(0.2,-1,0);
-				glPushMatrix();
-				glRotated(25,1,0,0);
-				size*=3;
-				glBegin(GL_TRIANGLES);
-					glVertex3f(-size,0,size/5); glVertex3f(size,0,size/5); glVertex3f(0,size*2,size/5);
-					glVertex3f(-size,0,-size/5); glVertex3f(size,0,-size/5); glVertex3f(0,size*2,-size/5);
-				glEnd();
-				glBegin(GL_TRIANGLE_STRIP);
-					glVertex3f(-size,0,size/5); 
-					glVertex3f(-size,0,-size/5); 
-					glVertex3f(size,0,size/5); 
-					glVertex3f(size,0,-size/5);
-					glVertex3f(0,size*2,size/5); 
-					glVertex3f(0,size*2,-size/5);
-					glVertex3f(-size,0,size/5); 
-					glVertex3f(-size,0,-size/5); 
-				glEnd();
-				size/=3;
-				glPopMatrix();
-				glPopMatrix();*/
-				glRotated(ItemRotation,0,1,0);
-			}
+			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);
 		createTriangle(size,size,size/5);
 		glPopMatrix();
 		glPopMatrix();
 		break;
-	case 1:						//----------------Wielen Selectie --------------------	
+	case 2:						//----------------Wielen Selectie --------------------	
 		glBindTexture(GL_TEXTURE_2D, textures[1]);
 		glPushMatrix();
 		glTranslated(0,0.15,0);
 		//houten Wielen
 			glPushMatrix();
-			if(creators[place].rotateRB)
-			{ 
-				glRotated(ItemRotation,0,1,0);
-			//	glutStrokeString(GLUT_STROKE_ROMAN, "some text");
-//			glutStrokeString(GLUT_STROKE_ROMAN, "Hallo");
-			}
+			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
 			createCylinder(size/2,size,20,size/5,1,true,0.125,0.875,0.125);
 		glPopMatrix();
 
@@ -142,7 +116,6 @@ void updateItems(int stage, int place){
 		glPopMatrix();
 		glPopMatrix();
 		break;
-	case 2:						//----------------Materiaal Selectie --------------------	
 		glBindTexture(GL_TEXTURE_2D, textures[1]);
 		glPushMatrix();
 		glTranslated(0,0.15,0);
@@ -220,11 +193,7 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0,0.4,0);
 			glPushMatrix();
-			if(creators[place].rotateRU)
-			{
-				glRotated(ItemRotation,0,1,0);
-				printf("meh");
-			}
+			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
 			glPushMatrix();// zet de hamer in een schuine hoek
 			glRotated(45,1,0,0);
 			createCylinder(size/5,size/3,10,size*1.5,1,true,0.625,0.875,0.125);
@@ -400,7 +369,52 @@ void updateItems(int stage, int place){
 		glTranslated(0,0.15,0);
 		//Maaier (geval Op het voertuig dat rondraait)
 			glPushMatrix();
-			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRB) glRotated(ItemRotation*2,0,1,0);
+			glPushMatrix();
+			glRotated(45,0,0,1);
+			for(int i = 0; i<3; i++){
+				glPushMatrix();
+				glRotated(120*i, 0,1,0);
+				glTranslated(size/3,0,0);
+				createCube(size/2,size/10,size/10, 0.5,0.28,0.0625);
+				
+				glPushMatrix();
+				glTranslated(size/1.5,-size/6,0);
+				glRotated(-60,0,0,1);
+				createCube(size/2.5,size/10,size/10, 0.5,0.28,0.0625);
+
+				glPushMatrix();
+				glTranslated(size/2,0,0);
+				glRotated(-30,0,0,1);
+				createCube(size/10,size/10, size/1.4, 0.25,0.28,0.0625);
+
+				for(int ii = -1; ii<2; ii++){
+					glPushMatrix();
+					glTranslated(0,size/8,ii*size/2);
+					glRotated(-30,0,0,1);
+					createPyramid(size/8,size/2,size/8, 0.5,0.28,0.05);
+					glPopMatrix();
+				}
+
+				glPushMatrix();
+				glRotated(60,1,0,0);
+				glTranslated(0,size/2,size*1.1);
+				createCube(size/10,size/10, size/1.4, 0.25,0.28,0.0625);
+
+				for(int ii = -1; ii<2; ii++){
+					glPushMatrix();
+					glTranslated(0,size/8,ii*size/2);
+					glRotated(-30,0,0,1);
+					createPyramid(size/8,size/2,size/8, 0.5,0.28,0.05);
+					glPopMatrix();
+				}
+
+				glPopMatrix();
+				glPopMatrix();
+				glPopMatrix();
+				glPopMatrix();
+			}
+			glPopMatrix();
 		glPopMatrix();
 
 		//Vlammenwerper
@@ -408,6 +422,38 @@ void updateItems(int stage, int place){
 		glTranslated(0,0.4,0);
 			glPushMatrix();
 			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+			glPushMatrix();
+			glRotated(45,0,0,1);
+			for(int i = 0; i<6; i++){
+				glPushMatrix();
+				glRotated(60*i, 0,1,0);
+				glTranslated(size/8,0,0);
+				createCube(size/2,size/10,size/10, 0.75,0.28,0.0625);
+				
+				glPushMatrix();
+				glTranslated(size/1.5,0,0);
+				createCube(size/7,size/9,size/9, 0.75,0.28,0.0625);
+
+				glPushMatrix();
+				glTranslated(size/2,0,0);
+				int fo = rand() % 3;
+				for(int ii=0; ii<1;ii++){
+					glPushMatrix();
+					glRotated(30*ii,1,0,0);
+					glBegin(GL_TRIANGLE_STRIP);
+						glTexCoord2f(0.17*fo,0.25);				glVertex3f(size/3,0,size/3);		//leftback
+						glTexCoord2f(0.17*fo,0);					glVertex3f(-size/3,0,size/3);		//leftfront
+						glTexCoord2f(0.17+0.13*fo,0.25);			glVertex3f(size/3,0,-size/3);		//rightfront
+						glTexCoord2f(0.17+0.13*fo,0);				glVertex3f(-size/3,0,-size/3);		//rightback
+					glEnd();
+					glPopMatrix();
+				}
+				glPopMatrix();
+				glPopMatrix();
+				glPopMatrix();
+			}
+			glPopMatrix();
+
 		glPopMatrix();
 		glPopMatrix();
 
@@ -415,7 +461,12 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.3,0.4,-size/2);
 			glPushMatrix();
-			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);			
+				glPushMatrix();
+				glTranslated(0,0,-size/2);
+				createCylinder(size/4,size/4,10, size/1.5,1,true, 0.625,0.625,0.125);			
+				glPopMatrix();
+				createCylinder(size/6,size/6,10,size/2,1,true, 0.625,0.625,0.125);		
 		glPopMatrix();
 		glPopMatrix();
 
@@ -428,10 +479,133 @@ void updateItems(int stage, int place){
 		glPopMatrix();
 		glPopMatrix();
 		break;
+	case 6:
+		break;
 	}
 	glPopMatrix();
 	glPopMatrix();
 	glColor4f(1,1,1,1);
+}
+
+void robotPreview(int place, int items[])
+{
+	glPushMatrix();
+	glTranslated(-1.4+0.9*place,-1.1,-0.2);
+	glPushMatrix();
+	glScaled(0.2,0.4,0.1);	
+	glBindTexture(GL_TEXTURE_2D, textures[1]);
+	float size = 0.2;
+	if(items[0] != 0){
+		switch(items[0]){
+		case 1: // triangle
+			switch(items[1]){
+			case 0: RCSmodels[0]->draw(); break;
+			case 1: RCSmodels[5]->draw(); break;
+			case 2: RCSmodels[4]->draw(); break;
+			case 3: RCSmodels[6]->draw(); break;
+			case 4: RCSmodels[7]->draw(); break;
+			}break;
+		case 2: // circle
+			switch(items[1]){
+			case 0: RCSmodels[2]->draw(); break;
+			case 1: RCSmodels[13]->draw(); break;
+			case 2: RCSmodels[12]->draw(); break;
+			case 3: RCSmodels[14]->draw(); break;
+			case 4: RCSmodels[15]->draw(); break;
+			}break;
+		case 3: // pentagon
+			switch(items[1]){
+			case 0: RCSmodels[3]->draw(); break;
+			case 1: RCSmodels[17]->draw(); break;
+			case 2: RCSmodels[16]->draw(); break;
+			case 3: RCSmodels[18]->draw(); break;
+			case 4: RCSmodels[19]->draw(); break;
+			}break;
+		case 4: // quad
+			switch(items[1]){
+			case 0: RCSmodels[1]->draw(); break;
+			case 1: RCSmodels[9]->draw(); break;
+			case 2: RCSmodels[8]->draw(); break;
+			case 3: RCSmodels[10]->draw(); break;
+			case 4: RCSmodels[11]->draw(); break;
+			}break;
+		}
+	}
+	glPopMatrix();
+	if(items[2] != 0){
+		glPushMatrix();
+		glScaled(0.4,0.4,0.4);
+		glPushMatrix();
+		glRotated(90,0,1,0);
+		switch(items[2]){
+		case 4://houten Wielen
+			for(int i=-1; i<2; i+=2){
+				glPushMatrix();
+				glTranslated(0.2*i,0,0);
+				for(int ii=-1; ii<2; ii+=2){
+					glPushMatrix();
+					glTranslated(0.2*ii,0,0);
+					createCylinder(size/2,size,20,size/5,1,true,0.125,0.875,0.125);
+					glPopMatrix();
+				}
+				glPopMatrix();
+			}
+			break;
+		case 3://rubberen Banden
+			createCylinder(size/2,size,20,size/5,1,true,0.375,0.875,0.125);	
+			break;
+		case 2://metalen wielen 
+			createCylinder(size/2,size,20,size/5,1,true,0.625,0.875,0.125);
+			break;
+		case 1://rupsbanden
+			for(int i=-1; i<2; i+=2){
+				glPushMatrix();
+				glTranslated(0,0,0.15*i);
+				createCylinder(size, size,20,size/5,1,true,0.875,0.875,0.125);
+				glPopMatrix();
+			} 
+			break;
+		}
+		glPopMatrix();
+		glPopMatrix();
+		if(items[3] != 0){
+			switch(items[3]){
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			}
+			if(items[4] != 0){
+				switch(items[4]){
+				case 1:
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				}
+				if(items[5] != 0){
+					switch(items[5]){
+					case 1:
+						break;
+					case 2:
+						break;
+					case 3:
+						break;
+					case 4:
+						break;
+					}
+				}
+			}
+		}
+	}
+	glPopMatrix();
 }
 
 void createRCSBackground(){
@@ -479,9 +653,11 @@ void createRCSBackground(){
 		glPopMatrix();
 		newwidth += width;
 		updateItems(creators[i].createstage,i);
+		robotPreview(i, creators[i].stageItems);
 	}
 }
-void initCreators(){
+void initCreators(vector< ObjModel*> modellen){
+	RCSmodels = modellen;
 	for(int i = 0; i<4; i++){
 		// stel de creators in
 		creators[i].nummer = i;
@@ -495,8 +671,13 @@ void initCreators(){
 }
 void updateCreators(int selectedcreator, int selecteditem, bool accept){
 	ItemRotation += 6.0; if(ItemRotation >= 360) ItemRotation = 0;
-	if(accept) creators[selectedcreator].createstage++;	
-	if(creators[selectedcreator].createstage >= 6) creators[selectedcreator].createstage = 5;
+	if(accept)
+	{
+		creators[selectedcreator].stageItems[creators[selectedcreator].createstage] = selecteditem+1;
+		creators[selectedcreator].createstage++;	
+		std::cout<<"creator : "<<selectedcreator<<" heeft: "<<creators[selectedcreator].stageItems[0]<<","<<creators[selectedcreator].stageItems[1]<<","<<creators[selectedcreator].stageItems[2]<<","<<creators[selectedcreator].stageItems[3]<<","<<creators[selectedcreator].stageItems[4]<<","<<creators[selectedcreator].stageItems[5]<<std::endl;
+	}
+	if(creators[selectedcreator].createstage >= 7) creators[selectedcreator].createstage = 6;
 
 	switch(selecteditem){
 	case 0 :	creators[selectedcreator].rotateLB= true; creators[selectedcreator].rotateLU =false; creators[selectedcreator].rotateRU = false; creators[selectedcreator].rotateRB = false;

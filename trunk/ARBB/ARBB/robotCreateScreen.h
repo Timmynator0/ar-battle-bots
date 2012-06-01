@@ -1,4 +1,4 @@
-
+#include "ObjModel.h"
 typedef struct
 {
     int nummer;
@@ -11,8 +11,9 @@ typedef struct
 	bool rotateLB;
 	bool rotateRB;
 	bool rotateRU;
+	int stageItems[6];
 } CREATOR;
 
 void createRCSBackground();
-void initCreators();
+void initCreators(vector<ObjModel*> modellen);
 void updateCreators(int selectedcreator, int selecteditem, bool accept);
