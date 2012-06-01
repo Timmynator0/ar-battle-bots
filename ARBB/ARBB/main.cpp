@@ -16,7 +16,7 @@
 #include <glut/glut.h>          // OS X version of GLUT
 #else
 #define FREEGLUT
-#include <GL/glut.h>            // Windows FreeGlut equivalent
+#include <GL/freeglut.h>            // Windows FreeGlut equivalent
 #endif
 
 GLBatch	triangleBatch;
@@ -28,19 +28,21 @@ vector<ObjModel*> models;
 int screenwidth= 1024, screenheight = 700;
 int tex = 0;
 int gamestage = 0; // 0 is niets/net opgestart, 1 is wachten op spelers, 2 is robot creeeren, 3 is spelen, 4 is einduitslag
-
+int h,w ;
 int selectedCreator= 0,selectedCreatorItem= 0;
 bool acceptItem = false;
 float rotation = 0;
 
 void ChangeSize(int w, int h)
     {
+	
 		glViewport(0, 0, w, h);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		gluPerspective(90, 1, 0.1, 100);
 		gluLookAt(0,0,-2, 0,0,0, 0,1,0);
 		glMatrixMode(GL_MODELVIEW);
+	
     }
 
 void MouseButton(int button, int state, int x, int y)
@@ -124,8 +126,9 @@ void RenderScene(void)
     static GLfloat vWhite [] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	
-	glClearColor(0.0f, 0.0f, 1.0f, 1.0f );
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f );
 	shaderManager.InitializeStockShaders();
+
 
 	glLoadIdentity();
 	
@@ -139,6 +142,7 @@ void RenderScene(void)
 	case 1:		//spelers queue
 		break;
 	case 2:		//robot creeeren
+		
 		createRCSBackground();
 		break;
 	case 3:		//het gevecht
@@ -148,8 +152,12 @@ void RenderScene(void)
 		break;
 	}
 	glPopMatrix();
+
+
+
 	glutSwapBuffers();
-	}
+	
+}
 void IdleFunc(void)
 {
 	switch(gamestage){

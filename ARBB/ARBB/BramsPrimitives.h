@@ -13,7 +13,7 @@
 #include <glut/glut.h>          // OS X version of GLUT
 #else
 #define FREEGLUT
-#include <GL/glut.h>            // Windows FreeGlut equivalent
+#include <GL/freeglut.h>            // Windows FreeGlut equivalent
 #endif
 
 const long double PI = acos((long double) -1);

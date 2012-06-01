@@ -15,8 +15,8 @@
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
 #else
-#define FREEGLUT
-#include <GL/glut.h>            // Windows FreeGlut equivalent
+#define FREEGLUT 
+#include <GL/freeglut.h>// Windows FreeGlut equivalent
 #endif
 #ifndef TRUE
 #define TRUE	1
@@ -34,7 +34,9 @@ const char *TextureFiles[TEXTURE_COUNT] =
 
 CREATOR				creators[4];
 float				ItemRotation = 0;
-
+float tx = 0.30;
+float ty = 1.30;
+float tz = 0;
 void updateItems(int stage, int place){
 	srand ( time(NULL) );
 	glPushMatrix();
@@ -42,23 +44,43 @@ void updateItems(int stage, int place){
 	glPushMatrix();
 	glTranslated(0.9*place,0,0);
 	float size = 0.11;
+	
+			
 	switch(stage){
 	case 0:					//----------------Vorm Selectie --------------------
-			glColor4f(0.5,0.5,0.5,1);
+		glColor4f(0.5,0.5,0.5,1);
 		//rect
 			glPushMatrix();
-			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRB) 
+			{
+				glRotated(ItemRotation,0,1,0);
+
+			}
+	
 		createDiamondCube(size,size, size/5);
 		glPopMatrix();
 
 		// pentagon
 		glPushMatrix();
 		glTranslated(0,0.4,0);
-			glPushMatrix();
-			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+		glPushMatrix();
+		if(creators[place].rotateRU)
+		{	
+
+			glRotated(ItemRotation,0,1,0);
+
+		}
+	
 		createPentagon(size,size,size/5);
 		glPopMatrix();
 		glPopMatrix();
+
+			if(creators[place].rotateRU)
+		{
+			
+		
+
+		}
 
 		// cirkel 
 		glPushMatrix();
@@ -85,7 +107,7 @@ void updateItems(int stage, int place){
 		//houten Wielen
 			glPushMatrix();
 			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
-			createCylinder(size/2,size,20,size/5,1,true,0.125,0.875,0.125);
+		createCylinder(size/2,size,20,size/5,1,true,0.125,0.875,0.125);
 		glPopMatrix();
 
 		//rubberen Banden
@@ -652,6 +674,8 @@ void createRCSBackground(){
 		newwidth += (0.1*i);
 		glPopMatrix();
 		newwidth += width;
+
+
 		updateItems(creators[i].createstage,i);
 		robotPreview(i, creators[i].stageItems);
 	}
