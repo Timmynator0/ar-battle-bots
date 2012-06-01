@@ -3,31 +3,72 @@
 #include "Ramp.h"
 #include "Arena.h"
 #include "BramsPrimitives.h"
+#include "HUD.h"
 #include <string>
-bool isTextureLoaded = false;
+
+#define OBJECT_COUNT 1
 #define TEXTURE_COUNT 5
+
+struct Vector3d
+{
+	double x,y,z;
+};
+
+bool isTextureLoaded = false;
 float y = 0.0f;
 bool count = false;
-
+double width,height;
 double tx =0;	// used for the translation of the test cube
 double ty =2;
 double tz = 0; 
+Vector3d moveableObject[OBJECT_COUNT];
 GLuint textures[TEXTURE_COUNT];
 const char *TextureFiles[TEXTURE_COUNT] =
 {"arena_floor.tga", "arena-muur.tga",
 "crate.tga","stainless-steel.tga", "chainwheel.tga"};
 
 
-void Stringtest(GLfloat x, GLfloat y, char *text)
-  {
-    char *p;
+void setOrthographicProjection() 
+{
 
-    glPushMatrix();
-    glTranslatef(x, y, 0);
-    for (p = text; *p; p++)
-      glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, *p);
-    glPopMatrix();
+	// switch to projection mode
+	glMatrixMode(GL_PROJECTION);
+	// save previous matrix which contains the 
+	//settings for the perspective projection
+	glPushMatrix();
+	// reset matrix
+	glLoadIdentity();
+	// set a 2D orthographic projection
+	gluOrtho2D(-width, width, -height, height);
+	// invert the y axis, down is positive
+	glScalef(1, -1, 1);
+	// mover the origin from the bottom left corner
+	// to the upper left corner
+	glTranslatef(0, -height, 0);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+void resetPerspectiveProjection() 
+{
+	// set the current matrix to GL_PROJECTION
+	glMatrixMode(GL_PROJECTION);
+	// restore previous settings
+	glPopMatrix();
+	// get back to GL_MODELVIEW matrix
+	glMatrixMode(GL_MODELVIEW);
+}
+
+void renderBitmapString(float x, float y, void *font,char *string)
+{
+  
+  char *c;
+  // set position to start drawing fonts
+  glRasterPos2f(x, y);
+  // loop all the characters in the string
+  for (c=string; *c != '\0'; c++) {
+    glutBitmapCharacter(font, *c);
   }
+}
 
 /*
 *	@parameters Object1 (coordinates) object2 (coordinates)
@@ -35,25 +76,10 @@ void Stringtest(GLfloat x, GLfloat y, char *text)
 */
 bool checkCollision(float x1, float y1, /*float z1,*/ float x2, float y2/*, float z2*/)
 {
-	if(y1 == y2-4 && x1 == x2 || y1 == y2-4 && x1 == x2+1  || y1==y2-4 && x1 == x2-1)
+	if(y1 == y2 && x1 == x2)
     {
 		return true;
     }
-    //bottom of red colides with other cube
-    if(y1 == y2 && x1 == x2 &&   y1 == y2 && x1 == x2+1 || y1 == y2 && x1 == x2-1)
-    {
-		return true;
-    }
-    //right of red
-    if(x1==x2-2&&y1==y2-2 || x1==x2-2 && y1 == y2-3 || x1 == x2-2 && y1 == y2-1)
-    {
-		return true;
-    }
-    //left of red
-    if(x1==x2+2&&y1==y2-2 || x1==x2+2&&y1==y2-3 || x1==x2+2&&y1==y2-1)
-    {
-        return true;
-	}
 	return false;
 }
 
@@ -80,12 +106,12 @@ void Display(void)
 	
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, textures[0]);
-
+	createHUD(tx,tz);
 	glBegin(GL_QUADS);
 		//begin kubus
 		//onderkant5
 	glColor3f(1,1,1);
-	Stringtest(1,1,"test");
+	
 	glTexCoord2f(0,1);	glVertex3f(-50.0f,0.0f,-50.0f); 
 	glTexCoord2f(0,0);	glVertex3f(-50.0f,0.0f,50.0f);
 	glTexCoord2f(1,0);	glVertex3f(50.0f,0.0f,50.0f);
@@ -131,14 +157,17 @@ void Display(void)
 	//test cube for collision detection
 	glPushMatrix();
 	glTranslatef(tx,ty,tz);
+
 	createCube(2,2,2,0,0,0);
 	glPopMatrix();
 
 	glutSwapBuffers();
 }
 
-void Reshape(GLint width, GLint height)
+void Reshape(GLint w, GLint h)
 {
+	width = w;
+	height = h;
 	glViewport(0,0, width, height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -192,15 +221,15 @@ void Keyboard(unsigned char key, int x, int y)
 		exit (0);
 		break;
 	case 'w':
-		if(!checkCollision(0,50,0,tz+4))
+		if(!checkCollision(0,50,0,tz+2))
 			tz++;
 		break;
 	case 'a':
-		if(!checkCollision(50,0,tx+3,0))
+		if(!checkCollision(50,0,tx+2,0))
 		tx++;
 		break;
 	case 's':
-		if(!checkCollision(0,-50,0,tz))
+		if(!checkCollision(0,-50,0,tz-2))
 		tz--;
 		break;
 	case 'd':
