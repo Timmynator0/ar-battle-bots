@@ -88,6 +88,7 @@ void createTriangle(float x, float y, float z)
 			glVertex3f(-x,0,z); 
 			glVertex3f(-x,0,-z); 
 		glEnd();
+		glColor4f(1,1,1,1);
 }
 /* This method creates a cube at X,Y,Z, with width,height,depth and with center at x, y+height,z+depth,
  * param u,v are meant for starting position @ the texture, uvsize is the size of x in the texture
@@ -128,6 +129,7 @@ void createPyramid(float width, float height, float depth,float u, float v, floa
 	glTexCoord2f(u,v);							glVertex3f(-width,0,-depth);	//leftfront
 	glTexCoord2f(uvsize*2+u,v);					glVertex3f(width,0,-depth);		//rightfront
 	glTexCoord2f(uvsize*2+u,uvsize*2+v);		glVertex3f(width,0,depth);		//rightback
+	glTexCoord2f(u,uvsize*2+v);					glVertex3f(-width,0,depth);		//leftback
 	glEnd();
 }
 void createCircle(float radiusx, float radiusy, int segments,int part,bool texture, GLfloat u, GLfloat v, GLfloat uvsize)

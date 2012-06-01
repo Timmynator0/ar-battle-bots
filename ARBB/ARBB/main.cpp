@@ -10,6 +10,7 @@
 
 #include "loadTGA.h"
 #include "robotCreateScreen.h"
+#include "ObjModel.h"
 
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
@@ -22,6 +23,7 @@ GLBatch	triangleBatch;
 GLShaderManager	shaderManager;
 GLuint              textureID;
 GLGeometryTransform	transformPipeline;
+vector<ObjModel*> models;
 
 int screenwidth= 1024, screenheight = 700;
 int tex = 0;
@@ -45,7 +47,29 @@ void MouseButton(int button, int state, int x, int y)
 {
 	std::cout << "button : "<<button<< "state : "<<state<< std::endl;
 }
-
+void laadModellen()
+{
+	models.push_back(new ObjModel("models/previews/triangle.obj"));
+	models.push_back(new ObjModel("models/previews/cube.obj"));
+	models.push_back(new ObjModel("models/previews/cylinder.obj"));
+	models.push_back(new ObjModel("models/previews/penta.obj"));
+	models.push_back(new ObjModel("models/previews/aluTriangle.obj"));
+	models.push_back(new ObjModel("models/previews/carbonTriangle.obj"));
+	models.push_back(new ObjModel("models/previews/steelTriangle.obj"));
+	models.push_back(new ObjModel("models/previews/woodTriangle.obj"));
+	models.push_back(new ObjModel("models/previews/aluCube.obj"));
+	models.push_back(new ObjModel("models/previews/carbonCube.obj"));
+	models.push_back(new ObjModel("models/previews/steelCube.obj"));
+	models.push_back(new ObjModel("models/previews/woodCube.obj"));
+	models.push_back(new ObjModel("models/previews/aluCylinder.obj"));
+	models.push_back(new ObjModel("models/previews/carbonCylinder.obj"));
+	models.push_back(new ObjModel("models/previews/steelCylinder.obj"));
+	models.push_back(new ObjModel("models/previews/woodCylinder.obj"));
+	models.push_back(new ObjModel("models/previews/aluPenta.obj"));
+	models.push_back(new ObjModel("models/previews/carbonPenta.obj"));
+	models.push_back(new ObjModel("models/previews/steelPenta.obj"));
+	models.push_back(new ObjModel("models/previews/woodPenta.obj"));
+}
 void Keyboard(unsigned char key, int x, int y)
 {
 	std::cout << "key : "<<key<< std::endl;
@@ -164,20 +188,26 @@ int main(int argc, char* argv[])
 	glutSpecialFunc(SpecialKeys);
 
 	GLenum err = glewInit();
-	if (GLEW_OK != err) {
+	if (GLEW_OK != err) 
+	{
 		fprintf(stderr, "GLEW Error: %s\n", glewGetErrorString(err));
 		return 1;
-		}
+	}	
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
-	glEnable (GL_BLEND); 
+	glColorMaterial(GL_FRONT_AND_BACK,GL_EMISSION);
+	glEnable(GL_COLOR_MATERIAL);
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	
 	
 
 	gamestage = 2;
-    initCreators();
+	laadModellen();
+    initCreators(models);
 	glutMainLoop();
 	return 0;
 	}
