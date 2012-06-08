@@ -37,6 +37,8 @@ float				ItemRotation = 0;
 float tx = 0.30;
 float ty = 1.30;
 float tz = 0;
+bool L = false;
+
 void updateItems(int stage, int place){
 	srand ( time(NULL) );
 	glPushMatrix();
@@ -636,12 +638,17 @@ void createRCSBackground(){
 	
 #ifndef TEXTURES
 #define TEXTURES
+
+	if(!L)
+	{
 	// het laden van de texture voor de achtergrond
 	glGenTextures(TEXTURE_COUNT, textures);
 	for(int i= 0; i < TEXTURE_COUNT; i++)
 	{
 		glBindTexture(GL_TEXTURE_2D, textures[i]);
 		LoadTGATexture(TextureFiles[i], GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE);
+	}
+	L = true;
 	}
 #endif
 

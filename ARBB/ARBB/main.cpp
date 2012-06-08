@@ -6,7 +6,7 @@
 #include <GLGeometryTransform.h>
 #include <GLMatrixStack.h>
 #include <stdio.h>
-
+#include "Arena.h"
 
 #include "loadTGA.h"
 #include "robotCreateScreen.h"
@@ -18,7 +18,6 @@
 #define FREEGLUT
 #include <GL/freeglut.h>            // Windows FreeGlut equivalent
 #endif
-
 GLBatch	triangleBatch;
 GLShaderManager	shaderManager;
 GLuint              textureID;
@@ -39,8 +38,16 @@ void ChangeSize(int w, int h)
 		glViewport(0, 0, w, h);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluPerspective(90, 1, 0.1, 100);
-		gluLookAt(0,0,-2, 0,0,0, 0,1,0);
+		gluPerspective(90, 1, 0.1, 150);
+		switch(gamestage)
+		{
+		case 2:	
+			gluLookAt(0,0,-2, 0,0,0, 0,1,0);
+			break;
+		case 3:
+			gluLookAt(0,65,-60,0,0,0,0,1,0);
+			break;
+		}
 		glMatrixMode(GL_MODELVIEW);
 	
     }
@@ -106,6 +113,7 @@ void Keyboard(unsigned char key, int x, int y)
 		acceptItem = false;
 		break;
 	case 3:		//het gevecht
+		KeyboardArena(key, x, y);
 		break;
 	case 4:		//uitslag
 		break;
@@ -127,7 +135,7 @@ void RenderScene(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f );
-	shaderManager.InitializeStockShaders();
+	//
 
 
 	glLoadIdentity();
@@ -146,7 +154,7 @@ void RenderScene(void)
 		createRCSBackground();
 		break;
 	case 3:		//het gevecht
-
+		ArenaDisplay();
 		break;
 	case 4:		//uitslag
 		break;
@@ -169,6 +177,7 @@ void IdleFunc(void)
 		updateCreators(selectedCreator, selectedCreatorItem,acceptItem);
 		break;
 	case 3:		//het gevecht
+		IdleFuncArena();
 		break;
 	case 4:		//uitslag
 		break;
@@ -211,10 +220,10 @@ int main(int argc, char* argv[])
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	
-	
+	shaderManager.InitializeStockShaders();
 
-	gamestage = 2;
-	laadModellen();
+	gamestage = 3;
+	//laadModellen();
     initCreators(models);
 	glutMainLoop();
 	return 0;
