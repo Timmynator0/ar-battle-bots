@@ -7,6 +7,7 @@
 #include <string>
 
 #define OBJECT_COUNT 1
+#define STATIC_OBJECT_COUNT 4
 #define TEXTURE_COUNT 5
 
 struct Vector3d
@@ -18,9 +19,11 @@ bool isTextureLoaded = false;
 float y = 0.0f;
 bool count = false;
 double width,height;
+
 double tx =0;	// used for the translation of the test cube
 double ty =2;
 double tz = 0; 
+Vector3d staticObject[STATIC_OBJECT_COUNT];
 Vector3d moveableObject[OBJECT_COUNT];
 GLuint textures[TEXTURE_COUNT];
 const char *TextureFiles[TEXTURE_COUNT] =
