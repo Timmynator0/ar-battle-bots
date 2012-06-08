@@ -2,10 +2,8 @@
 #include "Crate.h"
 #include "Ramp.h"
 #include "Arena.h"
-#include "BramsPrimitives.h"
-#include "HUD.h"
 #include <string>
-
+#include "BramsPrimitives.h"
 #define OBJECT_COUNT 1
 #define STATIC_OBJECT_COUNT 4
 #define TEXTURE_COUNT 5
@@ -25,6 +23,8 @@ double ty =2;
 double tz = 0; 
 Vector3d staticObject[STATIC_OBJECT_COUNT];
 Vector3d moveableObject[OBJECT_COUNT];
+double cratex = 20;
+double cratez = 20;
 GLuint textures[TEXTURE_COUNT];
 const char *TextureFiles[TEXTURE_COUNT] =
 {"arena_floor.tga", "arena-muur.tga",
@@ -86,7 +86,7 @@ bool checkCollision(float x1, float y1, /*float z1,*/ float x2, float y2/*, floa
 	return false;
 }
 
-void Display(void)
+void ArenaDisplay(void)
 {
 	glClearColor(0, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -109,7 +109,7 @@ void Display(void)
 	
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, textures[0]);
-	createHUD(tx,tz);
+	//createHUD(tx,tz);
 	glBegin(GL_QUADS);
 		//begin kubus
 		//onderkant5
@@ -148,7 +148,7 @@ void Display(void)
 	Ramp();
 	//crate
 	glBindTexture(GL_TEXTURE_2D,textures[2]);
-	Crate(20,5,20);
+	Crate(20,5,20,tx,tz);
 	//chainsaws
 	glBindTexture(GL_TEXTURE_2D,textures[4]);
 	Chainsaw(-23.25,y,0);
@@ -193,7 +193,7 @@ void MouseMotion(int x, int y)
 {
 }
 
-void IdleFunc(void)
+void IdleFuncArena(void)
 {
 	if(y>=0)
 	{
@@ -212,10 +212,9 @@ void IdleFunc(void)
 		y+=0.01;
 		//printf("%02d", y);
 	}
-	glutPostRedisplay();
 }
 
-void Keyboard(unsigned char key, int x, int y)
+void KeyboardArena(unsigned char key, int x, int y)
 {
 	printf("%c\n",key);
 	switch (key)
@@ -239,36 +238,36 @@ void Keyboard(unsigned char key, int x, int y)
 		if(!checkCollision(-50,0,tx-2,0))
 		tx--;
 		break;
-	case 'e':
-		ty++;
-		break;
-	case 'q':
-		ty--;
-		break;
+	//case 'e':
+	//	ty++;
+	//	break;
+	//case 'q':
+	//	ty--;
+	//	break;
 
 	}
 	printf("x:%d,z:%d\n",tx,tz);
 }
 
-int main(int argc, char* argv[])
-{
-	glutInit (&argc, argv);
-	glutInitWindowSize (1024, 768);
-	glutInitDisplayMode ( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	glutCreateWindow ("GLUT example");
-	// Initialize OpenGL graphics state
-	InitGraphics();
-	// Register callbacks:
-	glutDisplayFunc (Display);
-	glutReshapeFunc (Reshape);
-	glutKeyboardFunc (Keyboard);
-	glutMouseFunc (MouseButton);
-	glutMotionFunc (MouseMotion);
-	glutIdleFunc (IdleFunc);
-	// Turn the flow of control over to GLUT
-		glEnable(GL_DEPTH_TEST);
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_BLEND);
-	glutMainLoop ();
-	return 0;
-}
+//int main(int argc, char* argv[])
+//{
+//	glutInit (&argc, argv);
+//	glutInitWindowSize (1024, 768);
+//	glutInitDisplayMode ( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+//	glutCreateWindow ("GLUT example");
+//	// Initialize OpenGL graphics state
+//	InitGraphics();
+//	// Register callbacks:
+//	glutDisplayFunc (Display);
+//	glutReshapeFunc (Reshape);
+//	glutKeyboardFunc (Keyboard);
+//	glutMouseFunc (MouseButton);
+//	glutMotionFunc (MouseMotion);
+//	glutIdleFunc (IdleFunc);
+//	// Turn the flow of control over to GLUT
+//		glEnable(GL_DEPTH_TEST);
+//	glEnable(GL_TEXTURE_2D);
+//	glEnable(GL_BLEND);
+//	glutMainLoop ();
+//	return 0;
+//}
