@@ -18,9 +18,9 @@ float y = 0.0f;
 bool count = false;
 double width,height;
 
-double txx =0;	// used for the translation of the test cube
-double tyy =2;
-double tzz = 0; 
+double tx =0;	// used for the translation of the test cube
+double ty =2;
+double tz = 0; 
 Vector3d staticObject[STATIC_OBJECT_COUNT];
 Vector3d moveableObject[OBJECT_COUNT];
 double cratex = 20;
@@ -88,10 +88,10 @@ bool checkCollision(float x1, float y1, /*float z1,*/ float x2, float y2/*, floa
 
 void ArenaDisplay(void)
 {
-	//glClearColor(0, 0, 0, 0);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
+	/*glClearColor(0, 0, 0, 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();*/
 
 	//gluLookAt(0,65,-60,0,0,0,0,1,0);
 	if(!isTextureLoaded)
@@ -107,7 +107,7 @@ void ArenaDisplay(void)
 		}
 	}
 	
-	//glEnable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texturesArena[0]);
 	//createHUD(tx,tz);
 	glBegin(GL_QUADS);
@@ -148,8 +148,7 @@ void ArenaDisplay(void)
 	Ramp();
 	//crate
 	glBindTexture(GL_TEXTURE_2D,texturesArena[2]);
-	//glTranslatef(txx,tyy,tzz);
-	Crate(20,5,20,txx,tzz);
+	Crate(20,5,20,tx,tz);
 	//chainsaws
 	glBindTexture(GL_TEXTURE_2D,texturesArena[4]);
 	Chainsaw(-23.25,y,0);
@@ -160,26 +159,24 @@ void ArenaDisplay(void)
 
 	//test cube for collision detection
 	glPushMatrix();
-	glBindTexture(GL_TEXTURE_2D,texturesArena[3]);
-	glTranslatef(txx,tyy,tzz);
-	glColor3f(1.0f,0.0f,0.0f);
+	glTranslatef(tx,ty,tz);
+
 	createCube(2,2,2,0,0,0);
 	glPopMatrix();
 
-	
-	
+	//glutSwapBuffers();
 }
 
-//void ReshapeArena(GLint w, GLint h)
-//{
-//	width = w;
-//	height = h;
-//	glViewport(0,0, width, height);
-//	glMatrixMode(GL_PROJECTION);
-//	glLoadIdentity();
-//	gluPerspective(90, 1, 0.01, 1000);
-//	glMatrixMode(GL_MODELVIEW);
-//}
+void Reshape(GLint w, GLint h)
+{
+	width = w;
+	height = h;
+	glViewport(0,0, width, height);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(90, 1, 0.01, 1000);
+	glMatrixMode(GL_MODELVIEW);
+}
 
 
 
@@ -187,7 +184,7 @@ void ArenaDisplay(void)
 //{
 //
 //}
-
+//
 //void MouseButton(int button, int state, int x, int y)
 //{
 //}
@@ -226,20 +223,20 @@ void KeyboardArena(unsigned char key, int x, int y)
 		exit (0);
 		break;
 	case 'w':
-		if(!checkCollision(0,50,0,tzz+2))
-			tzz++;
+		if(!checkCollision(0,50,0,tz+2))
+			tz++;
 		break;
 	case 'a':
-		if(!checkCollision(50,0,txx+2,0))
-			txx++;
+		if(!checkCollision(50,0,tx+2,0))
+		tx++;
 		break;
 	case 's':
-		if(!checkCollision(0,-50,0,tzz-2))
-			tzz--;
+		if(!checkCollision(0,-50,0,tz-2))
+		tz--;
 		break;
 	case 'd':
-		if(!checkCollision(-50,0,txx-2,0))
-			txx--;
+		if(!checkCollision(-50,0,tx-2,0))
+		tx--;
 		break;
 	//case 'e':
 	//	ty++;
@@ -249,7 +246,7 @@ void KeyboardArena(unsigned char key, int x, int y)
 	//	break;
 
 	}
-	printf("x:%d,z:%d\n",txx,tzz);
+	printf("x:%d,z:%d\n",tx,tz);
 }
 
 //int main(int argc, char* argv[])

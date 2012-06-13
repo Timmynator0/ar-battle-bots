@@ -6,7 +6,7 @@
 #include <GLGeometryTransform.h>
 #include <GLMatrixStack.h>
 #include <stdio.h>
-#include "Arena.h"
+#include "arena.h"
 
 #include "loadTGA.h"
 #include "robotCreateScreen.h"
@@ -220,7 +220,6 @@ int main(int argc, char* argv[])
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	
-	shaderManager.InitializeStockShaders();
 	shaderManager.InitializeStockShaders();
 	gamestage = 3;
 	//laadModellen();
