@@ -38,16 +38,36 @@ float tx = 0.30;
 float ty = 1.30;
 float tz = 0;
 bool L = false;
-
 void updateItems(int stage, int place){
+	
 	srand ( time(NULL) );
 	glPushMatrix();
 	glTranslated(-1.6,-0.15,-0.2);
 	glPushMatrix();
 	glTranslated(0.9*place,0,0);
 	float size = 0.11;
-	
-			
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////
+	//glDisable(GL_TEXTURE);
+
+	glPushMatrix();
+//glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR);		
+	//glRasterPos2i(0, 0);
+//glClear(GL_COLOR_BUFFER_BIT);		
+
+glRasterPos3f(tx,ty,tz);
+			glColor4f(1.0f, 0.0f, 0.0f,0.0f);
+		
+			//printf("meh ,%f ,%f ,%f",tx ,ty,tz);
+			glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "text to render");
+			glColor4f(1.0f, 0.0f, 0.0f,0.0f);
+			//tz += 0.3;
+			//glRasterPos3f(0.0,0.0,tz);
+			//glClear(GL_COLOR_BUFFER_BIT);	
+			glPopMatrix();
+			glColor3f(0.5f,0.5f,0.5f);
+		//glEnable(GL_TEXTURE);	
+	//////////////////////////////////////////////////////////////////////////////////////////////////		
 	switch(stage){
 	case 0:					//----------------Vorm Selectie --------------------
 		glColor4f(0.5,0.5,0.5,1);
@@ -103,6 +123,7 @@ void updateItems(int stage, int place){
 		glPopMatrix();
 		break;
 	case 2:						//----------------Wielen Selectie --------------------	
+	
 		glBindTexture(GL_TEXTURE_2D, textures[1]);
 		glPushMatrix();
 		glTranslated(0,0.15,0);
@@ -388,6 +409,7 @@ void updateItems(int stage, int place){
 		glPopMatrix();
 		break;
 	case 5:						//----------------Wapen 3 Selectie --------------------	
+
 		glBindTexture(GL_TEXTURE_2D, textures[1]);
 		glPushMatrix();
 		glTranslated(0,0.15,0);
@@ -638,7 +660,6 @@ void createRCSBackground(){
 	
 #ifndef TEXTURES
 #define TEXTURES
-
 	if(!L)
 	{
 	// het laden van de texture voor de achtergrond

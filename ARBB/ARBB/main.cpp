@@ -130,12 +130,12 @@ void SpecialKeys(int key, int x, int y)
 void RenderScene(void)
 	{
 	float x = 2,y= 1,z=1;
-    static GLfloat vLightPos [] = { 1.0f, 1.0f, 0.0f };
+   // static GLfloat vLightPos [] = { 1.0f, 1.0f, 0.0f };
     static GLfloat vWhite [] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f );
-	//
+//	
 
 
 	glLoadIdentity();
@@ -211,8 +211,8 @@ int main(int argc, char* argv[])
 		return 1;
 	}	
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
+	//glEnable(GL_LIGHTING);
+	//glEnable(GL_LIGHT0);
 	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
 	glColorMaterial(GL_FRONT_AND_BACK,GL_EMISSION);
@@ -221,7 +221,7 @@ int main(int argc, char* argv[])
 	
 	
 	shaderManager.InitializeStockShaders();
-
+	shaderManager.InitializeStockShaders();
 	gamestage = 3;
 	//laadModellen();
     initCreators(models);
