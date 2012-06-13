@@ -6,7 +6,7 @@
 #include "BramsPrimitives.h"
 #define OBJECT_COUNT 1
 #define STATIC_OBJECT_COUNT 4
-#define TEXTURE_COUNT_ARENA 5
+#define TEXTURE_COUNT_ARENA 6
 
 struct Vector3d
 {
@@ -28,49 +28,25 @@ double cratez = 20;
 GLuint texturesArena[TEXTURE_COUNT_ARENA];
 const char *TextureFilesArena[TEXTURE_COUNT_ARENA] =
 {"arena_floor.tga", "arena-muur.tga",
-"crate.tga","stainless-steel.tga", "chainwheel.tga"};
+"crate.tga","stainless-steel.tga", "chainwheel.tga", "HUD.tga"};
 
-
-void setOrthographicProjection() 
+void DisplayHUD(void)
 {
-
-	// switch to projection mode
-	glMatrixMode(GL_PROJECTION);
-	// save previous matrix which contains the 
-	//settings for the perspective projection
 	glPushMatrix();
-	// reset matrix
-	glLoadIdentity();
-	// set a 2D orthographic projection
-	gluOrtho2D(-width, width, -height, height);
-	// invert the y axis, down is positive
-	glScalef(1, -1, 1);
-	// mover the origin from the bottom left corner
-	// to the upper left corner
-	glTranslatef(0, -height, 0);
-	glMatrixMode(GL_MODELVIEW);
-}
+	//player1
+	//glColor4f(1.0f,1.0f,0.0f,0.5f);
+	glBindTexture(GL_TEXTURE_2D, texturesArena[5]);
+	createCube(width,50,0,
 
-void resetPerspectiveProjection() 
-{
-	// set the current matrix to GL_PROJECTION
-	glMatrixMode(GL_PROJECTION);
-	// restore previous settings
+
+
+	glColor4f(1.0f, 0.0f, 0.0f,1.0f);
+	glRasterPos3f(45,2,-53);
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Player1");
+	glRasterPos3f(44,2,-55);
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "hp: 100");
+	glColor4f(1,1,1,1);
 	glPopMatrix();
-	// get back to GL_MODELVIEW matrix
-	glMatrixMode(GL_MODELVIEW);
-}
-
-void renderBitmapString(float x, float y, void *font,char *string)
-{
-  
-  char *c;
-  // set position to start drawing fonts
-  glRasterPos2f(x, y);
-  // loop all the characters in the string
-  for (c=string; *c != '\0'; c++) {
-    glutBitmapCharacter(font, *c);
-  }
 }
 
 /*
@@ -88,12 +64,6 @@ bool checkCollision(float x1, float y1, /*float z1,*/ float x2, float y2/*, floa
 
 void ArenaDisplay(void)
 {
-	/*glClearColor(0, 0, 0, 0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();*/
-
-	//gluLookAt(0,65,-60,0,0,0,0,1,0);
 	if(!isTextureLoaded)
 	{
 		isTextureLoaded = true;
@@ -149,22 +119,22 @@ void ArenaDisplay(void)
 	//crate
 	glBindTexture(GL_TEXTURE_2D,texturesArena[2]);
 	Crate(20,5,20,tx,tz);
+
 	//chainsaws
 	glBindTexture(GL_TEXTURE_2D,texturesArena[4]);
 	Chainsaw(-23.25,y,0);
 	Chainsaw(-27.25,y,0);
 	Chainsaw(23.25,y,0);
 	Chainsaw(27.25,y,0);
-
+	DisplayHUD();
 
 	//test cube for collision detection
 	glPushMatrix();
 	glTranslatef(tx,ty,tz);
-
 	createCube(2,2,2,0,0,0);
 	glPopMatrix();
 
-	//glutSwapBuffers();
+
 }
 
 void Reshape(GLint w, GLint h)
@@ -177,21 +147,6 @@ void Reshape(GLint w, GLint h)
 	gluPerspective(90, 1, 0.01, 1000);
 	glMatrixMode(GL_MODELVIEW);
 }
-
-
-
-//void InitGraphics(void)
-//{
-//
-//}
-//
-//void MouseButton(int button, int state, int x, int y)
-//{
-//}
-//
-//void MouseMotion(int x, int y)
-//{
-//}
 
 void IdleFuncArena(void)
 {
@@ -238,36 +193,6 @@ void KeyboardArena(unsigned char key, int x, int y)
 		if(!checkCollision(-50,0,tx-2,0))
 		tx--;
 		break;
-	//case 'e':
-	//	ty++;
-	//	break;
-	//case 'q':
-	//	ty--;
-	//	break;
-
 	}
 	printf("x:%d,z:%d\n",tx,tz);
 }
-
-//int main(int argc, char* argv[])
-//{
-//	glutInit (&argc, argv);
-//	glutInitWindowSize (1024, 768);
-//	glutInitDisplayMode ( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-//	glutCreateWindow ("GLUT example");
-//	// Initialize OpenGL graphics state
-//	InitGraphics();
-//	// Register callbacks:
-//	glutDisplayFunc (Display);
-//	glutReshapeFunc (Reshape);
-//	glutKeyboardFunc (Keyboard);
-//	glutMouseFunc (MouseButton);
-//	glutMotionFunc (MouseMotion);
-//	glutIdleFunc (IdleFunc);
-//	// Turn the flow of control over to GLUT
-//		glEnable(GL_DEPTH_TEST);
-//	glEnable(GL_TEXTURE_2D);
-//	glEnable(GL_BLEND);
-//	glutMainLoop ();
-//	return 0;
-//}
