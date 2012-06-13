@@ -45,7 +45,7 @@ void ChangeSize(int w, int h)
 			gluLookAt(0,0,-2, 0,0,0, 0,1,0);
 			break;
 		case 3:
-			gluLookAt(0,65,-60,0,0,0,0,1,0);
+			gluLookAt(0,75,-60,0,0,0,0,1,0);
 			break;
 		}
 		glMatrixMode(GL_MODELVIEW);
