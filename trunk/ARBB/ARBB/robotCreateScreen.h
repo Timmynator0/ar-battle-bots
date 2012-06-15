@@ -17,3 +17,4 @@ typedef struct
 void createRCSBackground();
 void initCreators(vector<ObjModel*> modellen);
 void updateCreators(int selectedcreator, int selecteditem, bool accept);
+void intToString(int place);

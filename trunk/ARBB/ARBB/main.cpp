@@ -226,11 +226,11 @@ int main(int argc, char* argv[])
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	glEnable(GL_BLEND);
+//	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
-	glColorMaterial(GL_FRONT_AND_BACK,GL_EMISSION);
-	glEnable(GL_COLOR_MATERIAL);
-	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glColorMaterial(GL_FRONT_AND_BACK,GL_EMISSION);
+	//glEnable(GL_COLOR_MATERIAL);
+	//glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	
 	shaderManager.InitializeStockShaders();
