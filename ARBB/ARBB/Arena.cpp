@@ -78,7 +78,7 @@ void DisplayHUD(void)
 	glScalef(0.1,0.1,0.1);
 	glTranslatef(0, -10, 0);
 	glBegin(GL_QUADS);
-	glColor4f(1.0f,1.0f,0.0f,0.5f);
+	//glColor4f(1.0f,1.0f,0.0f,0.5f);
 	
 	glTexCoord2f(0,0);	glVertex2f(-10,0);
 	glTexCoord2f(1,0);	glVertex2f(10,0);
