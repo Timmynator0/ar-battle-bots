@@ -36,7 +36,7 @@ void DisplayHUD(void)
 	//player1
 	//glColor4f(1.0f,1.0f,0.0f,0.5f);
 	glBindTexture(GL_TEXTURE_2D, texturesArena[5]);
-	createCube(width,50,0,
+	//createCube(width,50,0,
 
 
 

@@ -52,13 +52,13 @@ void updateItems(int stage, int place){
 
 	////////////////////~~ text draw code on ALL screens ~~ ////////////////////////////////////////
 
-	char* p = new char[strlen(damage.c_str() + 1)];
-	strcpy(p, damage.c_str());
-	glPushMatrix();
-	glColor4f(0.0f, 1.0f, 0.0f,1.0f);
-	glRasterPos3f(tx,ty,tz);
-	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) p );
-	glPopMatrix();
+	//char* p = new char[strlen(damage.c_str() + 1)];
+	//strcpy(p, damage.c_str());
+	//glPushMatrix();
+	//glColor4f(0.0f, 1.0f, 0.0f,1.0f);
+	//glRasterPos3f(tx,ty,tz);
+	//glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) p );
+	//glPopMatrix();
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////		
 	switch(stage){
