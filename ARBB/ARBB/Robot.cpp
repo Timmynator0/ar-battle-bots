@@ -47,8 +47,15 @@ Robot::Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6],vector< 
 	ani1 = true;
 	RobotModels = modellen;
 }
-void Robot::Draw(float x, float y, float z, float rotationY, bool animation1, bool animation2, bool animation3)
+void Robot::Draw(float X, float Y, float Z, float RotationY, bool animation1, bool animation2, bool animation3)
 {
+	x = X;
+	y = Y;
+	z = Z;
+	rotationY = RotationY;
+	anime1 = animation1;
+	anime2 = animation2;
+	anime3 = animation3;
 	glPushMatrix();
 	glTranslated(x,y,z);
 	glPushMatrix();
@@ -96,7 +103,7 @@ void Robot::Draw(float x, float y, float z, float rotationY, bool animation1, bo
 		RobotModels[20]->draw(); // houvast wapens1
 		glPushMatrix();
 		glTranslated(-0.7,0.5,0);
-		if(animation1)
+		if(anime1)
 		{
 			glPushMatrix();
 			glTranslated(0.5,0.1,0);
@@ -118,7 +125,7 @@ void Robot::Draw(float x, float y, float z, float rotationY, bool animation1, bo
 			case 3: RobotModels[24]->draw(); RobotModels[25]->draw(); break;
 			case 4: RobotModels[21]->draw(); break;
 		}
-		if(animation1)
+		if(anime1)
 		{
 			glPopMatrix();
 			glTranslated(-0.5,-0.1,0);
@@ -140,7 +147,7 @@ void Robot::Draw(float x, float y, float z, float rotationY, bool animation1, bo
 			case 3: RobotModels[27]->draw(); glPushMatrix(); glScaled(1,1,-1); RobotModels[27]->draw(); glPopMatrix(); break;
 			case 4: RobotModels[26]->draw(); break;
 			}
-			if(animation3)
+			if(anime3)
 			{
 				w3ani += 5;
 				glPushMatrix();
@@ -156,7 +163,7 @@ void Robot::Draw(float x, float y, float z, float rotationY, bool animation1, bo
 			}
 			//if(animation2) glPopMatrix();
 		}
-		if(animation3) glPopMatrix();
+		if(anime3) glPopMatrix();
 	}
 	glPopMatrix();
 	glPopMatrix();

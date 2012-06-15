@@ -206,10 +206,10 @@ void ArenaDisplay(void)
 	createCube(2,2,2,0.625,0.625,0.125);
 	glPopMatrix();
 
-	robots[0]->Draw(25,0,-25,0,true,false,false);
-	robots[1]->Draw(-25,0,-25,45,true,true,false);
-	robots[2]->Draw(-25,0,25,180,true,false,true);
-	robots[3]->Draw(25,0,25,270,true,false,true);
+	robots[0]->Draw(25,0,-25,0,false,false,false);
+	robots[1]->Draw(-25,0,-25,0,false,false,false);
+	robots[2]->Draw(-25,0,25,0,false,false,false);
+	robots[3]->Draw(25,0,25,0,false,false,false);
 }
 
 void Reshape(GLint w, GLint h)
@@ -272,4 +272,23 @@ void KeyboardArena(unsigned char key, int x, int y)
 		break;
 	}
 	printf("x:%d,z:%d\n",tx,tz);
+}
+void playerInput( char c, int speler)
+{
+	// d drive, l left, r right, 1 hakwapen (wapen1), 2 pinwapen (wapen2), 3 rotatewapen(wapen3)
+	switch(c)
+	{
+	case'd' : robots[speler]->Draw(robots[speler]->x+1,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3);
+		break;
+	case'l' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY+15,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3);
+		break;
+	case'r' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY-15,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3);
+		break;
+	case'1' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,true,robots[speler]->anime2,robots[speler]->anime3);
+		break;
+	case'2' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,robots[speler]->anime1,true,robots[speler]->anime3);
+		break;
+	case'3' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,true);
+		break;
+	}
 }
