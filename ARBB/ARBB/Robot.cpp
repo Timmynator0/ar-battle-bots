@@ -32,6 +32,7 @@ Robot::Robot()
 	w1ani = 0;
 	w2ani = 0;
 	w3ani = 0;
+	ani1 = true;
 }
 Robot::Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6],vector< ObjModel*> modellen)
 {
@@ -43,12 +44,15 @@ Robot::Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6],vector< 
 	w1ani = 0;
 	w2ani = 0;
 	w3ani = 0;
+	ani1 = true;
 	RobotModels = modellen;
 }
 void Robot::Draw(float x, float y, float z, float rotationY, bool animation1, bool animation2, bool animation3)
-{	
+{
 	glPushMatrix();
 	glTranslated(x,y,z);
+	glPushMatrix();
+	glRotated(rotationY,0,1,0);
 	glPushMatrix();
 	glScaled(6,6,6);	
 	glBindTexture(GL_TEXTURE_2D, robotTextures[1]);
@@ -91,14 +95,44 @@ void Robot::Draw(float x, float y, float z, float rotationY, bool animation1, bo
 	if(items[3] != 0){
 		RobotModels[20]->draw(); // houvast wapens1
 		glPushMatrix();
-		glTranslated(-0.5,0.5,0);
+		glTranslated(-0.7,0.5,0);
+		if(animation1)
+		{
+			glPushMatrix();
+			glTranslated(0.5,0.1,0);
+			if(ani1){
+				w1ani +=5;
+				if(w1ani > 50) ani1 = false;
+			}
+			else {
+				w1ani -=5;
+				if(w1ani <-15) ani1 = true;
+			}
+			glPushMatrix();
+			glRotated(w1ani,0,0,1);
+		}
+		else{ w1ani = 0;}
 		switch(items[3]){
 			case 1: RobotModels[23]->draw(); break;
 			case 2: RobotModels[22]->draw(); break;
 			case 3: RobotModels[24]->draw(); RobotModels[25]->draw(); break;
 			case 4: RobotModels[21]->draw(); break;
 		}
+		if(animation1)
+		{
+			glPopMatrix();
+			glTranslated(-0.5,-0.1,0);
+			glPopMatrix();
+		}
 		glPopMatrix();
+		/*if(animation2)
+		{
+			if(w1ani <=0) w1ani +=10;
+			else if(w1ani >=100) w1ani -=10;
+			glPushMatrix();
+			glRotated(w1ani,0,0,1);
+		}
+		else w1ani = 0;*/
 		if(items[4] != 0){
 			switch(items[4]){
 			case 1: RobotModels[29]->draw(); glPushMatrix(); glScaled(1,1,-1); RobotModels[29]->draw(); glPopMatrix(); break;
@@ -106,6 +140,13 @@ void Robot::Draw(float x, float y, float z, float rotationY, bool animation1, bo
 			case 3: RobotModels[27]->draw(); glPushMatrix(); glScaled(1,1,-1); RobotModels[27]->draw(); glPopMatrix(); break;
 			case 4: RobotModels[26]->draw(); break;
 			}
+			if(animation3)
+			{
+				w3ani += 5;
+				glPushMatrix();
+				glRotated(w3ani,0,1,0);
+			}
+			else w3ani = 0;
 			if(items[5] != 0){
 				switch(items[5]){
 				case 2: RobotModels[32]->draw(); break;
@@ -113,8 +154,11 @@ void Robot::Draw(float x, float y, float z, float rotationY, bool animation1, bo
 				case 4: RobotModels[30]->draw(); break;
 				}
 			}
+			//if(animation2) glPopMatrix();
 		}
+		if(animation3) glPopMatrix();
 	}
+	glPopMatrix();
 	glPopMatrix();
 	glPopMatrix();
 }

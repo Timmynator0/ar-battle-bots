@@ -198,7 +198,10 @@ void ArenaDisplay(void)
 	createCube(2,2,2,0.625,0.625,0.125);
 	glPopMatrix();
 
-	robots[1]->Draw(25,0,0,0,false,false,false);
+	robots[0]->Draw(25,0,-25,0,true,false,false);
+	robots[1]->Draw(-25,0,-25,45,true,true,false);
+	robots[2]->Draw(-25,0,25,180,true,false,true);
+	robots[3]->Draw(25,0,25,270,true,false,true);
 }
 
 void Reshape(GLint w, GLint h)
