@@ -163,9 +163,11 @@ void RenderScene(void)
 	case 1:		//spelers queue
 		break;
 	case 2:		//robot creeeren
-		
-		createRCSBackground();
-		break;
+		if(createRCSBackground()){
+			gamestage++;
+			ChangeSize(screenwidth,screenheight);
+		}
+		else break;
 	case 3:		//het gevecht
 		ArenaDisplay();
 		break;
@@ -195,11 +197,7 @@ void IdleFunc(void)
 	case 4:		//uitslag
 		break;
 	}
-	//if(rotate){
-		rotation += 1;
-
-		glutPostRedisplay();
-	//}
+	glutPostRedisplay();
 }
 
 int main(int argc, char* argv[])

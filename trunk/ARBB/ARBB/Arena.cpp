@@ -67,6 +67,10 @@ void DisplayHUD(void)
 	//glColor4f(1.0f,1.0f,0.0f,0.5f);
 	setOrthographicProjection();
 	glBindTexture(GL_TEXTURE_2D, texturesArena[5]);
+	//createCube(width,50,0,
+
+
+
 	glColor4f(1.0f, 0.0f, 0.0f,1.0f);
 	glRasterPos2f(10,10);
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Player1");
