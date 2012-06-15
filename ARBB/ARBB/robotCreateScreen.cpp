@@ -6,7 +6,7 @@
 #include <GLMatrixStack.h>
 #include <stdio.h>
 #include <time.h>
-
+#include <sstream>
 #include "loadTGA.h"
 #include "robotCreateScreen.h"
 #include "BramsPrimitives.h"
@@ -26,6 +26,7 @@
 #define FALSE	0
 #endif
 #define TEXTURE_COUNT 2
+
 vector<ObjModel*> RCSmodels;
 
 GLuint textures[TEXTURE_COUNT];
@@ -38,7 +39,9 @@ float tx = 0.30;
 float ty = 1.30;
 float tz = 0;
 bool L = false;
-
+string damage = "damage: ";
+string s;
+string damaget;
 void updateItems(int stage, int place){
 	srand ( time(NULL) );
 	glPushMatrix();
@@ -47,26 +50,16 @@ void updateItems(int stage, int place){
 	glTranslated(0.9*place,0,0);
 	float size = 0.11;
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////
-	//glDisable(GL_TEXTURE);
+	////////////////////~~ text draw code on ALL screens ~~ ////////////////////////////////////////
 
+	char* p = new char[strlen(damage.c_str() + 1)];
+	strcpy(p, damage.c_str());
 	glPushMatrix();
-//glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR);		
-	//glRasterPos2i(0, 0);
-//glClear(GL_COLOR_BUFFER_BIT);		
-
-glRasterPos3f(tx,ty,tz);
-			glColor4f(1.0f, 0.0f, 0.0f,0.0f);
-		
-			//printf("meh ,%f ,%f ,%f",tx ,ty,tz);
-			glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "text to render");
-			glColor4f(1.0f, 0.0f, 0.0f,0.0f);
-			//tz += 0.3;
-			//glRasterPos3f(0.0,0.0,tz);
-			//glClear(GL_COLOR_BUFFER_BIT);	
-			glPopMatrix();
-			glColor3f(0.5f,0.5f,0.5f);
-		//glEnable(GL_TEXTURE);	
+	glColor4f(0.0f, 1.0f, 0.0f,1.0f);
+	glRasterPos3f(tx,ty,tz);
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) p );
+	glPopMatrix();
+	
 	//////////////////////////////////////////////////////////////////////////////////////////////////		
 	switch(stage){
 	case 0:					//----------------Vorm Selectie --------------------
@@ -75,8 +68,23 @@ glRasterPos3f(tx,ty,tz);
 			glPushMatrix();
 			if(creators[place].rotateRB) 
 			{
+				creators[place].damage = 10;
+				
 				glRotated(ItemRotation,0,1,0);
-			}	
+
+				intToString(creators[place].damage);
+				cout << damaget << endl ;
+				damage.append(s);
+				//
+				//std::string s;
+				//std::stringstream out;
+				//out << creators[place].damage;
+				//s = out.str();
+				////cout << s << endl;
+
+
+			}
+	
 		createDiamondCube(size,size, size/5);
 		glPopMatrix();
 		// pentagon
@@ -755,4 +763,16 @@ void updateCreators(int selectedcreator, int selecteditem, bool accept){
 	case 3 :	creators[selectedcreator].rotateLB=false; creators[selectedcreator].rotateLU = false; creators[selectedcreator].rotateRU = false; creators[selectedcreator].rotateRB = true;
 		break;
 	}
+}
+
+void intToString(int place)
+{
+		
+				std::string s;
+				std::stringstream out;
+				out << place;
+				s = out.str();
+				//cout << place << endl;
+				s = damaget;
+				
 }
