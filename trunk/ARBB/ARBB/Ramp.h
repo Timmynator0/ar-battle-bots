@@ -14,3 +14,4 @@
 #include <GL/freeglut.h>            // Windows FreeGlut equivalent
 #endif
 	void Ramp(void);
+	int rampCollision(int px, int py, int pz);
