@@ -5,9 +5,6 @@
 #include <string>
 #include "BramsPrimitives.h"
 
-#include "ObjModel.h"
-#include "Robot.h"
-
 #define OBJECT_COUNT 1
 #define STATIC_OBJECT_COUNT 4
 #define TEXTURE_COUNT_ARENA 6

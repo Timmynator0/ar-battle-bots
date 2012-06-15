@@ -8,11 +8,7 @@
 #include <time.h>
 #include <sstream>
 
-#include "loadTGA.h"
 #include "robotCreateScreen.h"
-#include "BramsPrimitives.h"
-#include "ObjModel.h"
-#include "Robot.h"
 
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
@@ -30,7 +26,7 @@
 #define TEXTURE_COUNT 2
 
 vector<ObjModel*> RCSmodels;
-vector<Robot*> robots;
+vector<Robot*> Robots;
 
 GLuint textures[TEXTURE_COUNT];
 const char *TextureFiles[TEXTURE_COUNT] =
@@ -729,7 +725,7 @@ int createRCSBackground(){
 		einde += creators[i].createstage;
 	}
 	if(einde == 24){ //nu is iedereen klaar, door naar volgende stadium		
-		for(int i =0;i<4;i++) robots.push_back(new Robot(i,creators[i].speed,creators[i].weight,creators[i].damage,creators[i].stageItems));
+		for(int i =0;i<4;i++) Robots.push_back(new Robot(i,creators[i].speed,creators[i].weight,creators[i].damage,creators[i].stageItems));
 		return 1;
 	}
 	else{
@@ -738,7 +734,7 @@ int createRCSBackground(){
 }
 vector<Robot*> getRobots()
 {
-	return robots;
+	return Robots;
 }
 void initCreators(vector< ObjModel*> modellen){
 	RCSmodels = modellen;

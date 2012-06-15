@@ -166,7 +166,7 @@ void RenderScene(void)
 	case 2:		//robot creeeren
 		if(createRCSBackground()){
 			gamestage++;
-			vector<Robot*> robots = getRobots();
+			setRobots(getRobots());
 			ChangeSize(screenwidth,screenheight);
 		}
 		else break;
@@ -234,7 +234,7 @@ int main(int argc, char* argv[])
 	
 	
 	shaderManager.InitializeStockShaders();
-	gamestage = 3;
+	gamestage = 2;
 	laadModellen();
     initCreators(models);
 	glutMainLoop();

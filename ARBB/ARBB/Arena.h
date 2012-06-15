@@ -10,6 +10,9 @@
 #include <GLMatrixStack.h>
 #include <stdio.h>
 
+#include "Robot.h"
+#include "ObjModel.h"
+
 
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
@@ -28,4 +31,5 @@ void MouseButton(int button, int state, int x, int y);
 void MouseMotion(int x, int y);
 void IdleFuncArena(void);
 void KeyboardArena(unsigned char key, int x, int y);
+void setRobots(vector<Robot*> Robots);
 //int main(int argc, char* argv[]);
