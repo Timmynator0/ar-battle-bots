@@ -144,7 +144,8 @@ ObjModel::ObjModel(std::string fileName)
 				}
 			}
 			if(currentGroup->materialIndex == -1)
-				std::cout<<"Could not find material name "<<params[1]<<std::endl;
+				//std::cout<<"Could not find material name "<<params[1]<<std::endl;
+				;
 		}
 	}
 	groups.push_back(currentGroup);
@@ -244,7 +245,8 @@ void ObjModel::loadMaterialFile( std::string fileName, std::string dirName )
 			currentMaterial->texture = currentTexture;
 		}
 		else
-			std::cout<<"Didn't parse "<<params[0]<<" in material file"<<std::endl;
+			//std::cout<<"Didn't parse "<<params[0]<<" in material file"<<std::endl;
+			;
 	}
 	if(currentMaterial != NULL)
 		materials.push_back(currentMaterial);
