@@ -11,6 +11,7 @@
 #include "loadTGA.h"
 #include "robotCreateScreen.h"
 #include "ObjModel.h"
+#include "Robot.h"
 
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
@@ -165,6 +166,7 @@ void RenderScene(void)
 	case 2:		//robot creeeren
 		if(createRCSBackground()){
 			gamestage++;
+			vector<Robot*> robots = getRobots();
 			ChangeSize(screenwidth,screenheight);
 		}
 		else break;

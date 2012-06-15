@@ -4,6 +4,10 @@
 #include "Arena.h"
 #include <string>
 #include "BramsPrimitives.h"
+
+#include "ObjModel.h"
+#include "Robot.h"
+
 #define OBJECT_COUNT 1
 #define STATIC_OBJECT_COUNT 4
 #define TEXTURE_COUNT_ARENA 6
@@ -30,6 +34,8 @@ const char *TextureFilesArena[TEXTURE_COUNT_ARENA] =
 {"arena_floor.tga", "arena-muur.tga",
 "crate.tga","stainless-steel.tga", "chainwheel.tga", "HUD.tga"};
 
+vector<Robot*> robots;
+
 void setOrthographicProjection() 
 {
 
@@ -48,6 +54,9 @@ void setOrthographicProjection()
 	// to the upper left corner
 	//glTranslatef(0, -height, 0);
 	glMatrixMode(GL_MODELVIEW);
+}
+void setRobots(vector<Robot*> Robots){
+	robots = Robots;
 }
 
 void resetPerspectiveProjection() 
