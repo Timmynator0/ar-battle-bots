@@ -14,6 +14,7 @@ private :
 	int damage;
 	int items[6];
 	float w1ani,w2ani,w3ani; //weapon animations
+	bool ani1;
 public :
 	Robot();
 	Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6],vector< ObjModel*> modellen);
