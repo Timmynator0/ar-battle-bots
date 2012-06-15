@@ -1,4 +1,10 @@
 #include "ObjModel.h"
+
+#include "loadTGA.h"
+#include "BramsPrimitives.h"
+#include "ObjModel.h"
+#include "Robot.h"
+
 typedef struct
 {
     int nummer;
@@ -18,3 +24,4 @@ int createRCSBackground();
 void initCreators(vector<ObjModel*> modellen);
 void updateCreators(int selectedcreator, int selecteditem, bool accept);
 void intToString(int place);
+vector<Robot*> getRobots();
