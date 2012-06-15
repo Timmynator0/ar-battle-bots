@@ -78,6 +78,19 @@ void laadModellen()
 	models.push_back(new ObjModel("models/previews/carbonPenta.obj"));
 	models.push_back(new ObjModel("models/previews/steelPenta.obj"));
 	models.push_back(new ObjModel("models/previews/woodPenta.obj"));
+	models.push_back(new ObjModel("models/previews/wapenSchanier.obj"));
+	models.push_back(new ObjModel("models/previews/Hamer.obj"));
+	models.push_back(new ObjModel("models/previews/singelPin.obj"));
+	models.push_back(new ObjModel("models/previews/dubbelPin.obj"));
+	models.push_back(new ObjModel("models/previews/zaagHouvast.obj"));
+	models.push_back(new ObjModel("models/previews/zaag.obj"));
+	models.push_back(new ObjModel("models/previews/klauw.obj"));
+	models.push_back(new ObjModel("models/previews/grijper.obj"));
+	models.push_back(new ObjModel("models/previews/flipper.obj"));
+	models.push_back(new ObjModel("models/previews/pushbar.obj"));
+	models.push_back(new ObjModel("models/previews/maaier.obj"));
+	models.push_back(new ObjModel("models/previews/vlammenwerper.obj"));
+	models.push_back(new ObjModel("models/previews/pneumaticPin.obj"));
 }
 void Keyboard(unsigned char key, int x, int y)
 {
@@ -211,8 +224,8 @@ int main(int argc, char* argv[])
 		return 1;
 	}	
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_LIGHTING);
-	//glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
 	glColorMaterial(GL_FRONT_AND_BACK,GL_EMISSION);
@@ -221,8 +234,8 @@ int main(int argc, char* argv[])
 	
 	
 	shaderManager.InitializeStockShaders();
-	gamestage = 3;
-	//laadModellen();
+	gamestage = 2;
+	laadModellen();
     initCreators(models);
 	glutMainLoop();
 	return 0;

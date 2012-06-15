@@ -38,8 +38,8 @@ float tx = 0.30;
 float ty = 1.30;
 float tz = 0;
 bool L = false;
+
 void updateItems(int stage, int place){
-	
 	srand ( time(NULL) );
 	glPushMatrix();
 	glTranslated(-1.6,-0.15,-0.2);
@@ -76,34 +76,20 @@ glRasterPos3f(tx,ty,tz);
 			if(creators[place].rotateRB) 
 			{
 				glRotated(ItemRotation,0,1,0);
-
-			}
-	
+			}	
 		createDiamondCube(size,size, size/5);
 		glPopMatrix();
-
 		// pentagon
 		glPushMatrix();
 		glTranslated(0,0.4,0);
 		glPushMatrix();
 		if(creators[place].rotateRU)
 		{	
-
 			glRotated(ItemRotation,0,1,0);
-
-		}
-	
+		}	
 		createPentagon(size,size,size/5);
 		glPopMatrix();
 		glPopMatrix();
-
-			if(creators[place].rotateRU)
-		{
-			
-		
-
-		}
-
 		// cirkel 
 		glPushMatrix();
 		glTranslated(0.25,0.6,-size/2);
@@ -122,8 +108,64 @@ glRasterPos3f(tx,ty,tz);
 		glPopMatrix();
 		glPopMatrix();
 		break;
+	case 1:						//----------------Materiaal Selectie --------------------	
+		glBindTexture(GL_TEXTURE_2D, textures[1]);
+		glPushMatrix();
+		glTranslated(0,0.15,0);
+		//hout frame
+			glPushMatrix();
+			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+			glPushMatrix();
+			glRotated(30,1,0,0);
+			createCube(size/2,size/2,size/2,0,0.28,0.0625);
+		glPopMatrix();
+		glPopMatrix();
+		
+		size = size / 1.5;
+		//staal frame
+		glPushMatrix();
+		glTranslated(0,0.4,0);
+			glPushMatrix();
+			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+			glPushMatrix();
+			glTranslated(0,size,0);
+			createCube(size,size/4,size*0.75,0.25,0.28,0.0625);
+			glPopMatrix();
+			createCube(size,size,size/5,0.25,0.28,0.0625);
+			glPushMatrix();
+			glTranslated(0,-size,0);
+			createCube(size,size/4,size*0.75,0.25,0.28,0.0625);
+			glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
+
+		//aluminium frame
+		glPushMatrix();
+		glTranslated(0.3,0.4,-size/2);
+			glPushMatrix();
+			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
+			glPushMatrix();
+			glRotated(67.5,1,0,0);
+			createCube(size,size/5,size,0.5,0.28,0.0625);
+		glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
+
+		//carbon frame
+		glPushMatrix();
+		glTranslated(0.25,0,0);
+			glPushMatrix();
+			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);	
+			glPushMatrix();
+			glRotated(67.5,1,0,0);
+			createCube(size,size/10,size,0.75,0.28,0.0625);
+		glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
+		glPopMatrix();
+		
+		break;
 	case 2:						//----------------Wielen Selectie --------------------	
-	
 		glBindTexture(GL_TEXTURE_2D, textures[1]);
 		glPushMatrix();
 		glTranslated(0,0.15,0);
@@ -409,7 +451,6 @@ glRasterPos3f(tx,ty,tz);
 		glPopMatrix();
 		break;
 	case 5:						//----------------Wapen 3 Selectie --------------------	
-
 		glBindTexture(GL_TEXTURE_2D, textures[1]);
 		glPushMatrix();
 		glTranslated(0,0.15,0);
@@ -578,79 +619,51 @@ void robotPreview(int place, int items[])
 		}
 	}
 	glPopMatrix();
+	glPushMatrix();
+	glScaled(0.2,0.4,0.1);
 	if(items[2] != 0){
-		glPushMatrix();
-		glScaled(0.4,0.4,0.4);
 		glPushMatrix();
 		glRotated(90,0,1,0);
 		switch(items[2]){
 		case 4://houten Wielen
-			for(int i=-1; i<2; i+=2){
-				glPushMatrix();
-				glTranslated(0.2*i,0,0);
-				for(int ii=-1; ii<2; ii+=2){
-					glPushMatrix();
-					glTranslated(0.2*ii,0,0);
-					createCylinder(size/2,size,20,size/5,1,true,0.125,0.875,0.125);
-					glPopMatrix();
-				}
-				glPopMatrix();
-			}
 			break;
 		case 3://rubberen Banden
-			createCylinder(size/2,size,20,size/5,1,true,0.375,0.875,0.125);	
 			break;
 		case 2://metalen wielen 
-			createCylinder(size/2,size,20,size/5,1,true,0.625,0.875,0.125);
 			break;
 		case 1://rupsbanden
-			for(int i=-1; i<2; i+=2){
-				glPushMatrix();
-				glTranslated(0,0,0.15*i);
-				createCylinder(size, size,20,size/5,1,true,0.875,0.875,0.125);
-				glPopMatrix();
-			} 
 			break;
 		}
 		glPopMatrix();
+	}
+	if(items[3] != 0){
+		RCSmodels[20]->draw(); // houvast wapens1
+		glPushMatrix();
+		glTranslated(-0.4,0.5,0);
+		switch(items[3]){
+			case 1: RCSmodels[23]->draw(); break;
+			case 2: RCSmodels[22]->draw(); break;
+			case 3: RCSmodels[24]->draw(); RCSmodels[25]->draw(); break;
+			case 4: RCSmodels[21]->draw(); break;
+		}
 		glPopMatrix();
-		if(items[3] != 0){
-			switch(items[3]){
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
+		if(items[4] != 0){
+			switch(items[4]){
+			case 1: RCSmodels[29]->draw(); glPushMatrix(); glScaled(1,1,-1); RCSmodels[29]->draw(); glPopMatrix(); break;
+			case 2: RCSmodels[28]->draw(); break;
+			case 3: RCSmodels[27]->draw(); glPushMatrix(); glScaled(1,1,-1); RCSmodels[27]->draw(); glPopMatrix(); break;
+			case 4: RCSmodels[26]->draw(); break;
 			}
-			if(items[4] != 0){
-				switch(items[4]){
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-					break;
-				case 4:
-					break;
-				}
-				if(items[5] != 0){
-					switch(items[5]){
-					case 1:
-						break;
-					case 2:
-						break;
-					case 3:
-						break;
-					case 4:
-						break;
-					}
+			if(items[5] != 0){
+				switch(items[5]){
+				case 2: RCSmodels[32]->draw(); break;
+				case 3: RCSmodels[31]->draw(); break;
+				case 4: RCSmodels[30]->draw(); break;
 				}
 			}
 		}
 	}
+	glPopMatrix();
 	glPopMatrix();
 }
 
@@ -660,6 +673,7 @@ void createRCSBackground(){
 	
 #ifndef TEXTURES
 #define TEXTURES
+
 	if(!L)
 	{
 	// het laden van de texture voor de achtergrond
