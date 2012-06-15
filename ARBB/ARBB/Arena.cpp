@@ -235,11 +235,11 @@ void IdleFuncArena(void)
 	}
 	if(count)
 	{
-		y-=.01;
+		y-=.1;
 	}
 	else
 	{
-		y+=0.01;
+		y+=0.1;
 		//printf("%02d", y);
 	}
 	timer += 1;
