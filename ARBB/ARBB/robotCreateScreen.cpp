@@ -9,7 +9,6 @@
 #include <sstream>
 
 #include "robotCreateScreen.h"
-
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
 #else
@@ -34,31 +33,40 @@ const char *TextureFiles[TEXTURE_COUNT] =
 
 CREATOR				creators[4];
 float				ItemRotation = 0;
-float tx = 0.30;
-float ty = 1.30;
-float tz = 0;
+//float tx = 0.30;
+//float ty = 1.30;
+//float tz = 0;
 bool L = false;
-string damage = "damage: ";
+//string damage = "damage: ";
 string s;
 string damaget;
 void updateItems(int stage, int place){
 	srand ( time(NULL) );
+	//drawText();
 	glPushMatrix();
 	glTranslated(-1.6,-0.15,-0.2);
 	glPushMatrix();
 	glTranslated(0.9*place,0,0);
 	float size = 0.11;
-
+	
 	////////////////////~~ text draw code on ALL screens ~~ ////////////////////////////////////////
-
+	
+	//if( selectedCreator = 2);
+	//{
+	//glDisable(GL_BLEND);
 	//char* p = new char[strlen(damage.c_str() + 1)];
 	//strcpy(p, damage.c_str());
+	//damage.replace(0, 3, "meh");
+	//	//replace("damage: 10");
 	//glPushMatrix();
 	//glColor4f(0.0f, 1.0f, 0.0f,1.0f);
 	//glRasterPos3f(tx,ty,tz);
 	//glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) p );
 	//glPopMatrix();
-	
+	//
+	//glColor4f(0.5,0.5,0.5,1);
+	//glEnable(GL_BLEND);
+	//}
 	//////////////////////////////////////////////////////////////////////////////////////////////////		
 	switch(stage){
 	case 0:					//----------------Vorm Selectie --------------------
@@ -67,20 +75,9 @@ void updateItems(int stage, int place){
 			glPushMatrix();
 			if(creators[place].rotateRB) 
 			{
-				creators[place].damage = 10;
+				
 				
 				glRotated(ItemRotation,0,1,0);
-
-				intToString(creators[place].damage);
-				cout << damaget << endl ;
-				damage.append(s);
-				//
-				//std::string s;
-				//std::stringstream out;
-				//out << creators[place].damage;
-				//s = out.str();
-				////cout << s << endl;
-
 
 			}
 	
@@ -92,6 +89,7 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		if(creators[place].rotateRU)
 		{	
+			creators[place].damage = 11;
 			glRotated(ItemRotation,0,1,0);
 		}	
 		createPentagon(size,size,size/5);
@@ -121,7 +119,7 @@ void updateItems(int stage, int place){
 		glTranslated(0,0.15,0);
 		//hout frame
 			glPushMatrix();
-			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);//drawText();
 			glPushMatrix();
 			glRotated(30,1,0,0);
 			createCube(size/2,size/2,size/2,0,0.28,0.0625);
@@ -133,7 +131,7 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0,0.4,0);
 			glPushMatrix();
-			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);//drawText();
 			glPushMatrix();
 			glTranslated(0,size,0);
 			createCube(size,size/4,size*0.75,0.25,0.28,0.0625);
@@ -150,7 +148,7 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.3,0.4,-size/2);
 			glPushMatrix();
-			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);//drawText();
 			glPushMatrix();
 			glRotated(67.5,1,0,0);
 			createCube(size,size/5,size,0.5,0.28,0.0625);
@@ -162,7 +160,7 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.25,0,0);
 			glPushMatrix();
-			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);	
+			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);//drawText();
 			glPushMatrix();
 			glRotated(67.5,1,0,0);
 			createCube(size,size/10,size,0.75,0.28,0.0625);
@@ -756,6 +754,7 @@ void initCreators(vector< ObjModel*> modellen){
 }
 void updateCreators(int selectedcreator, int selecteditem, bool accept){
 	ItemRotation += 6.0; if(ItemRotation >= 360) ItemRotation = 0;
+	drawText(selecteditem);
 	if(accept)
 	{
 		creators[selectedcreator].stageItems[creators[selectedcreator].createstage] = selecteditem+1;
@@ -766,24 +765,114 @@ void updateCreators(int selectedcreator, int selecteditem, bool accept){
 
 	switch(selecteditem){
 	case 0 :	creators[selectedcreator].rotateLB= true; creators[selectedcreator].rotateLU =false; creators[selectedcreator].rotateRU = false; creators[selectedcreator].rotateRB = false;
+		drawText(selecteditem);
 		break;
 	case 1 :	creators[selectedcreator].rotateLB=false; creators[selectedcreator].rotateLU =true; creators[selectedcreator].rotateRU = false; creators[selectedcreator].rotateRB = false;
+		drawText(selecteditem);
 		break;
 	case 2 :	creators[selectedcreator].rotateLB=false; creators[selectedcreator].rotateLU = false; creators[selectedcreator].rotateRU = true; creators[selectedcreator].rotateRB = false;
+		drawText(selecteditem);
 		break;
 	case 3 :	creators[selectedcreator].rotateLB=false; creators[selectedcreator].rotateLU = false; creators[selectedcreator].rotateRU = false; creators[selectedcreator].rotateRB = true;
+		drawText(selecteditem);
 		break;
 	}
 }
 
-void intToString(int place)
+
+float tx = 0.30;
+float ty = 1.30;
+float tz = 0;
+
+void drawText(int selectedItem)
 {
+	for(int i =0; i<4; i++)
+	{
+		calcStats(i, selectedItem);			
+		glPushMatrix();
+		glTranslated(-1.6,-0.15,-0.2);
+		glPushMatrix();
+		glTranslated(0.9*i,0,0);
+		glDisable(GL_LIGHTING);
+		glDisable(GL_BLEND);
+
 		
-				std::string s;
-				std::stringstream out;
-				out << place;
-				s = out.str();
-				//cout << place << endl;
-				s = damaget;
-				
+	/*	glPushMatrix();
+		glColor4f(0.0f, 1.0f, 0.0f,1.0f);
+		glRasterPos3f(0.30,1.30,0);
+		convertInt(creators[i].damage);
+		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) convertInt(creators[i].damage).c_str() );
+		glPopMatrix();
+
+		glPushMatrix();
+		glColor4f(0.0f, 1.0f, 0.0f,1.0f);
+		glRasterPos3f(0.30,1.30,0);
+		convertInt(creators[i].speed);
+		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) convertInt(creators[i].speed).c_str() );
+		glPopMatrix();*/
+
+		glPushMatrix();
+		glColor4f(0.0f, 1.0f, 0.0f,1.0f);
+		glRasterPos3f(0.30,1.30,0);
+		convertInt(creators[i].weight);
+		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) convertInt(creators[i].weight).c_str() );
+		glPopMatrix();
+
+
+		glPopMatrix();
+		glPopMatrix();
+		glEnable(GL_BLEND);
+		glEnable(GL_LIGHTING);
+		glColor4f(0.5,0.5,0.5,1);
+
+
+
+	}
+}
+	
+string convertInt(int number)
+{
+   stringstream ss;//create a stringstream
+   ss << number;//add number to the stream
+
+   return ss.str();//return a string with the contents of the streamer
+}
+
+void calcStats(int creatorID, int selectedItem)
+{
+		//creators[creatorID].stageItems[0]
+	switch(creatorID){
+	case 1 :
+		if(selectedItem = 1)
+		{	
+		creators[creatorID].weight = 1;
+		cout << creators[creatorID].weight<<endl;
+		}
+		else if(selectedItem = 2)
+		{	
+		creators[creatorID].weight = 6;
+		cout << creators[creatorID].weight<<endl;
+		}
+		else if(selectedItem = 3)
+		{	
+		creators[creatorID].weight = 10;
+		cout << creators[creatorID].weight<<endl;
+		}
+		else
+		{	
+		creators[creatorID].weight = 3;
+		cout << creators[creatorID].weight<<endl;
+		}
+
+		break;
+	}
+		/*stage(creators[creatorID].stageItems[1] == 1)
+			creators[creatorID].weight = 1;
+		else if(creators[creatorID].stageItems[1] == 2)creators[creatorID].weight = 6;
+		else if(creators[creatorID].stageItems[1] == 3)creators[creatorID].weight = 10;
+		else
+		{
+			creators[creatorID].weight = 3;
+		}
+	*/
 }
