@@ -35,6 +35,7 @@ const char *TextureFilesArena[TEXTURE_COUNT_ARENA] =
 
 vector<Robot*> robots;
 
+
 void setOrthographicProjection() 
 {
 
@@ -87,9 +88,9 @@ void DisplayHUD(void)
 	glEnd();
 
 	glColor4f(1.0f, 0.0f, 0.0f,1.0f);
-	glRasterPos3f(44,5,-53);
+	glRasterPos2f(0,0);
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Player1");
-	glRasterPos3f(44,2,-56);
+	glRasterPos2f(0,2);
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "hp: 100");
 	resetPerspectiveProjection();
 	
@@ -246,33 +247,6 @@ void IdleFuncArena(void)
 	timer = timer %60;
 }
 
-void KeyboardArena(unsigned char key, int x, int y)
-{
-	printf("%c\n",key);
-	switch (key)
-	{
-	case 27:             // ESCAPE key
-		exit (0);
-		break;
-	case 'w':
-		if(!checkCollision(0,50,0,tz+2))
-			tz++;
-		break;
-	case 'a':
-		if(!checkCollision(50,0,tx+2,0))
-		tx++;
-		break;
-	case 's':
-		if(!checkCollision(0,-50,0,tz-2))
-		tz--;
-		break;
-	case 'd':
-		if(!checkCollision(-50,0,tx-2,0))
-		tx--;
-		break;
-	}
-	printf("x:%d,z:%d\n",tx,tz);
-}
 void playerInput( char c, int speler)
 {
 	// d drive, l left, r right, 1 hakwapen (wapen1), 2 pinwapen (wapen2), 3 rotatewapen(wapen3)
@@ -291,4 +265,42 @@ void playerInput( char c, int speler)
 	case'3' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,true);
 		break;
 	}
+}
+
+void KeyboardArena(unsigned char key, int x, int y)
+{
+	printf("%c\n",key);
+	switch (key)
+	{
+	case 27:             // ESCAPE key
+		exit (0);
+		break;
+	case 'w':
+		if(!checkCollision(0,50,0,tz+2))
+			playerInput('d',0);
+		break;
+	case 'a':
+		if(!checkCollision(50,0,tx+2,0))
+		playerInput('l',0);
+		break;
+	case 's':
+		//if(!checkCollision(0,-50,0,tz-2))
+		//playerInput('d',0);
+		break;
+	case 'd':
+		if(!checkCollision(-50,0,tx-2,0))
+		playerInput('r',0);
+		break;
+	case '1':
+		playerInput('1',0);
+		break;
+	case '2':
+		playerInput('2',0);
+		break;
+	case '3':
+		playerInput('3',0);
+		break;
+
+	}
+	printf("x:%d,z:%d\n",tx,tz);
 }
