@@ -725,16 +725,21 @@ int createRCSBackground(){
 		einde += creators[i].createstage;
 	}
 	if(einde == 24){ //nu is iedereen klaar, door naar volgende stadium		
-		for(int i =0;i<4;i++) Robots.push_back(new Robot(i,creators[i].speed,creators[i].weight,creators[i].damage,creators[i].stageItems));
+		for(int i =0;i<4;i++) Robots.push_back(new Robot(i,creators[i].speed,creators[i].weight,creators[i].damage,creators[i].stageItems, RCSmodels));
 		return 1;
 	}
 	else{
 		return 0;
 	}
 }
-vector<Robot*> getRobots()
+Robot* getRobots(int i)
 {
-	return Robots;
+	if(i > Robots.size()) return new Robot();
+	else
+	{
+		Robot *r = Robots[i];
+		return r;
+	}
 }
 void initCreators(vector< ObjModel*> modellen){
 	RCSmodels = modellen;

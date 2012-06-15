@@ -31,5 +31,5 @@ void MouseButton(int button, int state, int x, int y);
 void MouseMotion(int x, int y);
 void IdleFuncArena(void);
 void KeyboardArena(unsigned char key, int x, int y);
-void setRobots(vector<Robot*> Robots);
+void setRobots(Robot &r);
 //int main(int argc, char* argv[]);

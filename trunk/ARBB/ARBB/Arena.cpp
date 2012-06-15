@@ -52,8 +52,8 @@ void setOrthographicProjection()
 	//glTranslatef(0, -height, 0);
 	glMatrixMode(GL_MODELVIEW);
 }
-void setRobots(vector<Robot*> Robots){
-	robots = Robots;
+void setRobots(Robot &r){
+	robots.push_back(&r);
 }
 
 void resetPerspectiveProjection() 
@@ -177,7 +177,7 @@ void ArenaDisplay(void)
 	createCube(2,2,2,0,0,0);
 	glPopMatrix();
 
-
+	robots[1]->Draw(25,0,0,0,false,false,false);
 }
 
 void Reshape(GLint w, GLint h)
