@@ -166,7 +166,10 @@ void RenderScene(void)
 	case 2:		//robot creeeren
 		if(createRCSBackground()){
 			gamestage++;
-			setRobots(getRobots());
+			for(int i=0;i<4;i++)
+			{			
+				setRobots(*getRobots(i));
+			}
 			ChangeSize(screenwidth,screenheight);
 		}
 		else break;

@@ -24,22 +24,33 @@ const char *RobotTextureFiles[TEXTURE_COUNT] =
 
 Robot::Robot()
 {
-
+	nummer = 0;
+	speed = 0;
+	weight = 0;
+	damage = 0;	
+	for(int i=0; i<6; i++) items[i] = 1;
+	w1ani = 0;
+	w2ani = 0;
+	w3ani = 0;
 }
-Robot::Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6])
+Robot::Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6],vector< ObjModel*> modellen)
 {
 	nummer = Nummer;
 	speed = Speed;
 	weight = Weight;
 	damage = Damage;
 	for(int i=0; i<6; i++) items[i] = Items[i];
+	w1ani = 0;
+	w2ani = 0;
+	w3ani = 0;
+	RobotModels = modellen;
 }
 void Robot::Draw(float x, float y, float z, float rotationY, bool animation1, bool animation2, bool animation3)
 {	
 	glPushMatrix();
 	glTranslated(x,y,z);
 	glPushMatrix();
-	glScaled(0.4,0.4,0.4);	
+	glScaled(6,6,6);	
 	glBindTexture(GL_TEXTURE_2D, robotTextures[1]);
 	float size = 0.2;
 	if(items[0] != 0){
@@ -76,7 +87,7 @@ void Robot::Draw(float x, float y, float z, float rotationY, bool animation1, bo
 	}
 	glPopMatrix();
 	glPushMatrix();
-	glScaled(0.4,0.4,0.4);
+	glScaled(6,6,6);
 	if(items[3] != 0){
 		RobotModels[20]->draw(); // houvast wapens1
 		glPushMatrix();
