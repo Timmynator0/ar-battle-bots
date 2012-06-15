@@ -18,8 +18,9 @@ bool isTextureLoaded = false;
 float y = 0.0f;
 bool count = false;
 double width,height;
+int timer;
 
-double tx =0;	// used for the translation of the test cube
+double tx =20;	// used for the translation of the test cube
 double ty =2;
 double tz = 0; 
 Vector3d staticObject[STATIC_OBJECT_COUNT];
@@ -173,8 +174,28 @@ void ArenaDisplay(void)
 
 	//test cube for collision detection
 	glPushMatrix();
+	int r = rampCollision(tx,ty,tz);
+	
+		switch (r)
+	{
+	case 1:             // ESCAPE key
+		glRotatef(-330,1,0,0);
+		ty=8;
+		break;
+	case 2:
+		glRotatef(330,1,0,0);
+		ty=8;
+		break;
+	case 3:
+		ty=8;
+		break;
+	case 0:
+		ty=2;
+		break;
+		}
+	glBindTexture(GL_TEXTURE_2D,texturesArena[2]);
 	glTranslatef(tx,ty,tz);
-	createCube(2,2,2,0,0,0);
+	createCube(2,2,2,0.625,0.625,0.125);
 	glPopMatrix();
 
 	robots[1]->Draw(25,0,0,0,false,false,false);
@@ -210,6 +231,8 @@ void IdleFuncArena(void)
 		y+=0.01;
 		//printf("%02d", y);
 	}
+	timer += 1;
+	timer = timer %60;
 }
 
 void KeyboardArena(unsigned char key, int x, int y)
