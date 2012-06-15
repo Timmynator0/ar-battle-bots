@@ -86,6 +86,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjModel.cpp" />
     <ClCompile Include="Ramp.cpp" />
+    <ClCompile Include="Robot.cpp" />
     <ClCompile Include="robotCreateScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +98,7 @@
     <ClInclude Include="ObjModel.h" />
     <ClInclude Include="Ramp.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Robot.h" />
     <ClInclude Include="robotCreateScreen.h" />
   </ItemGroup>
   <ItemGroup>

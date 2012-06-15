@@ -237,7 +237,7 @@ int main(int argc, char* argv[])
 	
 	
 	shaderManager.InitializeStockShaders();
-	gamestage = 2;
+	gamestage = 3;
 	laadModellen();
     initCreators(models);
 	glutMainLoop();
