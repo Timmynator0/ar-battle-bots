@@ -23,5 +23,6 @@ typedef struct
 int createRCSBackground();
 void initCreators(vector<ObjModel*> modellen);
 void updateCreators(int selectedcreator, int selecteditem, bool accept);
-void intToString(int place);
+string convertInt(int place);
 Robot* getRobots(int i);
+void calcStats(int creatorID, int selectedItem);

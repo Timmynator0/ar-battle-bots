@@ -29,7 +29,8 @@ int screenwidth= 1024, screenheight = 700;
 int tex = 0;
 int gamestage = 0; // 0 is niets/net opgestart, 1 is wachten op spelers, 2 is robot creeeren, 3 is spelen, 4 is einduitslag
 int h,w ;
-int selectedCreator= 0,selectedCreatorItem= 0;
+int selectedCreator= 0;
+	int selectedCreatorItem= 0;
 bool acceptItem = false;
 float rotation = 0;
 
