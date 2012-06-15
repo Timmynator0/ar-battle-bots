@@ -647,7 +647,7 @@ void robotPreview(int place, int items[])
 	if(items[3] != 0){
 		RCSmodels[20]->draw(); // houvast wapens1
 		glPushMatrix();
-		glTranslated(-0.4,0.5,0);
+		glTranslated(-0.5,0.5,0);
 		switch(items[3]){
 			case 1: RCSmodels[23]->draw(); break;
 			case 2: RCSmodels[22]->draw(); break;
@@ -675,26 +675,21 @@ void robotPreview(int place, int items[])
 	glPopMatrix();
 }
 
-void createRCSBackground(){
+int createRCSBackground(){
 	// de hoogte en breedte per achtergrond en een offset breedte zodat de 4 naast elkaar verschijnen
-	float width = 1, height = 2 , newwidth = width *-1;
-	
-#ifndef TEXTURES
-#define TEXTURES
-
+	float width = 1, height = 2 , newwidth = width *-1;	
+	int einde = 0; //deze word aan het einde opgeteld om te kijken of iedereen al volledig klaar is met bouwen
 	if(!L)
 	{
-	// het laden van de texture voor de achtergrond
-	glGenTextures(TEXTURE_COUNT, textures);
-	for(int i= 0; i < TEXTURE_COUNT; i++)
-	{
-		glBindTexture(GL_TEXTURE_2D, textures[i]);
-		LoadTGATexture(TextureFiles[i], GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE);
+		// het laden van de texture voor de achtergrond
+		glGenTextures(TEXTURE_COUNT, textures);
+		for(int i= 0; i < TEXTURE_COUNT; i++)
+		{
+			glBindTexture(GL_TEXTURE_2D, textures[i]);
+			LoadTGATexture(TextureFiles[i], GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE);
+		}
+		L = true;
 	}
-	L = true;
-	}
-#endif
-
 	//de 4 achtergronden creeeren
 	for(int i =0; i<4; i++){	
 	glBindTexture(GL_TEXTURE_2D, textures[0]);	
@@ -728,6 +723,13 @@ void createRCSBackground(){
 
 		updateItems(creators[i].createstage,i);
 		robotPreview(i, creators[i].stageItems);
+		einde += creators[i].createstage;
+	}
+	if(einde == 24){ //nu is iedereen klaar, door naar volgende stadium
+		return 1;
+	}
+	else{
+		return 0;
 	}
 }
 void initCreators(vector< ObjModel*> modellen){

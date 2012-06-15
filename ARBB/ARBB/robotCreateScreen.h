@@ -14,7 +14,7 @@ typedef struct
 	int stageItems[6];
 } CREATOR;
 
-void createRCSBackground();
+int createRCSBackground();
 void initCreators(vector<ObjModel*> modellen);
 void updateCreators(int selectedcreator, int selecteditem, bool accept);
 void intToString(int place);
