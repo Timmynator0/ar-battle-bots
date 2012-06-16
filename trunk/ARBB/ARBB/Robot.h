@@ -9,13 +9,16 @@ class ObjModel;
 class Robot{
 private :	
     int nummer;
-	int speed;
+	
 	int weight;
-	int damage;
+	
 	int items[6];
 	float w1ani,w2ani,w3ani; //weapon animations
 	bool ani1;
 public :
+	int	damage;
+	int speed;
+	int health;
 	float x, y, z,rotationY;
 	bool anime1;
 	bool anime2;

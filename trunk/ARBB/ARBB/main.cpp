@@ -134,7 +134,8 @@ void Keyboard(unsigned char key, int x, int y)
 		break;
 	}
 	
-	if(key == 27) exit (0); //escape key
+	if(key == 27) //escape key
+		exit (0); 
 }
 
 void SpecialKeys(int key, int x, int y)
@@ -212,7 +213,9 @@ int main(int argc, char* argv[])
 	
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL);
+	glutInitWindowPosition(0,0);
 	glutInitWindowSize(screenwidth, screenheight);
+	
 	glutCreateWindow("Kontje");
     glutReshapeFunc(ChangeSize);
     glutDisplayFunc(RenderScene);
@@ -220,7 +223,7 @@ int main(int argc, char* argv[])
 	glutIdleFunc (IdleFunc);
 	glutMouseFunc(MouseButton);
 	glutSpecialFunc(SpecialKeys);
-
+	
 	GLenum err = glewInit();
 	if (GLEW_OK != err) 
 	{
@@ -235,7 +238,6 @@ int main(int argc, char* argv[])
 	glColorMaterial(GL_FRONT_AND_BACK,GL_EMISSION);
 	glEnable(GL_COLOR_MATERIAL);
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
 	
 	shaderManager.InitializeStockShaders();
 	gamestage = 2;
