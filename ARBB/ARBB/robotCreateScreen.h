@@ -25,4 +25,5 @@ void initCreators(vector<ObjModel*> modellen);
 void updateCreators(int selectedcreator, int selecteditem, bool accept);
 string convertInt(int place);
 Robot* getRobots(int i);
+void drawText(int selectedItem);
 void calcStats(int creatorID, int selectedItem);

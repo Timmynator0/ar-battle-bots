@@ -35,7 +35,6 @@ const char *TextureFilesArena[TEXTURE_COUNT_ARENA] =
 
 vector<Robot*> robots;
 
-
 void setOrthographicProjection() 
 {
 
@@ -69,37 +68,78 @@ void resetPerspectiveProjection()
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void DisplayHUD(void)
+void DisplayHUD(int x, int y, int z)
 {
 	glPushMatrix();
 	//player1
-	
+	glDisable(GL_DEPTH_TEST);
 	setOrthographicProjection();
+
 	glBindTexture(GL_TEXTURE_2D, texturesArena[5]);
+
 	glScalef(0.1,0.1,0.1);
 	glTranslatef(0, -10, 0);
+
 	glBegin(GL_QUADS);
-	//glColor4f(1.0f,1.0f,0.0f,0.5f);
-	
 	glTexCoord2f(0,0);	glVertex2f(-10,0);
 	glTexCoord2f(1,0);	glVertex2f(10,0);
 	glTexCoord2f(1,1);	glVertex2f(10,4);
 	glTexCoord2f(0,1);	glVertex2f(-10,4);
 	glEnd();
 
-	glColor4f(1.0f, 0.0f, 0.0f,1.0f);
-	glRasterPos2f(0,0);
-	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Player1");
-	glRasterPos2f(0,2);
-	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "hp: 100");
 	resetPerspectiveProjection();
-	
-
-
-
+	char buff[100];
+	string speed;
+	string damage;
+	//speler 1
+	glTranslatef(410,0,-626);
+	glRasterPos3f(0,0,0);
+	sprintf(buff, "Speed: %i",robots[0]->speed);
+	speed = buff;
+	sprintf(buff, "Damage: %i",robots[0]->damage);
+	damage = buff;
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) speed.c_str());
+	glTranslatef(-6,0,-26);
+	glRasterPos3f(0,0,0);
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) damage.c_str());
+	//speler 2
+	glTranslatef(-279,0,25);
+	glRasterPos3f(0,0,0);
+	sprintf(buff, "Speed: %i",robots[1]->speed);
+	speed = buff;
+	sprintf(buff, "Damage: %i",robots[1]->damage);
+	damage = buff;
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Speed: 100");
+	glTranslatef(1,0,-26);
+	glRasterPos3f(0,0,0);
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Damage: 100");
+	//speler 3
+	glTranslatef(-289,0,26);
+	glRasterPos3f(0,0,0);
+	sprintf(buff, "Speed: %i",robots[2]->speed);
+	speed = buff;
+	sprintf(buff, "Damage: %i",robots[2]->damage);
+	damage = buff;
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Speed: 100");
+	glTranslatef(11,0,-26);
+	glRasterPos3f(0,0,0);
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Damage: 100");
+	//speler 4
+	glTranslatef(-297,0,27);
+	glRasterPos3f(0,0,0);
+	sprintf(buff, "Speed: %i",robots[3]->speed);
+	speed = buff;
+	sprintf(buff, "Damage: %i",robots[3]->damage);
+	damage = buff;
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Speed: 100");
+	glTranslatef(19,0,-27);
+	glRasterPos3f(0,0,0);
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Damage: 100");
 	
 	glColor4f(1,1,1,1);
+	glEnable(GL_DEPTH_TEST);
 	glPopMatrix();
+	
 }
 
 /*
@@ -114,7 +154,7 @@ bool checkCollision(float x1, float y1, /*float z1,*/ float x2, float y2/*, floa
     }
 	return false;
 }
-
+int testx,testy,testz;
 void ArenaDisplay(void)
 {
 	if(!isTextureLoaded)
@@ -179,7 +219,7 @@ void ArenaDisplay(void)
 	Chainsaw(-27.25,y,0);
 	Chainsaw(23.25,y,0);
 	Chainsaw(27.25,y,0);
-	DisplayHUD();
+	DisplayHUD(testx,testy,testz);
 
 	//test cube for collision detection
 	glPushMatrix();
@@ -247,6 +287,52 @@ void IdleFuncArena(void)
 	timer = timer %60;
 }
 
+void KeyboardArena(unsigned char key, int x, int y)
+{
+	printf("%c\n",key);
+	switch (key)
+	{
+	case 27:             // ESCAPE key
+		exit (0);
+		break;
+	case 'w':
+		if(!checkCollision(0,50,0,tz+2))
+			tz++;
+		break;
+	case 'a':
+		if(!checkCollision(50,0,tx+2,0))
+		tx++;
+		break;
+	case 's':
+		if(!checkCollision(0,-50,0,tz-2))
+		tz--;
+		break;
+	case 'd':
+		if(!checkCollision(-50,0,tx-2,0))
+		tx--;
+		break;
+
+	case 'u':
+		testx--;
+		break;
+	case 'i':
+		testx++;
+		break;
+	case'j':
+		testy--;
+		break;
+	case'k':
+		testy++;
+		break;
+	case'n':
+		testz--;
+		break;
+	case'm':
+		testz++;
+		break;
+	}
+	printf("x:%i,y:%i,z:%i\n",testx,testy,testz);
+}
 void playerInput( char c, int speler)
 {
 	// d drive, l left, r right, 1 hakwapen (wapen1), 2 pinwapen (wapen2), 3 rotatewapen(wapen3)
@@ -265,42 +351,4 @@ void playerInput( char c, int speler)
 	case'3' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,true);
 		break;
 	}
-}
-
-void KeyboardArena(unsigned char key, int x, int y)
-{
-	printf("%c\n",key);
-	switch (key)
-	{
-	case 27:             // ESCAPE key
-		exit (0);
-		break;
-	case 'w':
-		if(!checkCollision(0,50,0,tz+2))
-			playerInput('d',0);
-		break;
-	case 'a':
-		if(!checkCollision(50,0,tx+2,0))
-		playerInput('l',0);
-		break;
-	case 's':
-		//if(!checkCollision(0,-50,0,tz-2))
-		//playerInput('d',0);
-		break;
-	case 'd':
-		if(!checkCollision(-50,0,tx-2,0))
-		playerInput('r',0);
-		break;
-	case '1':
-		playerInput('1',0);
-		break;
-	case '2':
-		playerInput('2',0);
-		break;
-	case '3':
-		playerInput('3',0);
-		break;
-
-	}
-	printf("x:%d,z:%d\n",tx,tz);
 }
