@@ -174,7 +174,10 @@ void RenderScene(void)
 			}
 			ChangeSize(screenwidth,screenheight);
 		}
-		else break;
+		else {
+			increaseRotation();
+			break;
+		}
 	case 3:		//het gevecht
 		ArenaDisplay();
 		break;
@@ -190,6 +193,7 @@ void RenderScene(void)
 }
 void IdleFunc(void)
 {
+	Sleep(15);
 	switch(gamestage){
 	case 0:		//opstarten
 		break;

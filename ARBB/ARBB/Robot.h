@@ -1,6 +1,23 @@
 #ifndef ROBOT
 #define ROBOT
 #include <vector>
+#include <GLTools.h>            // OpenGL toolkit
+#include <GLShaderManager.h>    // Shader Manager Class
+#include <cmath>
+#include <GLGeometryTransform.h>
+#include <GLMatrixStack.h>
+
+#include "loadTGA.h"
+#include "ObjModel.h"
+#include "faceCam.h"
+
+#ifdef __APPLE__
+#include <glut/glut.h>          // OS X version of GLUT
+#else
+#define FREEGLUT 
+#include <GL/freeglut.h>// Windows FreeGlut equivalent
+#endif
+
 
 using namespace std;
 
