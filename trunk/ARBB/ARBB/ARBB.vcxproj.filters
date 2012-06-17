@@ -30,9 +30,6 @@
     <ClCompile Include="BramsPrimitives.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Chainsaw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Crate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -42,7 +39,13 @@
     <ClCompile Include="Ramp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Chainsaw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Robot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="faceCam.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -75,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Robot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="faceCam.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
