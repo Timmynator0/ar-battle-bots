@@ -108,12 +108,15 @@ void Robot::Draw(float X, float Y, float Z, float RotationY, bool animation1, bo
 			glPushMatrix();
 			glTranslated(0.5,0.1,0);
 			if(ani1){
-				w1ani +=5;
-				if(w1ani > 50) ani1 = false;
+				w1ani -=5;
+				if(w1ani < -15) ani1 = false;
 			}
 			else {
-				w1ani -=5;
-				if(w1ani <-15) ani1 = true;
+				w1ani +=5;
+				if(w1ani >50){
+					ani1 = true;
+					anime1 = false;
+				}
 			}
 			glPushMatrix();
 			glRotated(w1ani,0,0,1);
