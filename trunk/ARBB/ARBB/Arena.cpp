@@ -9,6 +9,7 @@
 #define OBJECT_COUNT 1
 #define STATIC_OBJECT_COUNT 4
 #define TEXTURE_COUNT_ARENA 6
+#define pi 3.14159265
 
 struct Vector3d
 {
@@ -247,10 +248,10 @@ void ArenaDisplay(void)
 	createCube(2,2,2,0.625,0.625,0.125);
 	glPopMatrix();
 
-	robots[0]->Draw(25,0,-25,0,false,false,false);
-	robots[1]->Draw(-25,0,-25,0,false,false,false);
-	robots[2]->Draw(-25,0,25,0,false,false,false);
-	robots[3]->Draw(25,0,25,0,false,false,false);
+	robots[0]->Draw(robots[0]->x,robots[0]->y,robots[0]->z,robots[0]->rotationY,robots[0]->anime1,robots[0]->anime2,robots[0]->anime3);
+	robots[1]->Draw(robots[1]->x,robots[1]->y,robots[1]->z,robots[1]->rotationY,robots[1]->anime1,robots[1]->anime2,robots[1]->anime3);
+	robots[2]->Draw(robots[2]->x,robots[2]->y,robots[2]->z,robots[2]->rotationY,robots[2]->anime1,robots[2]->anime2,robots[2]->anime3);
+	robots[3]->Draw(robots[3]->x,robots[3]->y,robots[3]->z,robots[3]->rotationY,robots[3]->anime1,robots[3]->anime2,robots[3]->anime3);
 }
 
 void Reshape(GLint w, GLint h)
@@ -285,6 +286,25 @@ void IdleFuncArena(void)
 	}
 	timer += 1;
 	timer = timer %60;
+}
+void playerInput( char c, int speler)
+{
+	// d drive, l left, r right, 1 hakwapen (wapen1), 2 pinwapen (wapen2), 3 rotatewapen(wapen3)
+	switch(c)
+	{
+	case'd' : robots[speler]->Draw(robots[speler]->x+(cos((robots[speler]->rotationY)* (pi/180))*1),robots[speler]->y,robots[speler]->z+(sin((robots[speler]->rotationY)* (pi/180))*-1),robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3);
+		break;
+	case'l' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY+15,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3);
+		break;
+	case'r' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY-15,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3);
+		break;
+	case'1' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,true,robots[speler]->anime2,robots[speler]->anime3);
+		break;
+	case'2' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,robots[speler]->anime1,true,robots[speler]->anime3);
+		break;
+	case'3' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,true);
+		break;
+	}
 }
 
 void KeyboardArena(unsigned char key, int x, int y)
@@ -332,23 +352,4 @@ void KeyboardArena(unsigned char key, int x, int y)
 		break;
 	}
 	printf("x:%i,y:%i,z:%i\n",testx,testy,testz);
-}
-void playerInput( char c, int speler)
-{
-	// d drive, l left, r right, 1 hakwapen (wapen1), 2 pinwapen (wapen2), 3 rotatewapen(wapen3)
-	switch(c)
-	{
-	case'd' : robots[speler]->Draw(robots[speler]->x+1,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3);
-		break;
-	case'l' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY+15,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3);
-		break;
-	case'r' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY-15,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3);
-		break;
-	case'1' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,true,robots[speler]->anime2,robots[speler]->anime3);
-		break;
-	case'2' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,robots[speler]->anime1,true,robots[speler]->anime3);
-		break;
-	case'3' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,true);
-		break;
-	}
 }
