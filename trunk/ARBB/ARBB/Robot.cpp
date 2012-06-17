@@ -1,20 +1,4 @@
 #include "Robot.h"
-#include <GLTools.h>            // OpenGL toolkit
-#include <GLShaderManager.h>    // Shader Manager Class
-#include <cmath>
-#include <GLGeometryTransform.h>
-#include <GLMatrixStack.h>
-
-#include "loadTGA.h"
-#include "ObjModel.h"
-
-#ifdef __APPLE__
-#include <glut/glut.h>          // OS X version of GLUT
-#else
-#define FREEGLUT 
-#include <GL/freeglut.h>// Windows FreeGlut equivalent
-#endif
-
 
 vector<ObjModel*> RobotModels;
 
@@ -56,13 +40,20 @@ void Robot::Draw(float X, float Y, float Z, float RotationY, bool animation1, bo
 	anime1 = animation1;
 	anime2 = animation2;
 	anime3 = animation3;
+
 	glPushMatrix();
-	glTranslated(x,y,z);
+	glTranslated(x,y+20,z);
+
+	glPushMatrix();
+	drawFace(8,8);
+	glTranslated(0,-20,0);
+
 	glPushMatrix();
 	glRotated(rotationY,0,1,0);
 	glPushMatrix();
 	glScaled(6,6,6);	
 	glBindTexture(GL_TEXTURE_2D, robotTextures[1]);
+
 	float size = 0.2;
 	if(items[0] != 0){
 		switch(items[0]){
@@ -171,4 +162,6 @@ void Robot::Draw(float X, float Y, float Z, float RotationY, bool animation1, bo
 	glPopMatrix();
 	glPopMatrix();
 	glPopMatrix();
+	glPopMatrix();
+	glDeleteTextures(GL_TEXTURE_2D,robotTextures);
 }

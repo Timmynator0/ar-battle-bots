@@ -169,6 +169,10 @@ void ArenaDisplay(void)
 			printf("loading %s\n",TextureFilesArena[i]);
 			LoadTGATexture(TextureFilesArena[i], GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE);
 		}
+		robots[0]->Draw(25,0,25,45,false,false,false);
+		robots[1]->Draw(-25,0,25,135,false,false,false);
+		robots[2]->Draw(-25,0,-25,-45,false,false,false);
+		robots[3]->Draw(25,0,-25,-135,false,false,false);
 	}
 	
 	glEnable(GL_TEXTURE_2D);
@@ -266,7 +270,7 @@ void Reshape(GLint w, GLint h)
 }
 
 void IdleFuncArena(void)
-{
+{/*
 	if(y>=0)
 	{
 		count = true;
@@ -285,7 +289,7 @@ void IdleFuncArena(void)
 		//printf("%02d", y);
 	}
 	timer += 1;
-	timer = timer %60;
+	timer = timer %60;*/
 }
 void playerInput( char c, int speler)
 {

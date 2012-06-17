@@ -27,3 +27,4 @@ string convertInt(int place);
 Robot* getRobots(int i);
 void drawText(int selectedItem);
 void calcStats(int creatorID, int selectedItem);
+void increaseRotation();

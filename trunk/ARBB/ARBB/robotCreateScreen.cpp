@@ -73,27 +73,20 @@ void updateItems(int stage, int place){
 		glColor4f(0.5,0.5,0.5,1);
 		//rect
 			glPushMatrix();
-			if(creators[place].rotateRB) 
-			{
-				
-				
-				glRotated(ItemRotation,0,1,0);
-
-			}
-	
-		createDiamondCube(size,size, size/5);
-		glPopMatrix();
+			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);	
+			createDiamondCube(size,size, size/5);
+			glPopMatrix();
 		// pentagon
 		glPushMatrix();
 		glTranslated(0,0.4,0);
-		glPushMatrix();
-		if(creators[place].rotateRU)
-		{	
-			creators[place].damage = 11;
-			glRotated(ItemRotation,0,1,0);
-		}	
-		createPentagon(size,size,size/5);
-		glPopMatrix();
+			glPushMatrix();
+			if(creators[place].rotateRU)
+			{	
+				creators[place].damage = 11;
+				glRotated(ItemRotation,0,1,0);
+			}	
+			createPentagon(size,size,size/5);
+			glPopMatrix();
 		glPopMatrix();
 		// cirkel 
 		glPushMatrix();
@@ -101,16 +94,16 @@ void updateItems(int stage, int place){
 			glPushMatrix();
 			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
 			createCylinder(size/2, size,12,(size/2.5),1,false,0,0,0);
-		glPopMatrix();
+			glPopMatrix();
 		glPopMatrix();
 
 		//triangle
 		glPushMatrix();
 		glTranslated(0.25,0,0);
-				glPushMatrix();
+			glPushMatrix();
 			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);
-		createTriangle(size,size,size/5);
-		glPopMatrix();
+			createTriangle(size,size,size/5);
+			glPopMatrix();
 		glPopMatrix();
 		break;
 	case 1:						//----------------Materiaal Selectie --------------------	
@@ -729,6 +722,7 @@ int createRCSBackground(){
 	else{
 		return 0;
 	}
+	glDeleteTextures(GL_TEXTURE_2D,textures);
 }
 Robot* getRobots(int i)
 {
@@ -752,9 +746,12 @@ void initCreators(vector< ObjModel*> modellen){
 		updateCreators(i,0,false);
 	}
 }
-void updateCreators(int selectedcreator, int selecteditem, bool accept){
+void increaseRotation()
+{	
 	ItemRotation += 6.0; if(ItemRotation >= 360) ItemRotation = 0;
-	drawText(selecteditem);
+}
+void updateCreators(int selectedcreator, int selecteditem, bool accept){
+	//drawText(selecteditem);
 	if(accept)
 	{
 		creators[selectedcreator].stageItems[creators[selectedcreator].createstage] = selecteditem+1;
@@ -765,16 +762,16 @@ void updateCreators(int selectedcreator, int selecteditem, bool accept){
 
 	switch(selecteditem){
 	case 0 :	creators[selectedcreator].rotateLB= true; creators[selectedcreator].rotateLU =false; creators[selectedcreator].rotateRU = false; creators[selectedcreator].rotateRB = false;
-		drawText(selecteditem);
+		//drawText(selecteditem);
 		break;
 	case 1 :	creators[selectedcreator].rotateLB=false; creators[selectedcreator].rotateLU =true; creators[selectedcreator].rotateRU = false; creators[selectedcreator].rotateRB = false;
-		drawText(selecteditem);
+		//drawText(selecteditem);
 		break;
 	case 2 :	creators[selectedcreator].rotateLB=false; creators[selectedcreator].rotateLU = false; creators[selectedcreator].rotateRU = true; creators[selectedcreator].rotateRB = false;
-		drawText(selecteditem);
+		//drawText(selecteditem);
 		break;
 	case 3 :	creators[selectedcreator].rotateLB=false; creators[selectedcreator].rotateLU = false; creators[selectedcreator].rotateRU = false; creators[selectedcreator].rotateRB = true;
-		drawText(selecteditem);
+		//drawText(selecteditem);
 		break;
 	}
 }
