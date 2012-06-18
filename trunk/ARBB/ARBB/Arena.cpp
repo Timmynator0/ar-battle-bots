@@ -110,10 +110,10 @@ void DisplayHUD(int x, int y, int z)
 	speed = buff;
 	sprintf(buff, "Damage: %i",robots[1]->damage);
 	damage = buff;
-	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Speed: 100");
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) speed.c_str());
 	glTranslatef(1,0,-26);
 	glRasterPos3f(0,0,0);
-	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Damage: 100");
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) damage.c_str());
 	//speler 3
 	glTranslatef(-289,0,26);
 	glRasterPos3f(0,0,0);
@@ -121,10 +121,10 @@ void DisplayHUD(int x, int y, int z)
 	speed = buff;
 	sprintf(buff, "Damage: %i",robots[2]->damage);
 	damage = buff;
-	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Speed: 100");
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) speed.c_str());
 	glTranslatef(11,0,-26);
 	glRasterPos3f(0,0,0);
-	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Damage: 100");
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) damage.c_str());
 	//speler 4
 	glTranslatef(-297,0,27);
 	glRasterPos3f(0,0,0);
@@ -132,10 +132,10 @@ void DisplayHUD(int x, int y, int z)
 	speed = buff;
 	sprintf(buff, "Damage: %i",robots[3]->damage);
 	damage = buff;
-	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Speed: 100");
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) speed.c_str());
 	glTranslatef(19,0,-27);
 	glRasterPos3f(0,0,0);
-	glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char*) "Damage: 100");
+	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) damage.c_str());
 	
 	glColor4f(1,1,1,1);
 	glEnable(GL_DEPTH_TEST);
