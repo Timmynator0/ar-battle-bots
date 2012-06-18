@@ -18,9 +18,8 @@ struct Vector3d
 
 bool isTextureLoaded = false;
 float y = 0.0f;
-bool count = false;
+bool up = false;
 double width,height;
-int timer;
 
 double tx =20;	// used for the translation of the test cube
 double ty =2;
@@ -147,8 +146,9 @@ void DisplayHUD(int x, int y, int z)
 *	@parameters Object1 (coordinates) object2 (coordinates)
 *	@returns true if a collision is detected between object 1 and object 2
 */
-bool checkCollision(float x1, float y1, /*float z1,*/ float x2, float y2/*, float z2*/)
+bool checkCollision(float x1, float y1,  float x2, float y2)
 {
+	
 	if(y1 == y2 && x1 == x2)
     {
 		return true;
@@ -166,7 +166,7 @@ void ArenaDisplay(void)
 		for(int i= 0; i < TEXTURE_COUNT_ARENA; i++)
 		{
 			glBindTexture(GL_TEXTURE_2D, texturesArena[i]);
-			printf("loading %s\n",TextureFilesArena[i]);
+			//printf("loading %s\n",TextureFilesArena[i]);
 			LoadTGATexture(TextureFilesArena[i], GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE);
 		}
 		robots[0]->Draw(25,0,25,45,false,false,false);
@@ -228,25 +228,7 @@ void ArenaDisplay(void)
 
 	//test cube for collision detection
 	glPushMatrix();
-	int r = rampCollision(tx,ty,tz);
 	
-		switch (r)
-	{
-	case 1:             // ESCAPE key
-		glRotatef(-330,1,0,0);
-		ty=8;
-		break;
-	case 2:
-		glRotatef(330,1,0,0);
-		ty=8;
-		break;
-	case 3:
-		ty=8;
-		break;
-	case 0:
-		ty=2;
-		break;
-		}
 	glBindTexture(GL_TEXTURE_2D,texturesArena[2]);
 	glTranslatef(tx,ty,tz);
 	createCube(2,2,2,0.625,0.625,0.125);
@@ -254,8 +236,8 @@ void ArenaDisplay(void)
 
 	robots[0]->Draw(robots[0]->x,robots[0]->y,robots[0]->z,robots[0]->rotationY,robots[0]->anime1,robots[0]->anime2,robots[0]->anime3);
 	robots[1]->Draw(robots[1]->x,robots[1]->y,robots[1]->z,robots[1]->rotationY,robots[1]->anime1,robots[1]->anime2,robots[1]->anime3);
-	robots[2]->Draw(robots[2]->x,robots[2]->y,robots[2]->z,robots[2]->rotationY,robots[2]->anime1,robots[2]->anime2,robots[2]->anime3);
-	robots[3]->Draw(robots[3]->x,robots[3]->y,robots[3]->z,robots[3]->rotationY,robots[3]->anime1,robots[3]->anime2,robots[3]->anime3);
+	//robots[2]->Draw(robots[2]->x,robots[2]->y,robots[2]->z,robots[2]->rotationY,robots[2]->anime1,robots[2]->anime2,robots[2]->anime3);
+	//robots[3]->Draw(robots[3]->x,robots[3]->y,robots[3]->z,robots[3]->rotationY,robots[3]->anime1,robots[3]->anime2,robots[3]->anime3);
 }
 
 void Reshape(GLint w, GLint h)
@@ -270,16 +252,16 @@ void Reshape(GLint w, GLint h)
 }
 
 void IdleFuncArena(void)
-{/*
+{
 	if(y>=0)
 	{
-		count = true;
+		up = true;
 	}
 	else if(y<=-6)
 	{
-		count = false;
+		up = false;
 	}
-	if(count)
+	if(up)
 	{
 		y-=.1;
 	}
@@ -287,16 +269,53 @@ void IdleFuncArena(void)
 	{
 		y+=0.1;
 		//printf("%02d", y);
-	}
+	}/*
 	timer += 1;
 	timer = timer %60;*/
 }
 void playerInput( char c, int speler)
 {
 	// d drive, l left, r right, 1 hakwapen (wapen1), 2 pinwapen (wapen2), 3 rotatewapen(wapen3)
+	int r = rampCollision(robots[speler]->x,robots[speler]->y,robots[speler]->z);
+	
+	switch (r)
+	{
+	case 1:             // ESCAPE key
+		glRotatef(-330,1,0,0);
+		robots[speler]->y=8;
+		break;
+	case 2:
+		glRotatef(330,1,0,0);
+		robots[speler]->y=8;
+		break;
+	case 3:
+		robots[speler]->y=8;
+		break;
+	case 0:
+		robots[speler]->y=2;
+		break;
+		}
+
 	switch(c)
 	{
-	case'd' : robots[speler]->Draw(robots[speler]->x+(cos((robots[speler]->rotationY)* (pi/180))*1),robots[speler]->y,robots[speler]->z+(sin((robots[speler]->rotationY)* (pi/180))*-1),robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3);
+	case'd' : 
+		if(robots[speler]->x <= -45)
+		{
+			robots[speler]->x = -45;
+		}
+		else if(robots[speler]->x>=45)
+		{
+			robots[speler]->x = 45;
+		}
+		if(robots[speler]->z <= -45)
+		{
+			robots[speler]->z = -45;
+		}
+		else if(robots[speler]->z>=45)
+		{
+			robots[speler]->z = 45;
+		}
+		robots[speler]->Draw(robots[speler]->x+(cos((robots[speler]->rotationY)* (pi/180))*1),robots[speler]->y,robots[speler]->z+(sin((robots[speler]->rotationY)* (pi/180))*-1),robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3);
 		break;
 	case'l' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY+15,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3);
 		break;
@@ -309,34 +328,46 @@ void playerInput( char c, int speler)
 	case'3' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,true);
 		break;
 	}
+	
 }
 
 void KeyboardArena(unsigned char key, int x, int y)
 {
-	printf("%c\n",key);
+	
 	switch (key)
 	{
 	case 27:             // ESCAPE key
 		exit (0);
 		break;
 	case 'w':
-		if(!checkCollision(0,50,0,tz+2))
-			tz++;
+		/*if(!checkCollision(0,50,0,tz+2))
+			tz++;*/
+		playerInput('d', 0);
 		break;
 	case 'a':
-		if(!checkCollision(50,0,tx+2,0))
-		tx++;
+		/*if(!checkCollision(50,0,tx+2,0))
+		tx++;*/
+		playerInput('l', 0);
 		break;
-	case 's':
-		if(!checkCollision(0,-50,0,tz-2))
-		tz--;
-		break;
+	//case 's':
+	//	if(!checkCollision(0,-50,0,tz-2))
+	//	tz--;
+	//	break;
 	case 'd':
-		if(!checkCollision(-50,0,tx-2,0))
-		tx--;
+		/*if(!checkCollision(-50,0,tx-2,0))
+		tx--;*/
+		playerInput('r', 0);
 		break;
-
-	case 'u':
+	case '1':
+		playerInput('1', 0);
+		break;
+	case '2':
+		playerInput('2', 0);
+		break;
+	case '3':
+		playerInput('3', 0);
+		break;
+	/*case 'u':
 		testx--;
 		break;
 	case 'i':
@@ -353,7 +384,7 @@ void KeyboardArena(unsigned char key, int x, int y)
 		break;
 	case'm':
 		testz++;
-		break;
+		break;*/
 	}
-	printf("x:%i,y:%i,z:%i\n",testx,testy,testz);
+	
 }
