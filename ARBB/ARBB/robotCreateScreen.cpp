@@ -33,41 +33,20 @@ const char *TextureFiles[TEXTURE_COUNT] =
 
 CREATOR				creators[4];
 float				ItemRotation = 0;
-//float tx = 0.30;
-//float ty = 1.30;
-//float tz = 0;
+
 bool L = false;
-//string damage = "damage: ";
+
 string s;
 string damaget;
 void updateItems(int stage, int place){
 	srand ( time(NULL) );
-	//drawText();
+	drawText(place);
 	glPushMatrix();
 	glTranslated(-1.6,-0.15,-0.2);
 	glPushMatrix();
 	glTranslated(0.9*place,0,0);
 	float size = 0.11;
-	
-	////////////////////~~ text draw code on ALL screens ~~ ////////////////////////////////////////
-	
-	//if( selectedCreator = 2);
-	//{
-	//glDisable(GL_BLEND);
-	//char* p = new char[strlen(damage.c_str() + 1)];
-	//strcpy(p, damage.c_str());
-	//damage.replace(0, 3, "meh");
-	//	//replace("damage: 10");
-	//glPushMatrix();
-	//glColor4f(0.0f, 1.0f, 0.0f,1.0f);
-	//glRasterPos3f(tx,ty,tz);
-	//glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) p );
-	//glPopMatrix();
-	//
-	//glColor4f(0.5,0.5,0.5,1);
-	//glEnable(GL_BLEND);
-	//}
-	//////////////////////////////////////////////////////////////////////////////////////////////////		
+			
 	switch(stage){
 	case 0:					//----------------Vorm Selectie --------------------
 		glColor4f(0.5,0.5,0.5,1);
@@ -82,7 +61,7 @@ void updateItems(int stage, int place){
 			glPushMatrix();
 			if(creators[place].rotateRU)
 			{	
-				creators[place].damage = 11;
+				//creators[place].damage = 11;
 				glRotated(ItemRotation,0,1,0);
 			}	
 			createPentagon(size,size,size/5);
@@ -112,7 +91,10 @@ void updateItems(int stage, int place){
 		glTranslated(0,0.15,0);
 		//hout frame
 			glPushMatrix();
-			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);//drawText();
+			if(creators[place].rotateRB){
+				glRotated(ItemRotation,0,1,0);
+						creators[place].tempSpeed2 = 15;
+			}
 			glPushMatrix();
 			glRotated(30,1,0,0);
 			createCube(size/2,size/2,size/2,0,0.28,0.0625);
@@ -124,7 +106,10 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0,0.4,0);
 			glPushMatrix();
-			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);//drawText();
+			if(creators[place].rotateRU){
+				glRotated(ItemRotation,0,1,0);
+						creators[place].tempSpeed2 = 5;
+			}
 			glPushMatrix();
 			glTranslated(0,size,0);
 			createCube(size,size/4,size*0.75,0.25,0.28,0.0625);
@@ -141,7 +126,10 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.3,0.4,-size/2);
 			glPushMatrix();
-			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);//drawText();
+			if(creators[place].rotateLU){
+				glRotated(ItemRotation,0,1,0);
+						creators[place].tempSpeed2 = 10;
+			}
 			glPushMatrix();
 			glRotated(67.5,1,0,0);
 			createCube(size,size/5,size,0.5,0.28,0.0625);
@@ -153,7 +141,10 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.25,0,0);
 			glPushMatrix();
-			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);//drawText();
+			if(creators[place].rotateLB){
+				glRotated(ItemRotation,0,1,0);	
+						creators[place].tempSpeed2 = 20;
+			}
 			glPushMatrix();
 			glRotated(67.5,1,0,0);
 			createCube(size,size/10,size,0.75,0.28,0.0625);
@@ -161,6 +152,8 @@ void updateItems(int stage, int place){
 		glPopMatrix();
 		glPopMatrix();
 		glPopMatrix();
+		
+		break;
 		
 		break;
 	case 2:						//----------------Wielen Selectie --------------------	
@@ -169,7 +162,10 @@ void updateItems(int stage, int place){
 		glTranslated(0,0.15,0);
 		//houten Wielen
 			glPushMatrix();
-			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRB){
+				glRotated(ItemRotation,0,1,0);
+						creators[place].tempSpeed1 = 10;
+			}
 		createCylinder(size/2,size,20,size/5,1,true,0.125,0.875,0.125);
 		glPopMatrix();
 
@@ -177,7 +173,10 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0,0.4,0);
 			glPushMatrix();
-			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRU){
+				glRotated(ItemRotation,0,1,0);
+						creators[place].tempSpeed1 = 20;
+			}
 			createCylinder(size/2,size,20,size/5,1,true,0.375,0.875,0.125);
 		glPopMatrix();
 		glPopMatrix();
@@ -186,7 +185,10 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.3,0.4,-size/2);
 			glPushMatrix();
-			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateLU){
+				glRotated(ItemRotation,0,1,0);
+						creators[place].tempSpeed1 = 10;
+			}
 			createCylinder(size/2,size,20,size/5,1,true,0.625,0.875,0.125);
 		glPopMatrix();
 		glPopMatrix();
@@ -195,75 +197,26 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.25,0,0);
 			glPushMatrix();
-			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);	
+			if(creators[place].rotateLB){
+				glRotated(ItemRotation,0,1,0);	
+						creators[place].tempSpeed1 = 5;
+			}
 			createCylinder(size, size,20,size/5,1,true,0.875,0.875,0.125);	
 		glPopMatrix();
 		glPopMatrix();
 		glPopMatrix();
 		break;
-		glBindTexture(GL_TEXTURE_2D, textures[1]);
-		glPushMatrix();
-		glTranslated(0,0.15,0);
-		//hout frame
-			glPushMatrix();
-			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
-			glPushMatrix();
-			glRotated(30,1,0,0);
-			createCube(size/2,size/2,size/2,0,0.28,0.0625);
-		glPopMatrix();
-		glPopMatrix();
-		
-		size = size / 1.5;
-		//staal frame
-		glPushMatrix();
-		glTranslated(0,0.4,0);
-			glPushMatrix();
-			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
-			glPushMatrix();
-			glTranslated(0,size,0);
-			createCube(size,size/4,size*0.75,0.25,0.28,0.0625);
-			glPopMatrix();
-			createCube(size,size,size/5,0.25,0.28,0.0625);
-			glPushMatrix();
-			glTranslated(0,-size,0);
-			createCube(size,size/4,size*0.75,0.25,0.28,0.0625);
-			glPopMatrix();
-		glPopMatrix();
-		glPopMatrix();
-
-		//aluminium frame
-		glPushMatrix();
-		glTranslated(0.3,0.4,-size/2);
-			glPushMatrix();
-			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
-			glPushMatrix();
-			glRotated(67.5,1,0,0);
-			createCube(size,size/5,size,0.5,0.28,0.0625);
-		glPopMatrix();
-		glPopMatrix();
-		glPopMatrix();
-
-		//carbon frame
-		glPushMatrix();
-		glTranslated(0.25,0,0);
-			glPushMatrix();
-			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);	
-			glPushMatrix();
-			glRotated(67.5,1,0,0);
-			createCube(size,size/10,size,0.75,0.28,0.0625);
-		glPopMatrix();
-		glPopMatrix();
-		glPopMatrix();
-		glPopMatrix();
-		
-		break;
+	
 	case 3:						//----------------Wapen 1 Selectie --------------------	
 		glBindTexture(GL_TEXTURE_2D, textures[1]);
 		glPushMatrix();
 		glTranslated(0,0.15,0);
 		//Hamer
 			glPushMatrix();
-			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRB){
+				glRotated(ItemRotation,0,1,0);
+						creators[place].tempDamage1 = 5;
+			}
 			glPushMatrix();// zet de hamer in een schuine hoek
 			glRotated(45,1,0,0);
 			createCylinder(size/5,size/3,10,size*1.5,1,true,0.125,0.875,0.125);
@@ -278,7 +231,10 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0,0.4,0);
 			glPushMatrix();
-			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRU){
+				glRotated(ItemRotation,0,1,0);
+						creators[place].tempDamage1 = 10;
+			}
 			glPushMatrix();// zet de hamer in een schuine hoek
 			glRotated(45,1,0,0);
 			createCylinder(size/5,size/3,10,size*1.5,1,true,0.625,0.875,0.125);
@@ -293,7 +249,10 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.3,0.4,-size/2);
 			glPushMatrix();
-			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateLU){
+				glRotated(ItemRotation,0,1,0);
+						creators[place].tempDamage1 = 15;
+			}
 			glPushMatrix();// zet de hamer in een schuine hoek
 			glRotated(45,1,0,0);
 			createCube(size/5,size/5,size,0.25,0.28,0.0625);
@@ -309,7 +268,10 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.25,0,0);
 			glPushMatrix();
-			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);	
+			if(creators[place].rotateLB)
+				{glRotated(ItemRotation,0,1,0);	
+					creators[place].tempDamage1 = 20;
+			}
 			glPushMatrix();// zet de hamer in een schuine hoek
 			glRotated(45,1,0,0);
 			createCube(size/5,size/5,size,0.25,0.28,0.0625);
@@ -331,7 +293,11 @@ void updateItems(int stage, int place){
 		glTranslated(0,0.05,0);
 		//Klauw (pakt van boven/onder kan optillen)
 			glPushMatrix();
-			if(creators[place].rotateRB) glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRB)
+				{
+					glRotated(ItemRotation,0,1,0);
+							creators[place].tempDamage2 = 10;
+			}
 			glPushMatrix();// zet de hamer in een schuine hoek
 			glRotated(60,1,0,0);
 			createCube(size/5,size/5,size/1.5,0.5,0.28,0.0625);
@@ -366,7 +332,10 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0,0.4,0);
 			glPushMatrix();
-			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRU){
+				glRotated(ItemRotation,0,1,0);
+						creators[place].tempDamage2 = 15;
+			}
 			glPushMatrix();// zet de hamer in een schuine hoek
 			glRotated(90,1,0,0);
 			for(int i = -1; i<2;i+=2){
@@ -399,7 +368,10 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.3,0.6,-size/2);
 			glPushMatrix();
-			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateLU){
+				glRotated(ItemRotation,0,1,0);
+						creators[place].tempDamage2 = 10;
+			}
 			glPushMatrix();// zet de hamer in een schuine hoek
 			glRotated(-120,1,0,0);
 			createCube(size/5,size/5,size/1.5,0.5,0.28,0.0625);
@@ -424,7 +396,10 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.25,0.15,0);
 			glPushMatrix();
-			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateLB){
+					glRotated(ItemRotation,0,1,0);
+					creators[place].tempDamage2 = 5;
+			}
 			glPushMatrix();
 			glRotated(60,1,0,0);
 			for(int ii= -1; ii<2; ii+=2){
@@ -454,7 +429,11 @@ void updateItems(int stage, int place){
 		glTranslated(0,0.15,0);
 		//Maaier (geval Op het voertuig dat rondraait)
 			glPushMatrix();
-			if(creators[place].rotateRB) glRotated(ItemRotation*2,0,1,0);
+			if(creators[place].rotateRB) 
+			{
+				creators[place].tempDamage3 = 10;
+				glRotated(ItemRotation*2,0,1,0);
+			}
 			glPushMatrix();
 			glRotated(45,0,0,1);
 			for(int i = 0; i<3; i++){
@@ -506,7 +485,11 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0,0.4,0);
 			glPushMatrix();
-			if(creators[place].rotateRU)glRotated(ItemRotation,0,1,0);
+			if(creators[place].rotateRU)
+			{
+					creators[place].tempDamage3 = 15;
+					glRotated(ItemRotation,0,1,0);
+			}
 			glPushMatrix();
 			glRotated(45,0,0,1);
 			for(int i = 0; i<6; i++){
@@ -546,7 +529,11 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.3,0.4,-size/2);
 			glPushMatrix();
-			if(creators[place].rotateLU)glRotated(ItemRotation,0,1,0);			
+			if(creators[place].rotateLU)
+			{
+					creators[place].tempDamage3 = 20;
+					glRotated(ItemRotation,0,1,0);			
+			}
 				glPushMatrix();
 				glTranslated(0,0,-size/2);
 				createCylinder(size/4,size/4,10, size/1.5,1,true, 0.625,0.625,0.125);			
@@ -559,10 +546,16 @@ void updateItems(int stage, int place){
 		glPushMatrix();
 		glTranslated(0.25,0,0);
 			glPushMatrix();
-			if(creators[place].rotateLB)glRotated(ItemRotation,0,1,0);	
+			if(creators[place].rotateLB)
+				{ 
+					creators[place].tempDamage3 = 0;
+					glRotated(ItemRotation,0,1,0);	
+					
+				}
 		glPopMatrix();
 		glPopMatrix();
 		glPopMatrix();
+		
 		break;
 	case 6:
 		break;
@@ -716,7 +709,7 @@ int createRCSBackground(){
 		einde += creators[i].createstage;
 	}
 	if(einde == 24){ //nu is iedereen klaar, door naar volgende stadium		
-		for(int i =0;i<4;i++) Robots.push_back(new Robot(i,creators[i].speed,creators[i].weight,creators[i].damage,creators[i].stageItems, RCSmodels));
+		for(int i =0;i<4;i++) Robots.push_back(new Robot(i,creators[i].speed,creators[i].weight,creators[i].damage,creators[i].stageItems,creators[i].health, RCSmodels));
 		return 1;
 	}
 	else{
@@ -743,6 +736,9 @@ void initCreators(vector< ObjModel*> modellen){
 		creators[i].infobordHeight = 0;
 		creators[i].speed = 0;
 		creators[i].weight = 0;
+		creators[i].tempDamage1 = 0;
+		creators[i].tempDamage2 = 0;
+		creators[i].tempDamage3 = 0;
 		updateCreators(i,0,false);
 	}
 }
@@ -762,16 +758,16 @@ void updateCreators(int selectedcreator, int selecteditem, bool accept){
 
 	switch(selecteditem){
 	case 0 :	creators[selectedcreator].rotateLB= true; creators[selectedcreator].rotateLU =false; creators[selectedcreator].rotateRU = false; creators[selectedcreator].rotateRB = false;
-		//drawText(selecteditem);
+		//drawText(selectedcreator);
 		break;
 	case 1 :	creators[selectedcreator].rotateLB=false; creators[selectedcreator].rotateLU =true; creators[selectedcreator].rotateRU = false; creators[selectedcreator].rotateRB = false;
-		//drawText(selecteditem);
+		//drawText(selectedcreator);
 		break;
 	case 2 :	creators[selectedcreator].rotateLB=false; creators[selectedcreator].rotateLU = false; creators[selectedcreator].rotateRU = true; creators[selectedcreator].rotateRB = false;
-		//drawText(selecteditem);
+		//drawText(selectedcreator);
 		break;
 	case 3 :	creators[selectedcreator].rotateLB=false; creators[selectedcreator].rotateLU = false; creators[selectedcreator].rotateRU = false; creators[selectedcreator].rotateRB = true;
-		//drawText(selecteditem);
+		//drawText(selectedcreator);
 		break;
 	}
 }
@@ -781,17 +777,16 @@ float tx = 0.30;
 float ty = 1.30;
 float tz = 0;
 
-void drawText(int selectedItem)
+void drawText(int selectedcreator)
 {
-	for(int i =0; i<4; i++)
-	{
-		calcStats(i, selectedItem);			
+	glDisable(GL_DEPTH_TEST);
+
+	glDisable(GL_LIGHTING);
+		calcStats(selectedcreator);			
 		glPushMatrix();
 		glTranslated(-1.6,-0.15,-0.2);
 		glPushMatrix();
-		glTranslated(0.9*i,0,0);
-		glDisable(GL_LIGHTING);
-		glDisable(GL_BLEND);
+		glTranslated(0.9*selectedcreator,0,0);
 
 		
 	/*	glPushMatrix();
@@ -799,32 +794,35 @@ void drawText(int selectedItem)
 		glRasterPos3f(0.30,1.30,0);
 		convertInt(creators[i].damage);
 		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) convertInt(creators[i].damage).c_str() );
-		glPopMatrix();
-
-		glPushMatrix();
-		glColor4f(0.0f, 1.0f, 0.0f,1.0f);
-		glRasterPos3f(0.30,1.30,0);
-		convertInt(creators[i].speed);
-		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) convertInt(creators[i].speed).c_str() );
 		glPopMatrix();*/
 
 		glPushMatrix();
 		glColor4f(0.0f, 1.0f, 0.0f,1.0f);
+		glRasterPos3f(0.30,1.20,0);
+		convertInt(creators[selectedcreator].speed);
+		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) "speed = ");
+		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) convertInt(creators[selectedcreator].speed).c_str() );
+		glPopMatrix();
+
+		glPushMatrix();
+		glColor4f(0.0f, 1.0f, 0.0f,1.0f);
 		glRasterPos3f(0.30,1.30,0);
-		convertInt(creators[i].weight);
-		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) convertInt(creators[i].weight).c_str() );
+		convertInt(creators[selectedcreator].damage);
+		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) "damage = ");
+		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) convertInt(creators[selectedcreator].damage).c_str() );
+		cout << creators[selectedcreator].damage << endl;
 		glPopMatrix();
 
 
 		glPopMatrix();
 		glPopMatrix();
-		glEnable(GL_BLEND);
+	
 		glEnable(GL_LIGHTING);
 		glColor4f(0.5,0.5,0.5,1);
 
 
-
-	}
+		glEnable(GL_DEPTH_TEST);
+	
 }
 	
 string convertInt(int number)
@@ -835,34 +833,17 @@ string convertInt(int number)
    return ss.str();//return a string with the contents of the streamer
 }
 
-void calcStats(int creatorID, int selectedItem)
+void calcStats(int creatorID)
 {
-		//creators[creatorID].stageItems[0]
-	switch(creatorID){
-	case 1 :
-		if(selectedItem = 1)
-		{	
-		creators[creatorID].weight = 1;
-		cout << creators[creatorID].weight<<endl;
-		}
-		else if(selectedItem = 2)
-		{	
-		creators[creatorID].weight = 6;
-		cout << creators[creatorID].weight<<endl;
-		}
-		else if(selectedItem = 3)
-		{	
-		creators[creatorID].weight = 10;
-		cout << creators[creatorID].weight<<endl;
-		}
-		else
-		{	
-		creators[creatorID].weight = 3;
-		cout << creators[creatorID].weight<<endl;
-		}
 
-		break;
-	}
+
+	//creators[creatorID].tempDamage1 += creators[creatorID].tempDamage2 + creators[creatorID].tempDamage3;
+	creators[creatorID].damage = creators[creatorID].tempDamage1 + creators[creatorID].tempDamage2 + creators[creatorID].tempDamage3;
+	creators[creatorID].speed = creators[creatorID].tempSpeed1 + creators[creatorID].tempSpeed2;
+	//cout << creators[creatorID].damage << endl;
+
+		//creators[creatorID].stageItems[0]
+	
 		/*stage(creators[creatorID].stageItems[1] == 1)
 			creators[creatorID].weight = 1;
 		else if(creators[creatorID].stageItems[1] == 2)creators[creatorID].weight = 6;

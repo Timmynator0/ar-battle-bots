@@ -41,7 +41,7 @@ public :
 	bool anime2;
 	bool anime3;
 	Robot();
-	Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6],vector< ObjModel*> modellen);
+	Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6],int Health, vector< ObjModel*> modellen);
 	void Draw(float X, float Y, float Z, float RotationY, bool animation1, bool animation2, bool animation3);
 };
 
