@@ -13,6 +13,11 @@
 #include "ObjModel.h"
 #include "Robot.h"
 
+#include "faceCam.h"
+#include "cv.h"
+#include "highgui.h"
+#include <stdlib.h>
+
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
 #else
@@ -24,6 +29,7 @@ GLShaderManager	shaderManager;
 GLuint              textureID;
 GLGeometryTransform	transformPipeline;
 vector<ObjModel*> models;
+IplImage *faceBackground;
 
 int screenwidth= 1024, screenheight = 700;
 int tex = 0;
@@ -33,6 +39,7 @@ int selectedCreator= 0;
 	int selectedCreatorItem= 0;
 bool acceptItem = false;
 float rotation = 0;
+bool firsttime = true;
 
 void ChangeSize(int w, int h)
     {
