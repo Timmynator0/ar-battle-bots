@@ -1,3 +1,4 @@
+#pragma once
 #include "BramsPrimitives.h"
 #include <stdlib.h>
 #include <tchar.h>
@@ -16,4 +17,3 @@
 #endif
 
 void Chainsaw(float x, float y, float z);
-

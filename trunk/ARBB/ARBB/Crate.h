@@ -1,3 +1,4 @@
+#pragma once
 #include <stdlib.h>
 #include <tchar.h>
 #include <iostream>
@@ -13,6 +14,6 @@
 #define FREEGLUT
 #include <GL/glut.h>            // Windows FreeGlut equivalent
 #endif
-	void Crate(float cx, float y, float cz,double playerx, double playerz);
-	void CollisionMove(float cx, float cz,double px, double pz);
-
+	
+void Crate(float cx, float y, float cz,double playerx, double playerz);
+void CollisionMove(float cx, float cz,double px, double pz);
