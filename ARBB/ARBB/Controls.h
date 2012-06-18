@@ -3,6 +3,7 @@
 #include "cv.h"
 #include "highgui.h"
 #include "Arena.h"
+#include <Windows.h>
 
 void showWindows();
 void processImage();
