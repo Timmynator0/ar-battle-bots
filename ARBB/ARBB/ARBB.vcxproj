@@ -56,8 +56,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\freeglut\lib;..\..\GLTools\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>"C:\Program Files\OpenCV2.3\build\x86\vc10\lib\opencv_core230d.lib";"C:\Program Files\OpenCV2.3\build\x86\vc10\lib\opencv_highgui230d.lib";"C:\Program Files\OpenCV2.3\build\x86\vc10\lib\opencv_video230d.lib";"C:\Program Files\OpenCV2.3\build\x86\vc10\lib\opencv_ml230d.lib";"C:\Program Files\OpenCV2.3\build\x86\vc10\lib\opencv_legacy230d.lib";"C:\Program Files\OpenCV2.3\build\x86\vc10\lib\opencv_imgproc230d.lib";freeglut.lib;opengl32.lib;gltools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\freeglut\lib;..\..\GLTools\Release;..\..\OpenCV2.3\build\x86\vc10\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\..\OpenCV2.3\build\x86\vc9\lib\opencv_core230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_highgui230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_video230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_ml230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_legacy230d.lib;..\..\OpenCV2.3\build\x86\vc10\lib\opencv_imgproc230d.lib;freeglut.lib;opengl32.lib;gltools.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
