@@ -18,12 +18,13 @@ Robot::Robot()
 	w3ani = 0;
 	ani1 = true;
 }
-Robot::Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6],vector< ObjModel*> modellen)
+Robot::Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6], int Health, vector< ObjModel*> modellen)
 {
 	nummer = Nummer;
 	speed = Speed;
 	weight = Weight;
 	damage = Damage;
+	health = Health;
 	for(int i=0; i<6; i++) items[i] = Items[i];
 	w1ani = 0;
 	w2ani = 0;
