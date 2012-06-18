@@ -68,13 +68,15 @@ void resetPerspectiveProjection()
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void DisplayHUD(int x, int y, int z)
+void DisplayHUD(double x, double y, double z)
 {
 	glPushMatrix();
 	//player1
 	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_BLEND);
 	setOrthographicProjection();
-
+	
 	glBindTexture(GL_TEXTURE_2D, texturesArena[5]);
 
 	glScalef(0.1,0.1,0.1);
@@ -86,8 +88,29 @@ void DisplayHUD(int x, int y, int z)
 	glTexCoord2f(1,1);	glVertex2f(10,4);
 	glTexCoord2f(0,1);	glVertex2f(-10,4);
 	glEnd();
-
+	
+	for(int i = 0; i<4;i++)
+	{
+		if(!(robots[i]->health <= 0))
+		{
+			glPushMatrix();
+			if(i!=3)
+				glTranslated(x-7.3+i*5,y+0.18,z);
+			else
+				glTranslated(x-7.3+i*5-0.065,y+0.18,z);
+			glScalef(0.021,0.003,0.01);
+			glColor4f(0,1,0,1);
+			glBegin(GL_QUADS);
+				glVertex2f(0,0);
+				glVertex2f((robots[i]->health),0);
+				glVertex2f((robots[i]->health),100);
+				glVertex2f(0,100);
+			glEnd();
+			glPopMatrix();
+		}
+	}
 	resetPerspectiveProjection();
+	glPushMatrix();
 	char buff[100];
 	string speed;
 	string damage;
@@ -135,8 +158,11 @@ void DisplayHUD(int x, int y, int z)
 	glTranslatef(19,0,-27);
 	glRasterPos3f(0,0,0);
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) damage.c_str());
+	glPopMatrix();
 	
 	glColor4f(1,1,1,1);
+	glEnable(GL_BLEND);
+	glEnable(GL_LIGHTING);
 	glEnable(GL_DEPTH_TEST);
 	glPopMatrix();
 	
@@ -155,7 +181,7 @@ bool checkCollision(float x1, float y1,  float x2, float y2)
     }
 	return false;
 }
-int testx,testy,testz;
+double testx,testy,testz;
 void ArenaDisplay(void)
 {
 	if(!isTextureLoaded)
@@ -367,24 +393,27 @@ void KeyboardArena(unsigned char key, int x, int y)
 	case '3':
 		playerInput('3', 0);
 		break;
-	/*case 'u':
-		testx--;
+	case 'u':
+		testx -= 0.1;
 		break;
 	case 'i':
-		testx++;
+		testx+= 0.1;
 		break;
 	case'j':
-		testy--;
+		testy-= 0.1;
 		break;
 	case'k':
-		testy++;
+		testy+= 0.1;
 		break;
 	case'n':
-		testz--;
+		testz-= 0.1;
 		break;
 	case'm':
-		testz++;
-		break;*/
+		testz+= 0.1;
+		break;
+	case '-':
+		robots[0]->health--;
+		break;
 	}
-	
+	//printf("x: %lf, y: %lf\n",testx,testy);
 }
