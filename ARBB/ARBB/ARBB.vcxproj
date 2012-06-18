@@ -56,8 +56,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\freeglut\lib;..\..\GLTools\Release;..\..\OpenCV2.3\build\x86\vc10\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>..\..\OpenCV2.3\build\x86\vc9\lib\opencv_core230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_highgui230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_video230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_ml230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_legacy230d.lib;..\..\OpenCV2.3\build\x86\vc10\lib\opencv_imgproc230d.lib;freeglut.lib;opengl32.lib;gltools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\freeglut\lib;..\..\GLTools\Release;..\..\OpenCV2.3\build\x86\vc9\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\..\OpenCV2.3\build\x86\vc9\lib\opencv_core230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_highgui230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_video230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_ml230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_legacy230d.lib;..\..\OpenCV2.3\build\x86\vc9\lib\opencv_imgproc230d.lib;freeglut.lib;opengl32.lib;gltools.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -81,6 +81,7 @@
     <ClCompile Include="Arena.cpp" />
     <ClCompile Include="BramsPrimitives.cpp" />
     <ClCompile Include="Chainsaw.cpp" />
+    <ClCompile Include="Controls.cpp" />
     <ClCompile Include="Crate.cpp" />
     <ClCompile Include="faceCam.cpp" />
     <ClCompile Include="LoadTGA.cpp" />
@@ -94,6 +95,7 @@
     <ClInclude Include="Arena.h" />
     <ClInclude Include="BramsPrimitives.h" />
     <ClInclude Include="Chainsaw.h" />
+    <ClInclude Include="Controls.h" />
     <ClInclude Include="Crate.h" />
     <ClInclude Include="faceCam.h" />
     <ClInclude Include="loadTGA.h" />

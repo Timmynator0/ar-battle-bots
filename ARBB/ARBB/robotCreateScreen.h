@@ -1,5 +1,5 @@
+#pragma once
 #include "ObjModel.h"
-
 #include "loadTGA.h"
 #include "BramsPrimitives.h"
 #include "ObjModel.h"

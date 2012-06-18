@@ -1,14 +1,9 @@
-#ifndef FACECAM
-#define FACECAM
-
-#include "opencv2/imgproc/imgproc.hpp"
+#pragma once
 
 #include "cv.h"
 #include "highgui.h"
 #include <stdlib.h>
-
 #include <GLTools.h>
-#include <cmath>
 #include <GLGeometryTransform.h>
 #include <GLMatrixStack.h>
 
@@ -20,5 +15,3 @@ using namespace cv;
 
 int loadTexture_Ipl(IplImage *image, GLuint *text);
 void drawFace(float width, float height);
-
-#endif

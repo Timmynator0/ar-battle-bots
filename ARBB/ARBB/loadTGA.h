@@ -1,5 +1,4 @@
-#ifndef LOADTGA
-#define LOADTGA
+#pragma once
 
 typedef struct
 {
@@ -24,5 +23,3 @@ typedef struct
 GLbyte *ReadTGABits(const char *szFileName, GLint *iWidth, GLint *iHeight, GLint *iComponents, GLenum *eFormat);
 
 bool LoadTGATexture(const char *szFileName, GLenum minFilter, GLenum magFilter, GLenum wrapMode);
-
-#endif

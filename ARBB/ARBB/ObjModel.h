@@ -1,9 +1,7 @@
 #pragma once
-
 #include <string>
 #include <vector>
 #include <list>
-
 #include <windows.h>
 #include <gl/GL.h>
 

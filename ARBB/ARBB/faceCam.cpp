@@ -1,4 +1,3 @@
-
 #include "faceCam.h"
 using namespace cv;
 

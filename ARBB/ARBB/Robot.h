@@ -1,5 +1,4 @@
-#ifndef ROBOT
-#define ROBOT
+#pragma once
 #include <vector>
 #include <GLTools.h>            // OpenGL toolkit
 #include <GLShaderManager.h>    // Shader Manager Class
@@ -44,5 +43,3 @@ public :
 	Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6],int Health, vector< ObjModel*> modellen);
 	void Draw(float X, float Y, float Z, float RotationY, bool animation1, bool animation2, bool animation3);
 };
-
-#endif ROBOT

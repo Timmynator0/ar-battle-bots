@@ -1,21 +1,16 @@
-#ifndef ARENA
-#define ARENA
-
-#include "loadTGA.h"
+#pragma once
 #include <stdlib.h>
 #include <tchar.h>
 #include <iostream>
-#include <string>
 #include <GLTools.h>            // OpenGL toolkit
 #include <GLShaderManager.h>    // Shader Manager Class
-#include <cmath>
 #include <GLGeometryTransform.h>
 #include <GLMatrixStack.h>
 #include <stdio.h>
 
-#include "Robot.h"
+#include "loadTGA.h"
 #include "ObjModel.h"
-
+#include "Robot.h"
 
 #ifdef __APPLE__
 #include <glut/glut.h>          // OS X version of GLUT
@@ -33,8 +28,7 @@ void InitGraphics(void);
 void MouseButton(int button, int state, int x, int y);
 void MouseMotion(int x, int y);
 void IdleFuncArena(void);
+void playerInput( char c, int speler);
 void KeyboardArena(unsigned char key, int x, int y);
 void setRobots(Robot &r);
 //int main(int argc, char* argv[]);
-
-#endif
