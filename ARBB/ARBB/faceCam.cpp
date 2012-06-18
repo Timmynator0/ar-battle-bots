@@ -2,7 +2,7 @@
 #include "faceCam.h"
 using namespace cv;
 
-CvCapture* capture = cvCaptureFromCAM(1);
+CvCapture* capture = cvCaptureFromCAM(0);
 GLuint faceTexture = 0;
 
 int loadTexture_Ipl(IplImage *image, GLuint *text)
