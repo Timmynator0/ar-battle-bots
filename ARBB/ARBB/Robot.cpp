@@ -32,7 +32,7 @@ Robot::Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6], int Hea
 	ani1 = true;
 	RobotModels = modellen;
 }
-void Robot::Draw(float X, float Y, float Z, float RotationY, bool animation1, bool animation2, bool animation3)
+void Robot::Draw(float X, float Y, float Z, float RotationY, bool animation1, bool animation2, bool animation3, bool cam)
 {
 	x = X;
 	y = Y;
@@ -46,7 +46,10 @@ void Robot::Draw(float X, float Y, float Z, float RotationY, bool animation1, bo
 	glTranslated(x,y+20,z);
 
 	glPushMatrix();
-	drawFace(8,8);
+	if(cam)
+	{
+		drawFace(8,8);
+	}
 	glTranslated(0,-20,0);
 
 	glPushMatrix();
@@ -165,4 +168,6 @@ void Robot::Draw(float X, float Y, float Z, float RotationY, bool animation1, bo
 	glPopMatrix();
 	glPopMatrix();
 	glDeleteTextures(GL_TEXTURE_2D,robotTextures);
+	
+	glutPostRedisplay();
 }
