@@ -51,13 +51,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\freeglut\include;..\..\include;..\..\GLTools\Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\OpenCV2.3\build\include\opencv;..\..\OpenCV2.3\build\include;..\..\freeglut\include;..\..\include;..\..\GLTools\Release;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\..\freeglut\lib;..\..\GLTools\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freeglut.lib;opengl32.lib;gltools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>"C:\Program Files\OpenCV2.3\build\x86\vc10\lib\opencv_core230d.lib";"C:\Program Files\OpenCV2.3\build\x86\vc10\lib\opencv_highgui230d.lib";"C:\Program Files\OpenCV2.3\build\x86\vc10\lib\opencv_video230d.lib";"C:\Program Files\OpenCV2.3\build\x86\vc10\lib\opencv_ml230d.lib";"C:\Program Files\OpenCV2.3\build\x86\vc10\lib\opencv_legacy230d.lib";"C:\Program Files\OpenCV2.3\build\x86\vc10\lib\opencv_imgproc230d.lib";freeglut.lib;opengl32.lib;gltools.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -82,6 +82,7 @@
     <ClCompile Include="BramsPrimitives.cpp" />
     <ClCompile Include="Chainsaw.cpp" />
     <ClCompile Include="Crate.cpp" />
+    <ClCompile Include="faceCam.cpp" />
     <ClCompile Include="LoadTGA.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjModel.cpp" />
@@ -94,6 +95,7 @@
     <ClInclude Include="BramsPrimitives.h" />
     <ClInclude Include="Chainsaw.h" />
     <ClInclude Include="Crate.h" />
+    <ClInclude Include="faceCam.h" />
     <ClInclude Include="loadTGA.h" />
     <ClInclude Include="ObjModel.h" />
     <ClInclude Include="Ramp.h" />

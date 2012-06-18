@@ -1,3 +1,6 @@
+#ifndef ARENA
+#define ARENA
+
 #include "loadTGA.h"
 #include <stdlib.h>
 #include <tchar.h>
@@ -33,3 +36,5 @@ void IdleFuncArena(void);
 void KeyboardArena(unsigned char key, int x, int y);
 void setRobots(Robot &r);
 //int main(int argc, char* argv[]);
+
+#endif
