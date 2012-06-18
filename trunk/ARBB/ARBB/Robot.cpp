@@ -24,7 +24,7 @@ Robot::Robot(int Nummer, int Speed, int Weight,int Damage, int Items[6], int Hea
 	speed = Speed;
 	weight = Weight;
 	damage = Damage;
-	health = Health;
+	health = 100;
 	for(int i=0; i<6; i++) items[i] = Items[i];
 	w1ani = 0;
 	w2ani = 0;
