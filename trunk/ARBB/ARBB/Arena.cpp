@@ -5,6 +5,8 @@
 #include "Robot.h"
 #include <string>
 #include "BramsPrimitives.h"
+#include "faceCam.h"
+#include "cv.h"
 
 #define OBJECT_COUNT 1
 #define STATIC_OBJECT_COUNT 4
@@ -28,6 +30,10 @@ Vector3d staticObject[STATIC_OBJECT_COUNT];
 Vector3d moveableObject[OBJECT_COUNT];
 double cratex = 20;
 double cratez = 20;
+GLuint handTexture;
+
+GLBatch handBatch;
+
 GLuint texturesArena[TEXTURE_COUNT_ARENA];
 const char *TextureFilesArena[TEXTURE_COUNT_ARENA] =
 {"arena_floor.tga", "arena-muur.tga",
@@ -39,7 +45,6 @@ void playerInput( char c, int speler);
 
 void setOrthographicProjection() 
 {
-
 	// switch to projection mode
 	glMatrixMode(GL_PROJECTION);
 	// save previous matrix which contains the 
@@ -68,6 +73,12 @@ void resetPerspectiveProjection()
 	glPopMatrix();
 	// get back to GL_MODELVIEW matrix
 	glMatrixMode(GL_MODELVIEW);
+}
+
+void setHand(IplImage* img)
+{
+	loadTexture_Ipl(img, &handTexture);
+	//std::cout<<"hand: "<<handTexture<<std::endl;
 }
 
 void DisplayHUD(double x, double y, double z)
@@ -109,7 +120,26 @@ void DisplayHUD(double x, double y, double z)
 				glVertex2f(0,100);
 			glEnd();
 			glPopMatrix();
+			glColor4f(1,1,1,1);
 		}
+		glPushMatrix();
+		glTranslated(x-8.8+i*5,1,0);
+		drawFace(0.9,0.9);
+		glPopMatrix();
+
+		
+		glPushMatrix();
+		glTranslated(x-8.8+i*5,3,0);
+		glBindTexture(GL_TEXTURE_2D, handTexture);
+		//std::cout<<"ht : "<<handTexture<<std::endl;
+		glBegin(GL_QUADS);
+		glTexCoord2f(0, 0);		glVertex3f(-0.9,-0.9,0);		//1
+		glTexCoord2f(1, 0);		glVertex3f(0.9,-0.9,0);		//2
+		glTexCoord2f(1, 1);		glVertex3f(0.9,0.9,0);		//7
+		glTexCoord2f(0,1);		glVertex3f(-0.9,0.9,0);		//8
+		glEnd();
+		glPopMatrix();
+
 	}
 	resetPerspectiveProjection();
 	glPushMatrix();
@@ -319,6 +349,7 @@ void IdleFuncArena(void)
 }
 void playerInput( char c, int speler)
 {
+	if(robots.size() != 0 ){
 	// d drive, l left, r right, 1 hakwapen (wapen1), 2 pinwapen (wapen2), 3 rotatewapen(wapen3)
 	int r = rampCollision(robots[speler]->x,robots[speler]->y,robots[speler]->z);
 	if(speler == 0)
@@ -366,11 +397,11 @@ void playerInput( char c, int speler)
 		{
 			robots[speler]->z = 45;
 		}
-		robots[speler]->Draw(robots[speler]->x+(cos((robots[speler]->rotationY)* (pi/180))*1),robots[speler]->y,robots[speler]->z+(sin((robots[speler]->rotationY)* (pi/180))*-1),robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3, cam);
+		robots[speler]->Draw(robots[speler]->x+(cos((robots[speler]->rotationY)* (pi/180))*0.7),robots[speler]->y,robots[speler]->z+(sin((robots[speler]->rotationY)* (pi/180))*-0.7),robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3, cam);
 		break;
-	case'l' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY+15,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3, cam);
+	case'l' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY+5,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3, cam);
 		break;
-	case'r' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY-15,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3, cam);
+	case'r' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY-5,robots[speler]->anime1,robots[speler]->anime2,robots[speler]->anime3, cam);
 		break;
 	case'1' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,true,robots[speler]->anime2,robots[speler]->anime3, cam);
 		break;
@@ -378,6 +409,7 @@ void playerInput( char c, int speler)
 		break;
 	case'3' :robots[speler]->Draw(robots[speler]->x,robots[speler]->y,robots[speler]->z,robots[speler]->rotationY,robots[speler]->anime1,robots[speler]->anime2,true, cam);
 		break;
+	}
 	}
 }
 

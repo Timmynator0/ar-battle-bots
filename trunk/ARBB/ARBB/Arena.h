@@ -22,6 +22,7 @@
 void setOrthographicProjection() ;
 void resetPerspectiveProjection();
 void renderBitmapString(float x, float y, void *font,char *string);
+void setHand(IplImage* img);
 void ArenaDisplay(void);
 void Reshape(GLint width, GLint height);
 void InitGraphics(void);

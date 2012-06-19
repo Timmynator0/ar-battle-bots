@@ -20,16 +20,17 @@ int initControls()
 	cvQueryFrame(handCam);
 	CreateThread(NULL, 0, processMovement, NULL, 0, thread1ID);
 	CreateThread(NULL, 0, pollMovement, NULL, 0, thread2ID);
-	while(!dead) { }
+	if(dead) {
 	TerminateThread(processMovement, 0);
 	TerminateThread(pollMovement, 0);
 	dealloc();
+	}
 	return 0;
 }
 
 void showWindows()
 {
-	cvShowImage("src", src);
+//	cvShowImage("src", src);
 	cvInRangeS(src, hsv_min, hsv_max, hsv_mask);
 	cvNot(hsv_mask, hsv_mask);
 	cvShowImage("hsv-msk", hsv_mask);
@@ -40,7 +41,11 @@ void processImage()
 {
 	cvInRangeS(src, hsv_min, hsv_max, hsv_mask);	//Threshold Image
 	cvNot(hsv_mask, hsv_mask);						//Inverse Image
+	//setHand(hsv_mask);
 	hsv_mask->origin = 1;
+	cvShowImage("hsv-msk", hsv_mask);
+	//cvShowImage("Hand Contour", contour);
+	//std::cout<<"hsv: "<<hsv_mask->nChannels<<std::endl;
 	cvZero(contour);
 }
 
@@ -55,6 +60,7 @@ DWORD WINAPI processMovement(void* params)
 	{
 		storage = cvCreateMemStorage();
 		src = cvQueryFrame(handCam);
+		cvFlip(src, src, 1);
 		cvFindContours(hsv_mask, storage, &contours, sizeof(CvContour), CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cvPoint(0, 0));
 		if(contours != NULL)
 		{
@@ -94,13 +100,14 @@ DWORD WINAPI processMovement(void* params)
 				command = '1';		//wapen 1
 			else
 				command = 's';		//stop s
-			cvReleaseMemStorage(&storage);
+			//cvReleaseMemStorage(&storage);
 			c = cvWaitKey(10);
 		}
 		cvReleaseMemStorage(&storage);
-		showWindows();
+		//showWindows();
 		processImage();
 	}
+	dealloc();
 	dead = true;
 	return 0;
 }

@@ -14,6 +14,7 @@
 #include "robotCreateScreen.h"
 #include "ObjModel.h"
 #include "Robot.h"
+#include "Controls.h"
 
 #include "faceCam.h"
 #include "cv.h"
@@ -39,7 +40,7 @@ GLGeometryTransform	transformPipeline;
 vector<ObjModel*> models;
 IplImage *faceBackground;
 
-int screenwidth= 1024, screenheight = 700;
+int screenwidth= 1400, screenheight = 800;
 int tex = 0,opstartcount = 0;
 int gamestage = 0; // 0 is niets/net opgestart, 1 is wachten op spelers, 2 is robot creeeren, 3 is spelen, 4 is einduitslag
 int h,w ;
@@ -309,8 +310,9 @@ int main(int argc, char* argv[])
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	shaderManager.InitializeStockShaders();
-	gamestage = 0;
+	gamestage = 2;
 	laadModellen();
+	initControls();
     initCreators(models);
 	initAPS(models);
 	initES(models);

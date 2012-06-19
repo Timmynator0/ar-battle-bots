@@ -82,6 +82,7 @@
     <ClCompile Include="awaitingPlayerScreen.cpp" />
     <ClCompile Include="BramsPrimitives.cpp" />
     <ClCompile Include="Chainsaw.cpp" />
+    <ClCompile Include="Controls.cpp" />
     <ClCompile Include="Crate.cpp" />
     <ClCompile Include="endScreen.cpp" />
     <ClCompile Include="faceCam.cpp" />
@@ -97,6 +98,7 @@
     <ClInclude Include="awaitingPlayerScreen.h" />
     <ClInclude Include="BramsPrimitives.h" />
     <ClInclude Include="Chainsaw.h" />
+    <ClInclude Include="Controls.h" />
     <ClInclude Include="Crate.h" />
     <ClInclude Include="endScreen.h" />
     <ClInclude Include="faceCam.h" />
@@ -111,11 +113,14 @@
     <ResourceCompile Include="ARBB.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="APSfloor.tga" />
     <None Include="arena-muur.tga" />
     <None Include="arena_floor.tga" />
     <None Include="banden.tga" />
     <None Include="chainwheel.tga" />
     <None Include="crate.tga" />
+    <None Include="erepodium.tga" />
+    <None Include="opstartscherm.tga" />
     <None Include="stainless-steel.tga" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
