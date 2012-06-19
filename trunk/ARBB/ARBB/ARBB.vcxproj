@@ -79,9 +79,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Arena.cpp" />
+    <ClCompile Include="awaitingPlayerScreen.cpp" />
     <ClCompile Include="BramsPrimitives.cpp" />
     <ClCompile Include="Chainsaw.cpp" />
     <ClCompile Include="Crate.cpp" />
+    <ClCompile Include="endScreen.cpp" />
     <ClCompile Include="faceCam.cpp" />
     <ClCompile Include="LoadTGA.cpp" />
     <ClCompile Include="main.cpp" />
@@ -92,9 +94,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arena.h" />
+    <ClInclude Include="awaitingPlayerScreen.h" />
     <ClInclude Include="BramsPrimitives.h" />
     <ClInclude Include="Chainsaw.h" />
     <ClInclude Include="Crate.h" />
+    <ClInclude Include="endScreen.h" />
     <ClInclude Include="faceCam.h" />
     <ClInclude Include="loadTGA.h" />
     <ClInclude Include="ObjModel.h" />

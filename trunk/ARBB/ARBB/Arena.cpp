@@ -100,7 +100,7 @@ void DisplayHUD(double x, double y, double z)
 				glTranslated(x-7.3+i*5,y+0.18,z);
 			else
 				glTranslated(x-7.3+i*5-0.065,y+0.18,z);
-			glScalef(0.021,0.003,0.01);
+			glScalef(0.021f,0.003f,0.01f);
 			glColor4f(0,1,0,1);
 			glBegin(GL_QUADS);
 				glVertex2f(0,0);
@@ -119,9 +119,9 @@ void DisplayHUD(double x, double y, double z)
 	//speler 1
 	glTranslatef(410,0,-626);
 	glRasterPos3f(0,0,0);
-	sprintf(buff, "Speed: %i",robots[0]->speed);
+	sprintf_s(buff, "Speed: %i",robots[0]->speed);
 	speed = buff;
-	sprintf(buff, "Damage: %i",robots[0]->damage);
+	sprintf_s(buff, "Damage: %i",robots[0]->damage);
 	damage = buff;
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) speed.c_str());
 	glTranslatef(-6,0,-26);
@@ -130,9 +130,9 @@ void DisplayHUD(double x, double y, double z)
 	//speler 2
 	glTranslatef(-279,0,25);
 	glRasterPos3f(0,0,0);
-	sprintf(buff, "Speed: %i",robots[1]->speed);
+	sprintf_s(buff, "Speed: %i",robots[1]->speed);
 	speed = buff;
-	sprintf(buff, "Damage: %i",robots[1]->damage);
+	sprintf_s(buff, "Damage: %i",robots[1]->damage);
 	damage = buff;
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) speed.c_str());
 	glTranslatef(1,0,-26);
@@ -141,9 +141,9 @@ void DisplayHUD(double x, double y, double z)
 	//speler 3
 	glTranslatef(-289,0,26);
 	glRasterPos3f(0,0,0);
-	sprintf(buff, "Speed: %i",robots[2]->speed);
+	sprintf_s(buff, "Speed: %i",robots[2]->speed);
 	speed = buff;
-	sprintf(buff, "Damage: %i",robots[2]->damage);
+	sprintf_s(buff, "Damage: %i",robots[2]->damage);
 	damage = buff;
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) speed.c_str());
 	glTranslatef(11,0,-26);
@@ -152,9 +152,9 @@ void DisplayHUD(double x, double y, double z)
 	//speler 4
 	glTranslatef(-297,0,27);
 	glRasterPos3f(0,0,0);
-	sprintf(buff, "Speed: %i",robots[3]->speed);
+	sprintf_s(buff, "Speed: %i",robots[3]->speed);
 	speed = buff;
-	sprintf(buff, "Damage: %i",robots[3]->damage);
+	sprintf_s(buff, "Damage: %i",robots[3]->damage);
 	damage = buff;
 	glutBitmapString(GLUT_BITMAP_HELVETICA_18,(const unsigned char*) speed.c_str());
 	glTranslatef(19,0,-27);
@@ -266,8 +266,8 @@ void ArenaDisplay(void)
 		robots[0]->Draw(robots[0]->x,robots[0]->y,robots[0]->z,robots[0]->rotationY,robots[0]->anime1,robots[0]->anime2,robots[0]->anime3, true);
 	}
 	robots[1]->Draw(robots[1]->x,robots[1]->y,robots[1]->z,robots[1]->rotationY,robots[1]->anime1,robots[1]->anime2,robots[1]->anime3, false);
-	//robots[2]->Draw(robots[2]->x,robots[2]->y,robots[2]->z,robots[2]->rotationY,robots[2]->anime1,robots[2]->anime2,robots[2]->anime3, false);
-	//robots[3]->Draw(robots[3]->x,robots[3]->y,robots[3]->z,robots[3]->rotationY,robots[3]->anime1,robots[3]->anime2,robots[3]->anime3, false);
+	robots[2]->Draw(robots[2]->x,robots[2]->y,robots[2]->z,robots[2]->rotationY,robots[2]->anime1,robots[2]->anime2,robots[2]->anime3, false);
+	robots[3]->Draw(robots[3]->x,robots[3]->y,robots[3]->z,robots[3]->rotationY,robots[3]->anime1,robots[3]->anime2,robots[3]->anime3, false);
 	
 
 	if(drive)
