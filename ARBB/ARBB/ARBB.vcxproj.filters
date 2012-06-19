@@ -54,6 +54,9 @@
     <ClCompile Include="endScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Controls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="robotCreateScreen.h">
@@ -95,6 +98,9 @@
     <ClInclude Include="endScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Controls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ARBB.rc">
@@ -108,5 +114,8 @@
     <None Include="chainwheel.tga" />
     <None Include="crate.tga" />
     <None Include="stainless-steel.tga" />
+    <None Include="opstartscherm.tga" />
+    <None Include="APSfloor.tga" />
+    <None Include="erepodium.tga" />
   </ItemGroup>
 </Project>

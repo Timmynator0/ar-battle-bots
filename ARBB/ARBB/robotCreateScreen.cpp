@@ -752,7 +752,7 @@ void updateCreators(int selectedcreator, int selecteditem, bool accept){
 	{
 		creators[selectedcreator].stageItems[creators[selectedcreator].createstage] = selecteditem+1;
 		creators[selectedcreator].createstage++;	
-		std::cout<<"creator : "<<selectedcreator<<" heeft: "<<creators[selectedcreator].stageItems[0]<<","<<creators[selectedcreator].stageItems[1]<<","<<creators[selectedcreator].stageItems[2]<<","<<creators[selectedcreator].stageItems[3]<<","<<creators[selectedcreator].stageItems[4]<<","<<creators[selectedcreator].stageItems[5]<<std::endl;
+		//std::cout<<"creator : "<<selectedcreator<<" heeft: "<<creators[selectedcreator].stageItems[0]<<","<<creators[selectedcreator].stageItems[1]<<","<<creators[selectedcreator].stageItems[2]<<","<<creators[selectedcreator].stageItems[3]<<","<<creators[selectedcreator].stageItems[4]<<","<<creators[selectedcreator].stageItems[5]<<std::endl;
 	}
 	if(creators[selectedcreator].createstage >= 7) creators[selectedcreator].createstage = 6;
 
@@ -810,7 +810,7 @@ void drawText(int selectedcreator)
 		convertInt(creators[selectedcreator].damage);
 		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) "damage = ");
 		glutBitmapString(GLUT_BITMAP_HELVETICA_18,(unsigned char*) convertInt(creators[selectedcreator].damage).c_str() );
-		cout << creators[selectedcreator].damage << endl;
+		//cout << creators[selectedcreator].damage << endl;
 		glPopMatrix();
 
 
