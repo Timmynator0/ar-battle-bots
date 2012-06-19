@@ -12,6 +12,7 @@ Robot::Robot()
 	speed = 0;
 	weight = 0;
 	damage = 0;	
+	health = 0;
 	for(int i=0; i<6; i++) items[i] = 1;
 	w1ani = 0;
 	w2ani = 0;

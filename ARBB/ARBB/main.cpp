@@ -7,6 +7,8 @@
 #include <GLMatrixStack.h>
 #include <stdio.h>
 #include "arena.h"
+#include "awaitingPlayerScreen.h"
+#include "endScreen.h"
 
 #include "loadTGA.h"
 #include "robotCreateScreen.h"
@@ -24,22 +26,28 @@
 #define FREEGLUT
 #include <GL/freeglut.h>            // Windows FreeGlut equivalent
 #endif
+
+#define Main_TEXTURE_COUNT 1
+
 GLBatch	triangleBatch;
 GLShaderManager	shaderManager;
-GLuint              textureID;
+
+GLuint maintextures[TEXTURE_COUNT];
+const char *mainTextureFiles[TEXTURE_COUNT] =
+{ "opstartscherm.tga"};
 GLGeometryTransform	transformPipeline;
 vector<ObjModel*> models;
 IplImage *faceBackground;
 
 int screenwidth= 1024, screenheight = 700;
-int tex = 0;
+int tex = 0,opstartcount = 0;
 int gamestage = 0; // 0 is niets/net opgestart, 1 is wachten op spelers, 2 is robot creeeren, 3 is spelen, 4 is einduitslag
 int h,w ;
 int selectedCreator= 0;
 	int selectedCreatorItem= 0;
 bool acceptItem = false;
 float rotation = 0;
-bool firsttime = true;
+bool firsttime = true,Loaded = false;
 
 void ChangeSize(int w, int h)
     {
@@ -50,11 +58,17 @@ void ChangeSize(int w, int h)
 		gluPerspective(90, 1, 0.1, 150);
 		switch(gamestage)
 		{
+		case 1:
+			gluLookAt(0,75,-10,0,0,50,0,1,0);
+			break;
 		case 2:	
 			gluLookAt(0,0,-2, 0,0,0, 0,1,0);
 			break;
 		case 3:
 			gluLookAt(0,75,-60,0,0,0,0,1,0);
+			break;
+		case 4:
+			gluLookAt(0,45,-10,0,5,50,0,1,0);
 			break;
 		}
 		glMatrixMode(GL_MODELVIEW);
@@ -64,6 +78,34 @@ void ChangeSize(int w, int h)
 void MouseButton(int button, int state, int x, int y)
 {
 	std::cout << "button : "<<button<< "state : "<<state<< std::endl;
+}
+void startScreen()
+{
+	if(!Loaded)
+	{
+		glGenTextures(Main_TEXTURE_COUNT, maintextures);
+		for(int i= 0; i < Main_TEXTURE_COUNT; i++)
+		{
+			glBindTexture(GL_TEXTURE_2D, maintextures[i]);
+			LoadTGATexture(mainTextureFiles[i], GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE);
+		}
+		Loaded = true;
+	}
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-screenwidth,screenwidth,-screenheight,screenheight,-1,1);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glBindTexture(GL_TEXTURE_2D, maintextures[0]);
+	glBegin(GL_QUADS);
+		glTexCoord2f(0,0); glVertex3f(-screenwidth,-screenheight,0.2);
+		glTexCoord2f(0,1); glVertex3f(-screenwidth,screenheight,0.2);
+		glTexCoord2f(1,1); glVertex3f(screenwidth,screenheight,0.2);
+		glTexCoord2f(1,0); glVertex3f(screenwidth,-screenheight,0.2);
+	glEnd();
 }
 void laadModellen()
 {
@@ -108,6 +150,10 @@ void Keyboard(unsigned char key, int x, int y)
 	case 0:		//opstarten
 		break;
 	case 1:		//spelers queue
+		if( key == ' '){
+				gamestage++;
+				ChangeSize(screenwidth,screenheight);
+		}
 		break;
 	case 2:		//robot creeeren
 		switch (key)
@@ -136,6 +182,10 @@ void Keyboard(unsigned char key, int x, int y)
 		break;
 	case 3:		//het gevecht
 		KeyboardArena(key, x, y);
+		if( key == ' '){
+				gamestage++;
+				ChangeSize(screenwidth,screenheight);
+		}
 		break;
 	case 4:		//uitslag
 		break;
@@ -158,8 +208,6 @@ void RenderScene(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f );
-//	
-
 
 	glLoadIdentity();
 	
@@ -169,8 +217,10 @@ void RenderScene(void)
 	if(rotation >= 360 ) rotation = 0;
 	switch(gamestage){
 	case 0:		//opstarten
+		startScreen();
 		break;
 	case 1:		//spelers queue
+		createAPSBackground(screenwidth,screenheight);
 		break;
 	case 2:		//robot creeeren
 		if(createRCSBackground()){
@@ -178,6 +228,7 @@ void RenderScene(void)
 			for(int i=0;i<4;i++)
 			{			
 				setRobots(*getRobots(i));
+				setESRobots(*getRobots(i));
 			}
 			ChangeSize(screenwidth,screenheight);
 		}
@@ -189,6 +240,8 @@ void RenderScene(void)
 		ArenaDisplay();
 		break;
 	case 4:		//uitslag
+		createESBackground(screenwidth,screenheight);
+			ChangeSize(screenwidth,screenheight);
 		break;
 	}
 	glPopMatrix();
@@ -203,7 +256,12 @@ void IdleFunc(void)
 	Sleep(15);
 	switch(gamestage){
 	case 0:		//opstarten
-		break;
+		opstartcount++;
+		if(opstartcount > 500){
+			gamestage ++;
+			ChangeSize(screenwidth,screenheight);
+		}
+		else break;
 	case 1:		//spelers queue
 		break;
 	case 2:		//robot creeeren
@@ -251,9 +309,11 @@ int main(int argc, char* argv[])
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	shaderManager.InitializeStockShaders();
-	gamestage = 2;
+	gamestage = 0;
 	laadModellen();
     initCreators(models);
+	initAPS(models);
+	initES(models);
 	glutMainLoop();
 	return 0;
 	}
